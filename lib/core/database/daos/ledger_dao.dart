@@ -1,0 +1,125 @@
+import 'package:drift/drift.dart';
+
+import '../app_database.dart';
+
+/// Persistence for ledger entries. All SQL for the ledger is scoped here.
+///
+/// Balances are never stored — they are always derived from these entries.
+class LedgerDao extends DatabaseAccessor<AppDatabase> {
+  LedgerDao(super.db);
+
+  $LedgerEntriesTable get ledgerEntries => attachedDatabase.ledgerEntries;
+
+  /// Algebraic sum of [amount] across non-deleted entries matching [filter].
+  /// Debits are subtracted, credits are added back to the returned total.
+  Future<int> _sumOf(
+    Expression<bool> Function($LedgerEntriesTable t) filter,
+    {required int sign,
+  }) async {
+    final q = selectOnly(ledgerEntries);
+    final sum = ledgerEntries.amount.sum();
+    q.addColumns([sum]);
+    q.where(filter(ledgerEntries));
+    final row = await q.getSingle();
+    final value = row.read(sum) ?? 0;
+    return sign * value;
+  }
+
+  /// Inserts a set of ledger entries. Caller is responsible for validating
+  /// that debits == credits before invoking this.
+  Future<void> insertEntries(Iterable<LedgerEntriesCompanion> entries) async {
+    await batch((b) => b.insertAll(ledgerEntries, entries.toList()));
+  }
+
+  /// The +net balance for [accountId] (all debits minus all credits), up to
+  /// [asOfMillis] when provided, else across all time.
+  Future<int> balance(String accountId, {int? asOfMillis}) async {
+    final upTo = asOfMillis ?? _maxBound;
+    final debits = await _sumOf(
+      (t) =>
+          t.accountId.equals(accountId) &
+          t.type.equals('debit') &
+          t.deletedAt.isNull() &
+          t.entryDate.isSmallerOrEqualValue(upTo),
+      sign: 1,
+    );
+    final credits = await _sumOf(
+      (t) =>
+          t.accountId.equals(accountId) &
+          t.type.equals('credit') &
+          t.deletedAt.isNull() &
+          t.entryDate.isSmallerOrEqualValue(upTo),
+      sign: -1,
+    );
+    return debits + credits;
+  }
+
+  /// Gross debit total and gross credit total for [accountId] as
+  /// `(debits, credits)` in integer cents (all positive magnitudes).
+  Future<(int, int)> debitsAndCredits(
+    String accountId, {
+    int? asOfMillis,
+  }) async {
+    final upTo = asOfMillis ?? _maxBound;
+    final debits = await _sumOf(
+      (t) =>
+          t.accountId.equals(accountId) &
+          t.type.equals('debit') &
+          t.deletedAt.isNull() &
+          t.entryDate.isSmallerOrEqualValue(upTo),
+      sign: 1,
+    );
+    final credits = await _sumOf(
+      (t) =>
+          t.accountId.equals(accountId) &
+          t.type.equals('credit') &
+          t.deletedAt.isNull() &
+          t.entryDate.isSmallerOrEqualValue(upTo),
+      sign: 1,
+    );
+    return (debits, credits);
+  }
+
+  /// Full-ledger debit and credit totals as `(debits, credits)`.
+  Future<(int, int)> totals() async {
+    final debits = await _sumOf(
+      (t) => t.type.equals('debit') & t.deletedAt.isNull(),
+      sign: 1,
+    );
+    final credits = await _sumOf(
+      (t) => t.type.equals('credit') & t.deletedAt.isNull(),
+      sign: 1,
+    );
+    return (debits, credits);
+  }
+
+  Future<List<LedgerEntry>> forTransaction(String transactionId) =>
+      (select(ledgerEntries)
+            ..where((t) =>
+                t.transactionId.equals(transactionId) & t.deletedAt.isNull()))
+          .get();
+
+  Future<List<LedgerEntry>> entriesForAccount(
+    String accountId, {
+    int? limit,
+  }) {
+    final q = select(ledgerEntries)
+      ..where((t) => t.accountId.equals(accountId) & t.deletedAt.isNull())
+      ..orderBy([(t) => OrderingTerm.desc(t.entryDate)]);
+    if (limit != null) q.limit(limit);
+    return q.get();
+  }
+
+  /// Stream that emits whenever any non-deleted ledger entry changes. Used to
+  /// trigger reactive recalculation of derived balances.
+  Stream<List<LedgerEntry>> changes() =>
+      (select(ledgerEntries)..where((t) => t.deletedAt.isNull())).watch();
+
+  Future<List<LedgerEntry>> changedSince(int since) async {
+    return (select(ledgerEntries)
+            ..where((t) => t.updatedAt.isBiggerOrEqualValue(since)))
+        .get();
+  }
+
+  static const int _maxBound = 1 << 62;
+}
