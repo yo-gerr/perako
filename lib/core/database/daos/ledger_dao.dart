@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 
+import '../../../core/constants.dart';
 import '../app_database.dart';
 
 /// Persistence for ledger entries. All SQL for the ledger is scoped here.
@@ -91,6 +92,30 @@ class LedgerDao extends DatabaseAccessor<AppDatabase> {
       sign: 1,
     );
     return (debits, credits);
+  }
+
+  /// Income and expense in integer cents for the inclusive millisecond range
+  /// `[fromMillis, toMillis]`, derived from the hidden income/expense corpora.
+  Future<(int, int)> cashFlow(int fromMillis, int toMillis) async {
+    final income = await _sumOf(
+      (t) =>
+          t.accountId.equals(LedgerConstants.counterpartyIncome) &
+          t.type.equals('credit') &
+          t.deletedAt.isNull() &
+          t.entryDate.isBiggerOrEqualValue(fromMillis) &
+          t.entryDate.isSmallerOrEqualValue(toMillis),
+      sign: 1,
+    );
+    final expense = await _sumOf(
+      (t) =>
+          t.accountId.equals(LedgerConstants.counterpartyExpense) &
+          t.type.equals('debit') &
+          t.deletedAt.isNull() &
+          t.entryDate.isBiggerOrEqualValue(fromMillis) &
+          t.entryDate.isSmallerOrEqualValue(toMillis),
+      sign: 1,
+    );
+    return (income, expense);
   }
 
   Future<List<LedgerEntry>> forTransaction(String transactionId) =>

@@ -47,3 +47,20 @@ final dashboardProvider = StreamProvider<DashboardData>((ref) async* {
     yield DashboardData(rows: rows, netWorthCents: netWorth);
   }
 });
+
+/// Income and expense for the current calendar month as `(income, expense)`.
+/// Recomputes whenever the ledger changes.
+final monthCashFlowProvider = StreamProvider<(int, int)>((ref) async* {
+  final ledgerDao = ref.watch(ledgerDaoProvider);
+  final now = DateTime.now();
+  final startOfMonth = DateTime(now.year, now.month, 1);
+  final endOfMonth = DateTime(now.year, now.month + 1, 1)
+      .subtract(const Duration(milliseconds: 1));
+
+  await for (final _ in ledgerDao.changes()) {
+    yield await ledgerDao.cashFlow(
+      startOfMonth.millisecondsSinceEpoch,
+      endOfMonth.millisecondsSinceEpoch,
+    );
+  }
+});

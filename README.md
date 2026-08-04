@@ -2,7 +2,7 @@
 
 > **Your Personal Finance Operating System**
 
-Perako OS is an Android, ledger-based personal finance management application built with Flutter. Unlike traditional expense trackers, Perako OS is designed to become a complete financial operating system that manages every aspect of personal finance—from daily expenses and budgeting to savings, investments, automation, and long-term wealth tracking.
+Perako OS is an Android + Web, ledger-based personal finance management application built with Flutter. Unlike traditional expense trackers, Perako OS is designed to become a complete financial operating system that manages every aspect of personal finance—from daily expenses and budgeting to savings, investments, automation, and long-term wealth tracking.
 
 The application is intended for personal use and focuses on accuracy, transparency, and automation through a double-entry ledger accounting model.
 
@@ -36,7 +36,7 @@ Instead of simply tracking expenses, it manages:
 # 🎯 Project Goals
 
 - Build a complete Personal Finance Operating System
-- Support Android using Flutter (Android-only for now)
+- Support Android and Web using Flutter
 - Maintain a local-first architecture
 - Implement a robust ledger-based accounting engine
 - Automate repetitive financial tasks

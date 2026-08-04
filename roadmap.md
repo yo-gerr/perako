@@ -104,89 +104,89 @@
 
 ### 1.1 — Database Schema & Ledger Engine
 
-- [ ] **Create Drift database** — `lib/core/database/app_database.dart`
+- [x] **Create Drift database** — `lib/core/database/app_database.dart`
     - Define `AppDatabase` class extending `$AppDatabase`
     - Include all core tables (see below)
-    - Configure `NativeDatabase` for Android
-- [ ] **Define Drift tables** — Create table files in `lib/core/database/tables/`:
-    - [ ] `accounts_table.dart` — `id`, `name`, `type` (enum), `currency`, `color`, `icon`, `is_archived`, `opening_date`, `created_at`, `updated_at`
-    - [ ] `categories_table.dart` — `id`, `name`, `parent_id` (nullable, self-ref), `color`, `icon`, `is_archived`
-    - [ ] `transactions_table.dart` — `id`, `description`, `date`, `notes`, `receipt_path`, `created_at`, `updated_at`
-    - [ ] `ledger_entries_table.dart` — `id`, `transaction_id` (FK), `account_id` (FK), `category_id` (nullable FK), `amount` (integer, cents), `type` (debit/credit), `entry_date`, `created_at`
-    - [ ] `tags_table.dart` — `id`, `name`, `color`
-    - [ ] `transaction_tags_table.dart` — `transaction_id` (FK), `tag_id` (FK)
+    - Configure `NativeDatabase` for Android (plus `DriftWebOptions` for web via `drift_flutter`)
+- [x] **Define Drift tables** — Create table files in `lib/core/database/tables/`:
+    - [x] `accounts_table.dart` — `id`, `name`, `type` (enum), `currency`, `color`, `icon`, `is_archived`, `opening_date`, `created_at`, `updated_at`
+    - [x] `categories_table.dart` — `id`, `name`, `parent_id` (nullable, self-ref), `color`, `icon`, `is_archived`
+    - [x] `transactions_table.dart` — `id`, `description`, `date`, `notes`, `receipt_path`, `created_at`, `updated_at`
+    - [x] `ledger_entries_table.dart` — `id`, `transaction_id` (FK), `account_id` (FK), `category_id` (nullable FK), `amount` (integer, cents), `type` (debit/credit), `entry_date`, `created_at`
+    - [x] `tags_table.dart` — `id`, `name`, `color`
+    - [x] `transaction_tags_table.dart` — `transaction_id` (FK), `tag_id` (FK)
 - [ ] **Create Freezed domain models** — `lib/features/ledger/domain/models/`:
     - [ ] `account.dart` — `Account` with `AccountType` enum
     - [ ] `transaction.dart` — `Transaction` with `TransactionType` enum (income, expense, transfer, refund, adjustment)
     - [ ] `ledger_entry.dart` — `LedgerEntry` with `EntryType` enum (debit, credit)
     - [ ] `category.dart` — `Category`, `CategoryType` enum (income, expense, transfer)
-- [ ] **Create Drift DAOs** — `lib/features/*/data/daos/`:
-    - [ ] `accounts_dao.dart` — CRUD, archive/reopen, balance query
-    - [ ] `transactions_dao.dart` — CRUD, filtering, search, date range queries
-    - [ ] `categories_dao.dart` — CRUD, tree query for subcategories
-    - [ ] `ledger_dao.dart` — Query by transaction, by account, by date range
-- [ ] **Build the Ledger Engine** — `lib/features/ledger/domain/ledger_engine.dart`:
-    - [ ] `LedgerEngine` class (registered in `get_it`)
-    - [ ] `postTransaction(...)` — Creates `Transaction` + balanced `LedgerEntry` pair(s)
-    - [ ] `reverseTransaction(...)` — Creates reversal entries keeping audit trail
-    - [ ] `getBalance(accountId, [asOfDate])` — Sums all entries for account
-    - [ ] `getNetWorth()` — Total assets minus total liabilities
-    - [ ] `validateTransaction(...)` — Ensures debits == credits before posting
-- [ ] **Write unit tests** — `test/features/ledger/`:
-    - [ ] Test balanced transaction posting
-    - [ ] Test unbalanced transaction rejection
-    - [ ] Test transaction reversal
-    - [ ] Test balance calculation
+- [x] **Create Drift DAOs** — `lib/features/*/data/daos/`:
+    - [x] `accounts_dao.dart` — CRUD, archive/reopen, balance query
+    - [x] `transactions_dao.dart` — CRUD, filtering, search, date range queries
+    - [x] `categories_dao.dart` — CRUD, tree query for subcategories
+    - [x] `ledger_dao.dart` — Query by transaction, by account, by date range
+- [x] **Build the Ledger Engine** — `lib/features/ledger/domain/ledger_engine.dart`:
+    - [x] `LedgerEngine` class
+    - [x] `postTransaction(...)` — Creates `Transaction` + balanced `LedgerEntry` pair(s)
+    - [x] `reverseTransaction(...)` — Creates reversal entries keeping audit trail
+    - [x] `getBalance(accountId, [asOfDate])` — Sums all entries for account
+    - [x] `getNetWorth()` — Total assets minus total liabilities
+    - [x] `validateTransaction(...)` — Ensures debits == credits before posting
+- [x] **Write unit tests** — `test/features/ledger/`:
+    - [x] Test balanced transaction posting
+    - [x] Test unbalanced transaction rejection
+    - [x] Test transaction reversal
+    - [x] Test balance calculation
 
 ### 1.2 — Accounts Feature
 
-- [ ] **Create Riverpod providers** — `lib/features/accounts/presentation/providers/`:
-    - [ ] `accounts_provider.dart` — `StreamProvider<List<Account>>` from DAO
-    - [ ] `account_balance_provider.dart` — `FutureProvider.family<BigInt, int>` by account ID
+- [x] **Create Riverpod providers** — `lib/features/accounts/presentation/providers/`:
+    - [x] `accounts_provider.dart` — `StreamProvider<List<Account>>` from DAO
+    - [x] `account_balance_provider.dart` — `FutureProvider.family<int, String>` by account ID
     - [ ] `account_form_provider.dart` — `Notifier` for create/edit form state
-- [ ] **Build account screens** — `lib/features/accounts/presentation/screens/`:
-    - [ ] `accounts_list_screen.dart` — List all accounts grouped by type (cards), with balance
-    - [ ] `account_detail_screen.dart` — Single account view with balance, transaction history
-    - [ ] `account_form_screen.dart` — Create/edit account form (name, type, color, icon, opening balance/date)
-    - [ ] `account_archive_dialog.dart` — Confirm archive/unarchive
-- [ ] **Wire up GoRouter** — Add `/accounts`, `/accounts/new`, `/accounts/:id`, `/accounts/:id/edit` routes
+- [x] **Build account screens** — `lib/features/accounts/presentation/screens/`:
+    - [x] `accounts_list_screen.dart` — List all accounts grouped by type (cards), with balance
+    - [x] `account_detail_screen.dart` — Single account view with balance, transaction history
+    - [x] `account_form_screen.dart` — Create/edit account form (name, type, color, icon, opening balance/date)
+    - [x] `account_archive_dialog.dart` — Confirm archive/unarchive
+- [x] **Wire up GoRouter** — Add `/accounts`, `/accounts/new`, `/accounts/:id`, `/accounts/:id/edit` routes
 
 ### 1.3 — Categories Feature
 
-- [ ] **Create Riverpod providers**:
-    - [ ] `categories_provider.dart` — `StreamProvider<List<Category>>`
+- [x] **Create Riverpod providers**:
+    - [x] `categories_provider.dart` — `StreamProvider<List<Category>>`
     - [ ] `category_form_provider.dart` — Create/edit form state
-- [ ] **Build category screens**:
-    - [ ] `categories_list_screen.dart` — Tree/list with color indicators
-    - [ ] `category_form_screen.dart` — Create/edit name, parent, color, icon, type
-- [ ] **Wire up GoRouter** — Add `/categories`, `/categories/new`, `/categories/:id/edit` routes
+- [x] **Build category screens**:
+    - [x] `categories_list_screen.dart` — Tree/list with color indicators
+    - [x] `category_form_screen.dart` — Create/edit name, parent, color, icon, type
+- [x] **Wire up GoRouter** — Add `/categories`, `/categories/new`, `/categories/:id/edit` routes
 
 ### 1.4 — Transactions Feature
 
-- [ ] **Create Riverpod providers**:
-    - [ ] `transactions_provider.dart` — Paginated/filtered `StreamProvider`
+- [x] **Create Riverpod providers**:
+    - [x] `transactions_provider.dart` — `StreamProvider` of enriched rows (signed amount, account/category names)
     - [ ] `transaction_form_provider.dart` — Form with split support
     - [ ] `transaction_search_provider.dart` — Search/filter state
-- [ ] **Build transaction screens**:
-    - [ ] `transactions_list_screen.dart` — Filterable list, swipe actions, date grouping
-    - [ ] `transaction_form_screen.dart` — Create/edit with account picker, category picker, amount, date, notes, tags
+- [x] **Build transaction screens**:
+    - [x] `transactions_list_screen.dart` — Date-grouped list, swipe-to-archive, day headers
+    - [x] `transaction_form_screen.dart` — Create with type segmented control, account picker, category picker, amount, date, notes
     - [ ] `transaction_split_screen.dart` — Split transaction across categories
-    - [ ] `transaction_detail_screen.dart` — Full view with ledger entries
+    - [x] `transaction_detail_screen.dart` — Full view with ledger entries and reversal
     - [ ] `receipt_attachment_widget.dart` — Image picker + attachment display
-- [ ] **Wire up GoRouter** — Add `/transactions`, `/transactions/new`, `/transactions/:id`, `/transactions/:id/edit` routes
+- [x] **Wire up GoRouter** — Add `/transactions`, `/transactions/new`, `/transactions/:id` routes
 
 ### 1.5 — Dashboard
 
-- [ ] **Create providers**:
-    - [ ] `dashboard_provider.dart` — Aggregates net worth, assets, liabilities, cash flow, recent transactions
+- [x] **Create providers**:
+    - [x] `dashboard_provider.dart` — Aggregates net worth + per-account balances
     - [ ] `net_worth_provider.dart` — Historical net worth data points
-- [ ] **Build dashboard screen**:
-    - [ ] `dashboard_screen.dart` — Net worth card, accounts summary card, recent transactions list, quick action buttons
+- [x] **Build dashboard screen**:
+    - [x] `dashboard_screen.dart` — Net worth card, cash flow card, recent transactions list, quick action FAB
     - [ ] `net_worth_chart.dart` — Sparkline or bar chart of net worth over time
     - [ ] `accounts_summary_card.dart` — Total assets / total liabilities with breakdown
-    - [ ] `cash_flow_card.dart` — Income vs expenses this month
-    - [ ] `recent_transactions_list.dart` — Last 10 transactions
-- [ ] **Wire up GoRouter** — Set `/` (home) to dashboard with `StatefulShellRoute`
+    - [x] `cash_flow_card.dart` — Income vs expenses this month
+    - [x] `recent_transactions_list.dart` — Last 5 transactions
+- [x] **Wire up GoRouter** — Set `/` (home) to dashboard with `StatefulShellRoute`
 
 ### 1.6 — User Profile & App Settings
 
@@ -202,16 +202,16 @@
 
 ### 1.7 — Navigation Shell
 
-- [ ] **Build bottom navigation shell** — `lib/core/router/app_shell.dart`:
-    - [ ] `AppShell` widget with `StatefulShellRoute` for Dashboard, Accounts, Transactions tabs
-    - [ ] Tab state preservation across navigation
-- [ ] **Drawer navigation** — Optional side drawer for Settings, Categories, etc.
+- [x] **Build bottom navigation shell** — `lib/core/router/home_shell.dart`:
+    - [x] `HomeShell` widget with `StatefulShellRoute` for Dashboard, Accounts, Transactions tabs
+    - [x] Tab state preservation across navigation
+- [x] **Drawer navigation** — Side drawer for Categories and Sign out
 
 ### 1.8 — Phase 1 Testing & Polish
 
-- [ ] Write widget tests for all screens (happy path)
-- [ ] Test ledger engine edge cases (zero amounts, large numbers, date boundaries)
-- [ ] Verify double-entry integrity — every transaction produces balanced entries
+- [x] Write widget tests for the navigation shell (happy path)
+- [x] Test ledger engine edge cases (zero amounts, large numbers, date boundaries)
+- [x] Verify double-entry integrity — every transaction produces balanced entries
 - [ ] Smoke test: create account → post income → post expense → verify balance → verify net worth on dashboard
 
 ---
@@ -586,4 +586,4 @@ dart run build_runner watch --delete-conflicting-outputs
 
 ---
 
-*Last updated: July 2026*
+*Last updated: August 2026*

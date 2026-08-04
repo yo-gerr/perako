@@ -49,6 +49,15 @@ class TransactionsDao extends DatabaseAccessor<AppDatabase> {
     return q.watch();
   }
 
+  /// Non-watching snapshot of the most recent non-deleted transactions.
+  Future<List<Transaction>> recent({int limit = 50}) {
+    final q = select(transactions)
+      ..where((t) => t.deletedAt.isNull())
+      ..orderBy([(t) => OrderingTerm.desc(t.date)])
+      ..limit(limit);
+    return q.get();
+  }
+
   Future<List<Transaction>> changedSince(int since) async {
     return (select(transactions)
             ..where((t) => t.updatedAt.isBiggerOrEqualValue(since)))
