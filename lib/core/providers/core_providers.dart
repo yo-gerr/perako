@@ -7,6 +7,7 @@ import '../../core/database/daos/accounts_dao.dart';
 import '../../core/database/daos/categories_dao.dart';
 import '../../core/database/daos/database_wipe_service.dart';
 import '../../core/database/daos/ledger_dao.dart';
+import '../../core/database/daos/profiles_dao.dart';
 import '../../core/database/daos/transactions_dao.dart';
 import '../../features/ledger/domain/ledger_engine.dart';
 
@@ -40,6 +41,11 @@ final transactionsDaoProvider = Provider<TransactionsDao>((ref) {
 /// Non-reactive access to ledger entries.
 final ledgerDaoProvider = Provider<LedgerDao>((ref) {
   return LedgerDao(ref.watch(appDatabaseProvider));
+});
+
+/// Non-reactive access to profiles persistence.
+final profilesDaoProvider = Provider<ProfilesDao>((ref) {
+  return ProfilesDao(ref.watch(appDatabaseProvider));
 });
 
 /// The Firestore instance used by the sync layer. Overridable in tests by a

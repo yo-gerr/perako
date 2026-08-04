@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/providers/core_providers.dart';
 import '../../../../core/utils/formatters.dart';
+import '../../../../core/widgets/currency_scope.dart';
 import '../account_style.dart';
 import '../../domain/account_types.dart';
 import '../providers/accounts_providers.dart';
@@ -83,7 +84,8 @@ class AccountDetailScreen extends ConsumerWidget {
                         balance.when(
                           loading: () => '…',
                           error: (_, _) => '-',
-                          data: (cents) => formatMoney(cents),
+                          data: (cents) =>
+                              formatMoney(cents, symbol: CurrencyScope.of(context)),
                         ),
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
@@ -124,7 +126,7 @@ class AccountDetailScreen extends ConsumerWidget {
                                     .split(' ')[0],
                               ),
                               trailing: Text(
-                                '${e.type == 'debit' ? '+' : '-'}${formatMoney(e.amount)}',
+                                '${e.type == 'debit' ? '+' : '-'}${formatMoney(e.amount, symbol: CurrencyScope.of(context))}',
                               ),
                             ),
                         ],

@@ -10,6 +10,9 @@ import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/categories/presentation/screens/categories_list_screen.dart';
 import '../../features/categories/presentation/screens/category_form_screen.dart';
 import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
+import '../../features/settings/presentation/screens/profile_screen.dart';
+import '../../features/settings/presentation/screens/security_screen.dart';
+import '../../features/settings/presentation/screens/settings_screen.dart';
 import '../../features/transactions/presentation/screens/transaction_detail_screen.dart';
 import '../../features/transactions/presentation/screens/transaction_form_screen.dart';
 import '../../features/transactions/presentation/screens/transactions_list_screen.dart';
@@ -61,6 +64,21 @@ GoRouter createRouter(Ref ref) {
         path: '/login',
         name: 'login',
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: '/settings',
+        name: 'settings',
+        builder: (context, state) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '/settings/profile',
+        name: 'settings-profile',
+        builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: '/settings/security',
+        name: 'settings-security',
+        builder: (context, state) => const SecurityScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>

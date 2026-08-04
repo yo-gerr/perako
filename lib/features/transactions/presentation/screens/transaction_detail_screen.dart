@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../core/utils/formatters.dart';
+import '../../../../core/widgets/currency_scope.dart';
 import '../../../accounts/presentation/providers/accounts_providers.dart';
 import '../../../categories/presentation/providers/categories_providers.dart';
 import '../providers/transactions_providers.dart';
@@ -95,7 +96,7 @@ class TransactionDetailScreen extends ConsumerWidget {
                             '${e.categoryId != null && categoryNames.containsKey(e.categoryId) ? ' · ${categoryNames[e.categoryId]}' : ''}',
                           ),
                           trailing: Text(
-                            '${e.type == 'debit' ? '+' : '-'}${formatMoney(e.amount)}',
+                            '${e.type == 'debit' ? '+' : '-'}${formatMoney(e.amount, symbol: CurrencyScope.of(context))}',
                           ),
                         ),
                       ),

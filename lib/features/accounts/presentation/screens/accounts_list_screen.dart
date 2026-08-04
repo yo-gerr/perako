@@ -6,6 +6,7 @@ import '../../../../core/database/app_database.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../core/router/home_shell.dart';
 import '../../../../core/utils/formatters.dart';
+import '../../../../core/widgets/currency_scope.dart';
 import '../account_style.dart';
 import '../../domain/account_types.dart';
 import '../providers/accounts_providers.dart';
@@ -166,7 +167,7 @@ class _AccountTile extends ConsumerWidget {
                   child: CircularProgressIndicator(strokeWidth: 2)),
               error: (_, _) => const Text('-'),
               data: (cents) => Text(
-                formatMoney(cents),
+                formatMoney(cents, symbol: CurrencyScope.of(context)),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: cents < 0
                           ? Theme.of(context).colorScheme.error

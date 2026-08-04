@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/router/home_shell.dart';
 import '../../../../core/utils/formatters.dart';
+import '../../../../core/widgets/currency_scope.dart';
 import '../../../auth/presentation/providers/auth_providers.dart';
 import '../../../sync/presentation/providers/sync_providers.dart';
 import '../../../transactions/domain/transaction_posting.dart';
@@ -145,7 +146,7 @@ class _TransactionRowTile extends StatelessWidget {
             : _typeLabel(row.type)),
         subtitle: Text(row.accountName),
         trailing: Text(
-          '${isInflow ? '+' : '-'}${formatMoney(row.signedAmountCents.abs())}',
+          '${isInflow ? '+' : '-'}${formatMoney(row.signedAmountCents.abs(), symbol: CurrencyScope.of(context))}',
           style: TextStyle(
             fontWeight: FontWeight.w600,
             color: isInflow ? Colors.green : Theme.of(context).colorScheme.error,
@@ -211,7 +212,7 @@ class _CashFlowColumn extends StatelessWidget {
         Text(label, style: Theme.of(context).textTheme.labelMedium),
         const SizedBox(height: 4),
         Text(
-          formatMoney(amount),
+          formatMoney(amount, symbol: CurrencyScope.of(context)),
           style: Theme.of(context)
               .textTheme
               .titleMedium
@@ -238,7 +239,7 @@ class _NetWorthCard extends StatelessWidget {
             Text('Net Worth', style: Theme.of(context).textTheme.labelLarge),
             const SizedBox(height: 8),
             Text(
-              formatMoney(netWorthCents),
+              formatMoney(netWorthCents, symbol: CurrencyScope.of(context)),
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],

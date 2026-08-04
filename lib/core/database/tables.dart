@@ -141,3 +141,29 @@ class SyncState extends Table {
   @override
   Set<Column<Object>> get primaryKey => {collection};
 }
+
+/// A user's profile, keyed by Firebase uid.
+///
+/// Settings that affect the whole device (theme, currency) live in
+/// shared_preferences; this table holds per-user identity and preferences.
+class Profiles extends Table {
+  TextColumn get uid => text()();
+
+  TextColumn get displayName => text()();
+
+  /// ISO currency code, e.g. PHP, USD. Defaults to PHP.
+  TextColumn get currency => text().withDefault(const Constant('PHP'))();
+
+  /// BCP-47 locale tag, e.g. en-PH. Nullable until locale support ships.
+  TextColumn get locale => text().nullable()();
+
+  /// Preferred date format key. Nullable until date-format support ships.
+  TextColumn get dateFormat => text().nullable()();
+
+  IntColumn get createdAt => integer()();
+
+  IntColumn get updatedAt => integer()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {uid};
+}

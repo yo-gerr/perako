@@ -107,6 +107,14 @@ class HomeShellState extends State<HomeShell> {
                 context.push('/categories');
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.settings_outlined),
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.of(context).pop();
+                context.push('/settings');
+              },
+            ),
             const Spacer(),
             const Divider(),
             ListTile(

@@ -60,6 +60,19 @@ void main() {
     expect(await db.select(db.syncState).get(), isEmpty);
   });
 
+  test('wipe clears profiles', () async {
+    await db.into(db.profiles).insert(ProfilesCompanion(
+          uid: const Value('u1'),
+          displayName: const Value('Rey'),
+          currency: const Value('PHP'),
+          createdAt: Value(1),
+          updatedAt: Value(1),
+        ));
+
+    await container.read(databaseWipeServiceProvider).wipeAll();
+    expect(await db.select(db.profiles).get(), isEmpty);
+  });
+
   testWidgets('coordinator wipes local data when the user changes',
       (tester) async {
     await db.into(db.accounts).insert(AccountsCompanion(

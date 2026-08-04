@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../core/router/home_shell.dart';
 import '../../../../core/utils/formatters.dart';
+import '../../../../core/widgets/currency_scope.dart';
 import '../../domain/transaction_posting.dart';
 import '../providers/transactions_providers.dart';
 
@@ -146,7 +147,7 @@ class _TransactionTile extends ConsumerWidget {
                 : typeLabel),
         subtitle: Text(subtitle),
         trailing: Text(
-          '${isInflow ? '+' : '-'}${formatMoney(amount.abs())}',
+          '${isInflow ? '+' : '-'}${formatMoney(amount.abs(), symbol: CurrencyScope.of(context))}',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: isInflow ? Colors.green : Theme.of(context).colorScheme.error,
               ),

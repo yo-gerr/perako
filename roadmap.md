@@ -192,15 +192,15 @@
 
 ### 1.6 — User Profile & App Settings
 
-- [ ] **Create profile table** — `profiles_table.dart` in Drift
-- [ ] **Create providers**:
-    - [ ] `profile_provider.dart` — Current user profile
-    - [ ] `settings_provider.dart` — Theme, currency, locale preferences
-- [ ] **Build screens**:
-    - [ ] `settings_screen.dart` — Currency, locale, date format, theme toggle
-    - [ ] `profile_screen.dart` — Name, preferences
-    - [ ] `security_screen.dart` — PIN/biometric enable/change
-- [ ] **Wire up GoRouter** — Add `/settings`, `/settings/profile`, `/settings/security` routes
+- [x] **Create profile table** — `profiles_table.dart` in Drift
+- [x] **Create providers**:
+    - [x] `profile_provider.dart` — Current user profile
+    - [x] `settings_provider.dart` — Theme, currency, locale preferences
+- [x] **Build screens**:
+    - [x] `settings_screen.dart` — Currency, locale, date format, theme toggle
+    - [x] `profile_screen.dart` — Name, preferences
+    - [x] `security_screen.dart` — PIN/biometric enable/change
+- [x] **Wire up GoRouter** — Add `/settings`, `/settings/profile`, `/settings/security` routes
 
 ### 1.7 — Navigation Shell
 
