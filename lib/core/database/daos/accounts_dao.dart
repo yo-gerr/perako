@@ -40,10 +40,30 @@ class AccountsDao extends DatabaseAccessor<AppDatabase> {
     );
   }
 
+  /// Restores an archived account by clearing its `deleted_at` tombstone.
+  Future<int> reopen(String id, {required int nowMillis}) {
+    return (update(accounts)..where((t) => t.id.equals(id))).write(
+      AccountsCompanion(
+        updatedAt: Value(nowMillis),
+        deletedAt: const Value(null),
+      ),
+    );
+  }
+
   Stream<List<Account>> watchActive() => (select(accounts)
         ..where((t) => t.deletedAt.isNull())
         ..orderBy([(t) => OrderingTerm.desc(t.updatedAt)]))
       .watch();
+
+  Stream<List<Account>> watchArchived() => (select(accounts)
+        ..where((t) => t.deletedAt.isNotNull())
+        ..orderBy([(t) => OrderingTerm.desc(t.updatedAt)]))
+      .watch();
+
+  /// All accounts including archived ones, newest-updated first.
+  Future<List<Account>> allIncludingArchived() async =>
+      (select(accounts)..orderBy([(t) => OrderingTerm.desc(t.updatedAt)]))
+          .get();
 
   Future<List<Account>> active() async =>
       (select(accounts)..where((t) => t.deletedAt.isNull())).get();

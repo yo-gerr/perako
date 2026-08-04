@@ -38,6 +38,11 @@ class TransactionDetailScreen extends ConsumerWidget {
             title: Text(tx.description.isEmpty ? 'Transaction' : tx.description),
             actions: [
               IconButton(
+                icon: const Icon(Icons.edit),
+                tooltip: 'Edit',
+                onPressed: () => context.push('/transactions/$transactionId/edit'),
+              ),
+              IconButton(
                 icon: const Icon(Icons.undo),
                 tooltip: 'Reverse',
                 onPressed: () => _confirmReverse(context, ref),

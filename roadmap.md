@@ -129,6 +129,7 @@
     - [x] `LedgerEngine` class
     - [x] `postTransaction(...)` — Creates `Transaction` + balanced `LedgerEntry` pair(s)
     - [x] `reverseTransaction(...)` — Creates reversal entries keeping audit trail
+    - [x] `replaceTransaction(...)` — Atomically reverses the original then posts the correction (edit flow)
     - [x] `getBalance(accountId, [asOfDate])` — Sums all entries for account
     - [x] `getNetWorth()` — Total assets minus total liabilities
     - [x] `validateTransaction(...)` — Ensures debits == credits before posting
@@ -169,11 +170,12 @@
     - [ ] `transaction_search_provider.dart` — Search/filter state
 - [x] **Build transaction screens**:
     - [x] `transactions_list_screen.dart` — Date-grouped list, swipe-to-archive, day headers
-    - [x] `transaction_form_screen.dart` — Create with type segmented control, account picker, category picker, amount, date, notes
+    - [x] `transaction_form_screen.dart` — Create/edit (reverse + repost) with type segmented control, account picker, category picker, amount, date, notes
     - [ ] `transaction_split_screen.dart` — Split transaction across categories
-    - [x] `transaction_detail_screen.dart` — Full view with ledger entries and reversal
+    - [x] `transaction_detail_screen.dart` — Full view with ledger entries, reversal, and edit
     - [ ] `receipt_attachment_widget.dart` — Image picker + attachment display
-- [x] **Wire up GoRouter** — Add `/transactions`, `/transactions/new`, `/transactions/:id` routes
+- [x] **Wire up GoRouter** — Add `/transactions`, `/transactions/new`, `/transactions/:id`, `/transactions/:id/edit` routes
+- [x] **Archive & reopen** — Active/Archived filter toggle with restore on both account and category lists
 
 ### 1.5 — Dashboard
 
@@ -212,7 +214,9 @@
 - [x] Write widget tests for the navigation shell (happy path)
 - [x] Test ledger engine edge cases (zero amounts, large numbers, date boundaries)
 - [x] Verify double-entry integrity — every transaction produces balanced entries
-- [ ] Smoke test: create account → post income → post expense → verify balance → verify net worth on dashboard
+- [x] Smoke test: create account → post income → post expense → verify balance → verify net worth on dashboard
+- [x] Test transaction edit (reverse + repost) at engine and form level
+- [x] Test archive/reopen for accounts and categories (DAO + list UI)
 
 ---
 

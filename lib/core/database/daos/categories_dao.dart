@@ -29,9 +29,26 @@ class CategoriesDao extends DatabaseAccessor<AppDatabase> {
     );
   }
 
+  /// Restores an archived category by clearing its `deleted_at` tombstone.
+  Future<int> reopen(String id, {required int nowMillis}) {
+    return (update(categories)..where((t) => t.id.equals(id))).write(
+      CategoriesCompanion(
+        updatedAt: Value(nowMillis),
+        deletedAt: const Value(null),
+      ),
+    );
+  }
+
   Stream<List<Category>> watchActive() => (select(categories)
         ..where((t) => t.deletedAt.isNull()))
       .watch();
+
+  Stream<List<Category>> watchArchived() => (select(categories)
+        ..where((t) => t.deletedAt.isNotNull()))
+      .watch();
+
+  /// All categories including archived ones.
+  Future<List<Category>> allIncludingArchived() => select(categories).get();
 
   Future<List<Category>> all() => select(categories).get();
 

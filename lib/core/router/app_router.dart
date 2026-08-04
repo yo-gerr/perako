@@ -136,6 +136,12 @@ GoRouter createRouter(Ref ref) {
         builder: (context, state) => const TransactionFormScreen(),
       ),
       GoRoute(
+        path: '/transactions/:id/edit',
+        name: 'transaction-edit',
+        builder: (context, state) =>
+            TransactionFormScreen(transactionId: state.pathParameters['id']),
+      ),
+      GoRoute(
         path: '/transactions/:id',
         name: 'transaction-detail',
         builder: (context, state) => TransactionDetailScreen(

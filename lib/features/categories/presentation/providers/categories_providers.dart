@@ -8,6 +8,11 @@ final categoriesProvider = StreamProvider<List<Category>>((ref) {
   return ref.watch(categoriesDaoProvider).watchActive();
 });
 
+/// All archived (soft-deleted) categories.
+final archivedCategoriesProvider = StreamProvider<List<Category>>((ref) {
+  return ref.watch(categoriesDaoProvider).watchArchived();
+});
+
 /// A single category by id, or null.
 final categoryProvider = FutureProvider.family<Category?, String>((ref, id) {
   return ref.watch(categoriesDaoProvider).byId(id);

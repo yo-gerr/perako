@@ -8,6 +8,11 @@ final accountsProvider = StreamProvider<List<Account>>((ref) {
   return ref.watch(accountsDaoProvider).watchActive();
 });
 
+/// All archived (soft-deleted) accounts, newest first.
+final archivedAccountsProvider = StreamProvider<List<Account>>((ref) {
+  return ref.watch(accountsDaoProvider).watchArchived();
+});
+
 /// A single account by id, or null.
 final accountProvider = FutureProvider.family<Account?, String>((ref, id) {
   return ref.watch(accountsDaoProvider).byId(id);

@@ -1,7 +1,9 @@
+import 'package:drift/drift.dart' show Value;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:perako/core/database/app_database.dart';
+import 'package:perako/core/database/daos/accounts_dao.dart';
 import 'package:perako/core/database/daos/ledger_dao.dart';
 import 'package:perako/features/ledger/domain/ledger_engine.dart';
 
@@ -129,10 +131,31 @@ void main() {
   });
 
   group('getNetWorth', () {
-    test('sums assets and liabilities across all accounts', () async {
-      // An asset: deposit into checkinting.
+    test('sums assets minus liabilities across real accounts', () async {
+      final now = DateTime(2026, 1, 15).millisecondsSinceEpoch;
+      final accountsDao = AccountsDao(db);
+      for (final (id, type) in [
+        ('checking', 'checking'),
+        ('credit_card', 'creditCard'),
+      ]) {
+        await accountsDao.insertAccount(AccountsCompanion(
+          id: Value(id),
+          name: Value(id),
+          type: Value(type),
+          currency: const Value('PHP'),
+          color: const Value('blue'),
+          icon: const Value('wallet'),
+          isArchived: const Value(false),
+          openingDate: Value(now),
+          updatedAt: Value(now),
+          version: const Value(1),
+        ));
+      }
+
+      // An asset: salary deposited into checking.
       await engine.postTransaction(
         description: 'salary',
+        on: DateTime.utc(2026, 1, 15),
         lines: const [
           LedgerLine(
               accountId: 'checking', type: EntryType.debit, amountCents: 100000),
@@ -145,6 +168,7 @@ void main() {
       // A liability: spending on a credit card.
       await engine.postTransaction(
         description: 'lunch',
+        on: DateTime.utc(2026, 1, 15),
         lines: const [
           LedgerLine(
               accountId: 'expense', type: EntryType.debit, amountCents: 5000),
@@ -155,8 +179,8 @@ void main() {
         ],
       );
 
-      // Total debits (assets) = 100000 + 5000; total credits = 100000 + 5000.
-      expect(await engine.getNetWorth(), 0);
+      // Assets (100000) minus liabilities (5000).
+      expect(await engine.getNetWorth(), 95000);
     });
   });
 

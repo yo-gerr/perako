@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 
 import '../../../core/database/app_database.dart';
+import '../../../core/database/daos/accounts_dao.dart';
 import '../../../core/database/daos/ledger_dao.dart';
 import '../../../core/database/daos/transactions_dao.dart';
 
@@ -180,6 +181,29 @@ class LedgerEngine {
     );
   }
 
+  /// Replaces [transactionId] with a corrected posting, atomically.
+  ///
+  /// The original is first reversed (preserving the audit trail), then the new
+  /// [lines] are posted under a fresh transaction id. Both happen in a single
+  /// DB transaction, so an interrupted edit cannot leave an orphan reversal.
+  Future<String> replaceTransaction({
+    required String transactionId,
+    required String description,
+    required List<LedgerLine> lines,
+    DateTime? on,
+    String? notes,
+  }) {
+    return _db.transaction(() async {
+      await reverseTransaction(transactionId);
+      return postTransaction(
+        description: description,
+        lines: lines,
+        on: on,
+        notes: notes,
+      );
+    });
+  }
+
   /// Current net balance for [accountId] in integer cents (debits minus
   /// credits), optionally as-of [asOf] date.
   Future<int> getBalance(String accountId, {DateTime? asOf}) =>
@@ -188,11 +212,17 @@ class LedgerEngine {
         asOfMillis: asOf?.millisecondsSinceEpoch,
       );
 
-  /// Net worth: gross assets (total debits) minus gross liabilities
-  /// (total credits) across the whole ledger.
+  /// Net worth: the sum of every active account's derived balance. Assets
+  /// carry positive balances, liabilities negative, so the result is assets
+  /// minus liabilities. The hidden income/expense corpora are not accounts and
+  /// are naturally excluded.
   Future<int> getNetWorth() async {
-    final (debits, credits) = await _ledgerDao.totals();
-    return debits - credits;
+    final accounts = await AccountsDao(_db).active();
+    var total = 0;
+    for (final a in accounts) {
+      total += await _ledgerDao.balance(a.id);
+    }
+    return total;
   }
 
   /// Sum of entries for a single account (debits, credits).
