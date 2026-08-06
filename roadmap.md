@@ -308,13 +308,13 @@
 
 ### 2.5 — Search
 
-- [ ] **Create search engine**:
-    - [ ] `SearchService` — Unified search across transactions, accounts, bills, notes, categories
-- [ ] **Create provider**:
-    - [ ] `search_provider.dart` — Debounced search, filters, date ranges, tags
-- [ ] **Build screen**:
-    - [ ] `search_screen.dart` — Search bar, filter chips, results grouped by type
-- [ ] **Wire up GoRouter** — Add `/search` route
+- [x] **Create search engine**:
+    - [x] `SearchService` — Unified search across transactions, accounts, bills, notes, categories, tags
+- [x] **Create provider**:
+    - [x] `search_providers.dart` — Debounced search, filters, date ranges, tags
+- [x] **Build screen**:
+    - [x] `search_screen.dart` — Search bar, filter chips, results grouped by type
+- [x] **Wire up GoRouter** — Add `/search` route and drawer tile
 
 ---
 

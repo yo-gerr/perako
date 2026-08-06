@@ -24,6 +24,7 @@ import '../../features/reports/presentation/screens/cash_flow_report_screen.dart
 import '../../features/reports/presentation/screens/category_analysis_screen.dart';
 import '../../features/reports/presentation/screens/net_worth_report_screen.dart';
 import '../../features/reports/presentation/screens/reports_hub_screen.dart';
+import '../../features/search/presentation/screens/search_screen.dart';
 import '../../features/settings/presentation/screens/profile_screen.dart';
 import '../../features/settings/presentation/screens/security_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
@@ -246,6 +247,11 @@ GoRouter createRouter(Ref ref) {
         path: '/reports/budget-performance',
         name: 'reports-budget-performance',
         builder: (context, state) => const BudgetPerformanceScreen(),
+      ),
+      GoRoute(
+        path: '/search',
+        name: 'search',
+        builder: (context, state) => const SearchScreen(),
       ),
       GoRoute(
         path: '/categories/new',
