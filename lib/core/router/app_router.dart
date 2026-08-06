@@ -16,6 +16,9 @@ import '../../features/budgets/presentation/screens/budgets_list_screen.dart';
 import '../../features/categories/presentation/screens/categories_list_screen.dart';
 import '../../features/categories/presentation/screens/category_form_screen.dart';
 import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
+import '../../features/goals/presentation/screens/goal_detail_screen.dart';
+import '../../features/goals/presentation/screens/goal_form_screen.dart';
+import '../../features/goals/presentation/screens/goals_list_screen.dart';
 import '../../features/settings/presentation/screens/profile_screen.dart';
 import '../../features/settings/presentation/screens/security_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
@@ -186,6 +189,28 @@ GoRouter createRouter(Ref ref) {
         name: 'bill-detail',
         builder: (context, state) =>
             BillDetailScreen(billId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/goals',
+        name: 'goals',
+        builder: (context, state) => const GoalsListScreen(),
+      ),
+      GoRoute(
+        path: '/goals/new',
+        name: 'goal-new',
+        builder: (context, state) => const GoalFormScreen(),
+      ),
+      GoRoute(
+        path: '/goals/:id/edit',
+        name: 'goal-edit',
+        builder: (context, state) =>
+            GoalFormScreen(goalId: state.pathParameters['id']),
+      ),
+      GoRoute(
+        path: '/goals/:id',
+        name: 'goal-detail',
+        builder: (context, state) =>
+            GoalDetailScreen(goalId: state.pathParameters['id']!),
       ),
       GoRoute(
         path: '/categories/new',

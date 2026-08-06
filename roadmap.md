@@ -268,21 +268,21 @@
 
 ### 2.3 — Financial Goals
 
-- [ ] **Add Drift table**:
-    - [ ] `goals_table.dart` — `id`, `name`, `type` (savings/debt_payoff/investment), `target_amount`, `current_amount`, `target_date`, `funding_account_id`, `is_completed`, `created_at`
-- [ ] **Create Freezed models**:
-    - [ ] `goal.dart` — `Goal`, `GoalType` enum
-- [ ] **Create DAO** — `goals_dao.dart`
-- [ ] **Build goal engine**:
-    - [ ] `GoalService` — Progress calculation, completion forecast, contribution recommendation
-- [ ] **Create providers**:
-    - [ ] `goals_provider.dart`
-    - [ ] `goal_detail_provider.dart`
-- [ ] **Build screens**:
-    - [ ] `goals_list_screen.dart` — Progress circles/cards
-    - [ ] `goal_detail_screen.dart` — Progress chart, forecast, suggested monthly contribution
-    - [ ] `goal_form_screen.dart`
-- [ ] **Wire up GoRouter** — Add `/goals` routes
+- [x] **Add Drift tables**:
+    - [x] `goals_table.dart` — `id`, `name`, `type` (savings/debt_payoff/investment), `target_amount`, `current_amount`, `target_date`, `funding_account_id`, `is_completed`, `created_at` (as `goals` + ledger-backed `goal_contributions` history)
+- [x] **Create models**:
+    - [x] `goal.dart` — `Goal`, `GoalType` enum (drift data classes, not Freezed)
+- [x] **Create DAO** — `goals_dao.dart`
+- [x] **Build goal engine**:
+    - [x] `GoalService` — Progress calculation, completion forecast, contribution recommendation (contributions post real ledger transfers)
+- [x] **Create providers**:
+    - [x] `goals_provider.dart`
+    - [x] `goal_detail_provider.dart`
+- [x] **Build screens**:
+    - [x] `goals_list_screen.dart` — Progress circles/cards
+    - [x] `goal_detail_screen.dart` — Progress chart, forecast, suggested monthly contribution
+    - [x] `goal_form_screen.dart`
+- [x] **Wire up GoRouter** — Add `/goals` routes
 
 ### 2.4 — Reports & Analytics
 

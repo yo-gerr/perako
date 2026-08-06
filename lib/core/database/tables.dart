@@ -290,3 +290,66 @@ class BillPayments extends Table {
   @override
   Set<Column<Object>> get primaryKey => {id};
 }
+
+/// A savings, debt-payoff, or investment target.
+///
+/// - [type] is `savings`, `debt_payoff`, or `investment`.
+/// - [targetAmountCents] is the amount to reach; [currentAmountCents] is the
+///   running total of [GoalContributions]s posted against the goal.
+/// - [fundingAccountId] is the account contributions move into (for
+///   savings/investment) or the liability being paid down (debt_payoff).
+/// - [isCompleted] flips true once contributions reach the target.
+class Goals extends Table {
+  TextColumn get id => text()();
+
+  TextColumn get name => text()();
+
+  // savings | debt_payoff | investment
+  TextColumn get type => text()();
+
+  IntColumn get targetAmountCents => integer()();
+
+  IntColumn get currentAmountCents =>
+      integer().withDefault(const Constant(0))();
+
+  IntColumn get targetDate => integer().nullable()();
+
+  TextColumn get fundingAccountId => text().references(Accounts, #id)();
+
+  BoolColumn get isCompleted => boolean().withDefault(const Constant(false))();
+
+  IntColumn get createdAt => integer()();
+
+  IntColumn get updatedAt => integer()();
+
+  IntColumn get deletedAt => integer().nullable()();
+
+  IntColumn get version => integer().withDefault(const Constant(0))();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
+/// A ledger-backed contribution against a [Goals] row.
+///
+/// Every contribution posts a balanced transfer through the ledger;
+/// [transactionId] keeps the audit trail pointing at that posting so
+/// contribution history can be reconciled with the transactions list.
+class GoalContributions extends Table {
+  TextColumn get id => text()();
+
+  TextColumn get goalId => text().references(Goals, #id)();
+
+  TextColumn get transactionId => text().references(Transactions, #id)();
+
+  IntColumn get amountCents => integer()();
+
+  IntColumn get contributedOn => integer()();
+
+  TextColumn get note => text().nullable()();
+
+  IntColumn get createdAt => integer()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}

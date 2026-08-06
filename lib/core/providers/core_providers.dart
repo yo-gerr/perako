@@ -8,6 +8,7 @@ import '../../core/database/daos/bills_dao.dart';
 import '../../core/database/daos/budgets_dao.dart';
 import '../../core/database/daos/categories_dao.dart';
 import '../../core/database/daos/database_wipe_service.dart';
+import '../../core/database/daos/goals_dao.dart';
 import '../../core/database/daos/ledger_dao.dart';
 import '../../core/database/daos/profiles_dao.dart';
 import '../../core/database/daos/transactions_dao.dart';
@@ -58,6 +59,11 @@ final budgetsDaoProvider = Provider<BudgetsDao>((ref) {
 /// Non-reactive access to bills persistence.
 final billsDaoProvider = Provider<BillsDao>((ref) {
   return BillsDao(ref.watch(appDatabaseProvider));
+});
+
+/// Non-reactive access to goals persistence.
+final goalsDaoProvider = Provider<GoalsDao>((ref) {
+  return GoalsDao(ref.watch(appDatabaseProvider));
 });
 
 /// The Firestore instance used by the sync layer. Overridable in tests by a

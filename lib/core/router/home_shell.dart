@@ -70,8 +70,8 @@ class HomeShellState extends State<HomeShell> {
     final shellIndex = widget.navigationShell.currentIndex;
     return Drawer(
       child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: ListView(
+          padding: EdgeInsets.zero,
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
@@ -124,6 +124,14 @@ class HomeShellState extends State<HomeShell> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.flag_outlined),
+              title: const Text('Goals'),
+              onTap: () {
+                Navigator.of(context).pop();
+                context.push('/goals');
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.settings_outlined),
               title: const Text('Settings'),
               onTap: () {
@@ -131,7 +139,7 @@ class HomeShellState extends State<HomeShell> {
                 context.push('/settings');
               },
             ),
-            const Spacer(),
+            const SizedBox(height: 16),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.logout),

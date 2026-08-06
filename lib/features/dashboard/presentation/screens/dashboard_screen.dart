@@ -6,6 +6,7 @@ import '../../../../core/router/home_shell.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
 import '../../../auth/presentation/providers/auth_providers.dart';
+import '../../../goals/presentation/providers/goals_providers.dart';
 import '../../../sync/presentation/providers/sync_providers.dart';
 import '../../../transactions/domain/transaction_posting.dart';
 import '../../../transactions/presentation/providers/transactions_providers.dart';
@@ -77,6 +78,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             _NetWorthCard(netWorthCents: data.netWorthCents),
             const SizedBox(height: 16),
             _CashFlowCard(cashFlow: cashFlow.value),
+            const SizedBox(height: 16),
+            _GoalsCard(goals: ref.watch(topGoalsProvider)),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -219,6 +222,82 @@ class _CashFlowColumn extends StatelessWidget {
               ?.copyWith(color: color, fontWeight: FontWeight.w600),
         ),
       ],
+    );
+  }
+}
+
+class _GoalsCard extends StatelessWidget {
+  const _GoalsCard({required this.goals});
+
+  final List<GoalWithProgress> goals;
+
+  @override
+  Widget build(BuildContext context) {
+    if (goals.isEmpty) return const SizedBox.shrink();
+    final theme = Theme.of(context);
+    final symbol = CurrencyScope.of(context);
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Goals', style: theme.textTheme.titleMedium),
+                TextButton(
+                  onPressed: () => context.push('/goals'),
+                  child: const Text('See all'),
+                ),
+              ],
+            ),
+            for (final row in goals)
+              InkWell(
+                onTap: () => context.push('/goals/${row.goal.id}'),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 28,
+                        height: 28,
+                        child: CircularProgressIndicator(
+                          value: row.progress.ratio.clamp(0.0, 1.0),
+                          strokeWidth: 3,
+                          color: row.progress.isComplete
+                              ? Colors.green
+                              : theme.colorScheme.primary,
+                          backgroundColor:
+                              theme.colorScheme.surfaceContainerHighest,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          row.goal.name,
+                          style: theme.textTheme.bodyMedium,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Text(
+                        '${(row.progress.ratio * 100).round()}%',
+                        style: theme.textTheme.bodyMedium
+                            ?.copyWith(fontWeight: FontWeight.w600),
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        formatMoney(row.progress.currentCents, symbol: symbol),
+                        style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
     );
   }
 }
