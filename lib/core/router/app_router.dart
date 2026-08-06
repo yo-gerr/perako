@@ -42,6 +42,7 @@ import '../../features/time_deposits/presentation/screens/time_deposits_list_scr
 import '../../features/transactions/presentation/screens/transaction_detail_screen.dart';
 import '../../features/transactions/presentation/screens/transaction_form_screen.dart';
 import '../../features/transactions/presentation/screens/transactions_list_screen.dart';
+import '../widgets/splash_screen.dart';
 import 'home_shell.dart';
 
 /// Auth-aware [GoRouter] for the app.
@@ -78,14 +79,32 @@ GoRouter createRouter(Ref ref) {
     initialLocation: '/',
     refreshListenable: refresh,
     redirect: (context, state) {
-      final uid = ref.read(authStateProvider).valueOrNull;
-      final isLogin = state.matchedLocation == '/login';
+      final auth = ref.read(authStateProvider);
+      final uid = auth.valueOrNull;
+      final location = state.matchedLocation;
+      final isLogin = location == '/login';
+      final isSplash = location == '/splash';
 
-      if (uid == null && !isLogin) return '/login';
-      if (uid != null && isLogin) return '/';
+      // Session restore (e.g. web page refresh) is still in flight. Park on
+      // the splash screen so neither the login page nor the dashboard flashes
+      // before the real auth state is known.
+      if (!auth.hasValue) {
+        return isSplash ? null : '/splash';
+      }
+      // A failed restore must not strand the user on a perpetual splash.
+      if (auth.hasError) return isLogin ? null : '/login';
+
+      if (uid == null) return isLogin ? null : '/login';
+      // Signed in: never linger on the splash screen or the login page.
+      if (isLogin || isSplash) return '/';
       return null;
     },
     routes: [
+      GoRoute(
+        path: '/splash',
+        name: 'splash',
+        builder: (context, state) => const SplashScreen(),
+      ),
       GoRoute(
         path: '/login',
         name: 'login',

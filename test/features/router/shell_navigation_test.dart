@@ -15,6 +15,16 @@ import 'package:perako/features/sync/presentation/providers/sync_providers.dart'
 import '../../helpers/fake_auth_repository.dart';
 import '../../helpers/fake_sync_remote_store.dart';
 
+/// Pumps until [finder] matches, without settling on the infinite splash
+/// spinner. Fails if the widget does not appear in time.
+Future<void> pumpUntilFound(WidgetTester tester, Finder finder) async {
+  for (var i = 0; i < 50; i++) {
+    if (finder.evaluate().isNotEmpty) return;
+    await tester.pump(const Duration(milliseconds: 100));
+  }
+  fail('Timed out waiting for $finder');
+}
+
 void main() {
   testWidgets('shell lands on dashboard and navigates tabs and drawer',
       (tester) async {
@@ -47,9 +57,13 @@ void main() {
     );
     await tester.pump();
 
-    // Sign in to pass the auth redirect.
+    // Sign in to pass the auth redirect. The splash screen animates forever,
+    // so settle on the dashboard with bounded pumps rather than
+    // pumpAndSettle.
     fakeAuth.signIn('uid_test');
-    await tester.pumpAndSettle();
+    await pumpUntilFound(tester, find.text('Net Worth'));
+    // Let the splash-to-dashboard route transition finish.
+    await tester.pump(const Duration(milliseconds: 400));
 
     // Dashboard is the initial tab.
     expect(find.text('PeraKo'), findsOneWidget);
