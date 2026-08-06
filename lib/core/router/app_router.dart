@@ -30,6 +30,9 @@ import '../../features/savings/presentation/screens/savings_settings_screen.dart
 import '../../features/settings/presentation/screens/profile_screen.dart';
 import '../../features/settings/presentation/screens/security_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
+import '../../features/time_deposits/presentation/screens/time_deposit_detail_screen.dart';
+import '../../features/time_deposits/presentation/screens/time_deposit_form_screen.dart';
+import '../../features/time_deposits/presentation/screens/time_deposits_list_screen.dart';
 import '../../features/transactions/presentation/screens/transaction_detail_screen.dart';
 import '../../features/transactions/presentation/screens/transaction_form_screen.dart';
 import '../../features/transactions/presentation/screens/transactions_list_screen.dart';
@@ -160,6 +163,28 @@ GoRouter createRouter(Ref ref) {
         name: 'savings-settings',
         builder: (context, state) => SavingsSettingsScreen(
             accountId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/time-deposits',
+        name: 'time-deposits',
+        builder: (context, state) => const TimeDepositsListScreen(),
+      ),
+      GoRoute(
+        path: '/time-deposits/new',
+        name: 'time-deposit-new',
+        builder: (context, state) => const TimeDepositFormScreen(),
+      ),
+      GoRoute(
+        path: '/time-deposits/:id/edit',
+        name: 'time-deposit-edit',
+        builder: (context, state) =>
+            TimeDepositFormScreen(depositId: state.pathParameters['id']),
+      ),
+      GoRoute(
+        path: '/time-deposits/:id',
+        name: 'time-deposit-detail',
+        builder: (context, state) => TimeDepositDetailScreen(
+            depositId: state.pathParameters['id']!),
       ),
       GoRoute(
         path: '/categories',

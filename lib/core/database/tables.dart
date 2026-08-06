@@ -354,6 +354,53 @@ class GoalContributions extends Table {
   Set<Column<Object>> get primaryKey => {id};
 }
 
+/// A fixed-term deposit on an [Accounts] row.
+///
+/// The principal stays in [accountId]; at maturity [TimeDepositService]
+/// posts the interest earned as a balanced income transaction and records its
+/// id in [maturedTransactionId] so history stays auditable. [maturityValueCents]
+/// is the projected payout, recomputed whenever the deposit is edited.
+class TimeDeposits extends Table {
+  TextColumn get id => text()();
+
+  TextColumn get accountId => text().references(Accounts, #id)();
+
+  /// Display name; defaults to the account name when created.
+  TextColumn get label => text()();
+
+  IntColumn get principalCents => integer()();
+
+  /// Annual interest rate as a decimal fraction, e.g. 0.06 for 6% p.a.
+  RealColumn get interestRate => real()();
+
+  // simple | compound
+  TextColumn get interestMethod => text()();
+
+  IntColumn get startDate => integer()();
+
+  IntColumn get maturityDate => integer()();
+
+  /// Principal plus the interest earned over the full term.
+  IntColumn get maturityValueCents => integer()();
+
+  BoolColumn get isMatured => boolean().withDefault(const Constant(false))();
+
+  /// The income transaction that realized the interest; null until matured.
+  TextColumn get maturedTransactionId =>
+      text().references(Transactions, #id).nullable()();
+
+  IntColumn get createdAt => integer()();
+
+  IntColumn get updatedAt => integer()();
+
+  IntColumn get deletedAt => integer().nullable()();
+
+  IntColumn get version => integer().withDefault(const Constant(0))();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
 /// Configures an [Accounts] row as an interest-bearing savings account.
 ///
 /// Interest is credited to the linked account through the ledger on a

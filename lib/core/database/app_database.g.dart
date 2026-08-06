@@ -8381,6 +8381,904 @@ class InterestSchedulesCompanion extends UpdateCompanion<InterestSchedule> {
   }
 }
 
+class $TimeDepositsTable extends TimeDeposits
+    with TableInfo<$TimeDepositsTable, TimeDeposit> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TimeDepositsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _accountIdMeta = const VerificationMeta(
+    'accountId',
+  );
+  @override
+  late final GeneratedColumn<String> accountId = GeneratedColumn<String>(
+    'account_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES accounts (id)',
+    ),
+  );
+  static const VerificationMeta _labelMeta = const VerificationMeta('label');
+  @override
+  late final GeneratedColumn<String> label = GeneratedColumn<String>(
+    'label',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _principalCentsMeta = const VerificationMeta(
+    'principalCents',
+  );
+  @override
+  late final GeneratedColumn<int> principalCents = GeneratedColumn<int>(
+    'principal_cents',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _interestRateMeta = const VerificationMeta(
+    'interestRate',
+  );
+  @override
+  late final GeneratedColumn<double> interestRate = GeneratedColumn<double>(
+    'interest_rate',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _interestMethodMeta = const VerificationMeta(
+    'interestMethod',
+  );
+  @override
+  late final GeneratedColumn<String> interestMethod = GeneratedColumn<String>(
+    'interest_method',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _startDateMeta = const VerificationMeta(
+    'startDate',
+  );
+  @override
+  late final GeneratedColumn<int> startDate = GeneratedColumn<int>(
+    'start_date',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _maturityDateMeta = const VerificationMeta(
+    'maturityDate',
+  );
+  @override
+  late final GeneratedColumn<int> maturityDate = GeneratedColumn<int>(
+    'maturity_date',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _maturityValueCentsMeta =
+      const VerificationMeta('maturityValueCents');
+  @override
+  late final GeneratedColumn<int> maturityValueCents = GeneratedColumn<int>(
+    'maturity_value_cents',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _isMaturedMeta = const VerificationMeta(
+    'isMatured',
+  );
+  @override
+  late final GeneratedColumn<bool> isMatured = GeneratedColumn<bool>(
+    'is_matured',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_matured" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _maturedTransactionIdMeta =
+      const VerificationMeta('maturedTransactionId');
+  @override
+  late final GeneratedColumn<String> maturedTransactionId =
+      GeneratedColumn<String>(
+        'matured_transaction_id',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+        defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES transactions (id)',
+        ),
+      );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<int> deletedAt = GeneratedColumn<int>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    accountId,
+    label,
+    principalCents,
+    interestRate,
+    interestMethod,
+    startDate,
+    maturityDate,
+    maturityValueCents,
+    isMatured,
+    maturedTransactionId,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'time_deposits';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<TimeDeposit> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('account_id')) {
+      context.handle(
+        _accountIdMeta,
+        accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_accountIdMeta);
+    }
+    if (data.containsKey('label')) {
+      context.handle(
+        _labelMeta,
+        label.isAcceptableOrUnknown(data['label']!, _labelMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_labelMeta);
+    }
+    if (data.containsKey('principal_cents')) {
+      context.handle(
+        _principalCentsMeta,
+        principalCents.isAcceptableOrUnknown(
+          data['principal_cents']!,
+          _principalCentsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_principalCentsMeta);
+    }
+    if (data.containsKey('interest_rate')) {
+      context.handle(
+        _interestRateMeta,
+        interestRate.isAcceptableOrUnknown(
+          data['interest_rate']!,
+          _interestRateMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_interestRateMeta);
+    }
+    if (data.containsKey('interest_method')) {
+      context.handle(
+        _interestMethodMeta,
+        interestMethod.isAcceptableOrUnknown(
+          data['interest_method']!,
+          _interestMethodMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_interestMethodMeta);
+    }
+    if (data.containsKey('start_date')) {
+      context.handle(
+        _startDateMeta,
+        startDate.isAcceptableOrUnknown(data['start_date']!, _startDateMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_startDateMeta);
+    }
+    if (data.containsKey('maturity_date')) {
+      context.handle(
+        _maturityDateMeta,
+        maturityDate.isAcceptableOrUnknown(
+          data['maturity_date']!,
+          _maturityDateMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_maturityDateMeta);
+    }
+    if (data.containsKey('maturity_value_cents')) {
+      context.handle(
+        _maturityValueCentsMeta,
+        maturityValueCents.isAcceptableOrUnknown(
+          data['maturity_value_cents']!,
+          _maturityValueCentsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_maturityValueCentsMeta);
+    }
+    if (data.containsKey('is_matured')) {
+      context.handle(
+        _isMaturedMeta,
+        isMatured.isAcceptableOrUnknown(data['is_matured']!, _isMaturedMeta),
+      );
+    }
+    if (data.containsKey('matured_transaction_id')) {
+      context.handle(
+        _maturedTransactionIdMeta,
+        maturedTransactionId.isAcceptableOrUnknown(
+          data['matured_transaction_id']!,
+          _maturedTransactionIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TimeDeposit map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TimeDeposit(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      accountId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}account_id'],
+      )!,
+      label: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}label'],
+      )!,
+      principalCents: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}principal_cents'],
+      )!,
+      interestRate: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}interest_rate'],
+      )!,
+      interestMethod: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}interest_method'],
+      )!,
+      startDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}start_date'],
+      )!,
+      maturityDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}maturity_date'],
+      )!,
+      maturityValueCents: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}maturity_value_cents'],
+      )!,
+      isMatured: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_matured'],
+      )!,
+      maturedTransactionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}matured_transaction_id'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}deleted_at'],
+      ),
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+    );
+  }
+
+  @override
+  $TimeDepositsTable createAlias(String alias) {
+    return $TimeDepositsTable(attachedDatabase, alias);
+  }
+}
+
+class TimeDeposit extends DataClass implements Insertable<TimeDeposit> {
+  final String id;
+  final String accountId;
+
+  /// Display name; defaults to the account name when created.
+  final String label;
+  final int principalCents;
+
+  /// Annual interest rate as a decimal fraction, e.g. 0.06 for 6% p.a.
+  final double interestRate;
+  final String interestMethod;
+  final int startDate;
+  final int maturityDate;
+
+  /// Principal plus the interest earned over the full term.
+  final int maturityValueCents;
+  final bool isMatured;
+
+  /// The income transaction that realized the interest; null until matured.
+  final String? maturedTransactionId;
+  final int createdAt;
+  final int updatedAt;
+  final int? deletedAt;
+  final int version;
+  const TimeDeposit({
+    required this.id,
+    required this.accountId,
+    required this.label,
+    required this.principalCents,
+    required this.interestRate,
+    required this.interestMethod,
+    required this.startDate,
+    required this.maturityDate,
+    required this.maturityValueCents,
+    required this.isMatured,
+    this.maturedTransactionId,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+    required this.version,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['account_id'] = Variable<String>(accountId);
+    map['label'] = Variable<String>(label);
+    map['principal_cents'] = Variable<int>(principalCents);
+    map['interest_rate'] = Variable<double>(interestRate);
+    map['interest_method'] = Variable<String>(interestMethod);
+    map['start_date'] = Variable<int>(startDate);
+    map['maturity_date'] = Variable<int>(maturityDate);
+    map['maturity_value_cents'] = Variable<int>(maturityValueCents);
+    map['is_matured'] = Variable<bool>(isMatured);
+    if (!nullToAbsent || maturedTransactionId != null) {
+      map['matured_transaction_id'] = Variable<String>(maturedTransactionId);
+    }
+    map['created_at'] = Variable<int>(createdAt);
+    map['updated_at'] = Variable<int>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(deletedAt);
+    }
+    map['version'] = Variable<int>(version);
+    return map;
+  }
+
+  TimeDepositsCompanion toCompanion(bool nullToAbsent) {
+    return TimeDepositsCompanion(
+      id: Value(id),
+      accountId: Value(accountId),
+      label: Value(label),
+      principalCents: Value(principalCents),
+      interestRate: Value(interestRate),
+      interestMethod: Value(interestMethod),
+      startDate: Value(startDate),
+      maturityDate: Value(maturityDate),
+      maturityValueCents: Value(maturityValueCents),
+      isMatured: Value(isMatured),
+      maturedTransactionId: maturedTransactionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(maturedTransactionId),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+      version: Value(version),
+    );
+  }
+
+  factory TimeDeposit.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TimeDeposit(
+      id: serializer.fromJson<String>(json['id']),
+      accountId: serializer.fromJson<String>(json['accountId']),
+      label: serializer.fromJson<String>(json['label']),
+      principalCents: serializer.fromJson<int>(json['principalCents']),
+      interestRate: serializer.fromJson<double>(json['interestRate']),
+      interestMethod: serializer.fromJson<String>(json['interestMethod']),
+      startDate: serializer.fromJson<int>(json['startDate']),
+      maturityDate: serializer.fromJson<int>(json['maturityDate']),
+      maturityValueCents: serializer.fromJson<int>(json['maturityValueCents']),
+      isMatured: serializer.fromJson<bool>(json['isMatured']),
+      maturedTransactionId: serializer.fromJson<String?>(
+        json['maturedTransactionId'],
+      ),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deletedAt: serializer.fromJson<int?>(json['deletedAt']),
+      version: serializer.fromJson<int>(json['version']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'accountId': serializer.toJson<String>(accountId),
+      'label': serializer.toJson<String>(label),
+      'principalCents': serializer.toJson<int>(principalCents),
+      'interestRate': serializer.toJson<double>(interestRate),
+      'interestMethod': serializer.toJson<String>(interestMethod),
+      'startDate': serializer.toJson<int>(startDate),
+      'maturityDate': serializer.toJson<int>(maturityDate),
+      'maturityValueCents': serializer.toJson<int>(maturityValueCents),
+      'isMatured': serializer.toJson<bool>(isMatured),
+      'maturedTransactionId': serializer.toJson<String?>(maturedTransactionId),
+      'createdAt': serializer.toJson<int>(createdAt),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deletedAt': serializer.toJson<int?>(deletedAt),
+      'version': serializer.toJson<int>(version),
+    };
+  }
+
+  TimeDeposit copyWith({
+    String? id,
+    String? accountId,
+    String? label,
+    int? principalCents,
+    double? interestRate,
+    String? interestMethod,
+    int? startDate,
+    int? maturityDate,
+    int? maturityValueCents,
+    bool? isMatured,
+    Value<String?> maturedTransactionId = const Value.absent(),
+    int? createdAt,
+    int? updatedAt,
+    Value<int?> deletedAt = const Value.absent(),
+    int? version,
+  }) => TimeDeposit(
+    id: id ?? this.id,
+    accountId: accountId ?? this.accountId,
+    label: label ?? this.label,
+    principalCents: principalCents ?? this.principalCents,
+    interestRate: interestRate ?? this.interestRate,
+    interestMethod: interestMethod ?? this.interestMethod,
+    startDate: startDate ?? this.startDate,
+    maturityDate: maturityDate ?? this.maturityDate,
+    maturityValueCents: maturityValueCents ?? this.maturityValueCents,
+    isMatured: isMatured ?? this.isMatured,
+    maturedTransactionId: maturedTransactionId.present
+        ? maturedTransactionId.value
+        : this.maturedTransactionId,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+    version: version ?? this.version,
+  );
+  TimeDeposit copyWithCompanion(TimeDepositsCompanion data) {
+    return TimeDeposit(
+      id: data.id.present ? data.id.value : this.id,
+      accountId: data.accountId.present ? data.accountId.value : this.accountId,
+      label: data.label.present ? data.label.value : this.label,
+      principalCents: data.principalCents.present
+          ? data.principalCents.value
+          : this.principalCents,
+      interestRate: data.interestRate.present
+          ? data.interestRate.value
+          : this.interestRate,
+      interestMethod: data.interestMethod.present
+          ? data.interestMethod.value
+          : this.interestMethod,
+      startDate: data.startDate.present ? data.startDate.value : this.startDate,
+      maturityDate: data.maturityDate.present
+          ? data.maturityDate.value
+          : this.maturityDate,
+      maturityValueCents: data.maturityValueCents.present
+          ? data.maturityValueCents.value
+          : this.maturityValueCents,
+      isMatured: data.isMatured.present ? data.isMatured.value : this.isMatured,
+      maturedTransactionId: data.maturedTransactionId.present
+          ? data.maturedTransactionId.value
+          : this.maturedTransactionId,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+      version: data.version.present ? data.version.value : this.version,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TimeDeposit(')
+          ..write('id: $id, ')
+          ..write('accountId: $accountId, ')
+          ..write('label: $label, ')
+          ..write('principalCents: $principalCents, ')
+          ..write('interestRate: $interestRate, ')
+          ..write('interestMethod: $interestMethod, ')
+          ..write('startDate: $startDate, ')
+          ..write('maturityDate: $maturityDate, ')
+          ..write('maturityValueCents: $maturityValueCents, ')
+          ..write('isMatured: $isMatured, ')
+          ..write('maturedTransactionId: $maturedTransactionId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    accountId,
+    label,
+    principalCents,
+    interestRate,
+    interestMethod,
+    startDate,
+    maturityDate,
+    maturityValueCents,
+    isMatured,
+    maturedTransactionId,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TimeDeposit &&
+          other.id == this.id &&
+          other.accountId == this.accountId &&
+          other.label == this.label &&
+          other.principalCents == this.principalCents &&
+          other.interestRate == this.interestRate &&
+          other.interestMethod == this.interestMethod &&
+          other.startDate == this.startDate &&
+          other.maturityDate == this.maturityDate &&
+          other.maturityValueCents == this.maturityValueCents &&
+          other.isMatured == this.isMatured &&
+          other.maturedTransactionId == this.maturedTransactionId &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt &&
+          other.version == this.version);
+}
+
+class TimeDepositsCompanion extends UpdateCompanion<TimeDeposit> {
+  final Value<String> id;
+  final Value<String> accountId;
+  final Value<String> label;
+  final Value<int> principalCents;
+  final Value<double> interestRate;
+  final Value<String> interestMethod;
+  final Value<int> startDate;
+  final Value<int> maturityDate;
+  final Value<int> maturityValueCents;
+  final Value<bool> isMatured;
+  final Value<String?> maturedTransactionId;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
+  final Value<int?> deletedAt;
+  final Value<int> version;
+  final Value<int> rowid;
+  const TimeDepositsCompanion({
+    this.id = const Value.absent(),
+    this.accountId = const Value.absent(),
+    this.label = const Value.absent(),
+    this.principalCents = const Value.absent(),
+    this.interestRate = const Value.absent(),
+    this.interestMethod = const Value.absent(),
+    this.startDate = const Value.absent(),
+    this.maturityDate = const Value.absent(),
+    this.maturityValueCents = const Value.absent(),
+    this.isMatured = const Value.absent(),
+    this.maturedTransactionId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TimeDepositsCompanion.insert({
+    required String id,
+    required String accountId,
+    required String label,
+    required int principalCents,
+    required double interestRate,
+    required String interestMethod,
+    required int startDate,
+    required int maturityDate,
+    required int maturityValueCents,
+    this.isMatured = const Value.absent(),
+    this.maturedTransactionId = const Value.absent(),
+    required int createdAt,
+    required int updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       accountId = Value(accountId),
+       label = Value(label),
+       principalCents = Value(principalCents),
+       interestRate = Value(interestRate),
+       interestMethod = Value(interestMethod),
+       startDate = Value(startDate),
+       maturityDate = Value(maturityDate),
+       maturityValueCents = Value(maturityValueCents),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<TimeDeposit> custom({
+    Expression<String>? id,
+    Expression<String>? accountId,
+    Expression<String>? label,
+    Expression<int>? principalCents,
+    Expression<double>? interestRate,
+    Expression<String>? interestMethod,
+    Expression<int>? startDate,
+    Expression<int>? maturityDate,
+    Expression<int>? maturityValueCents,
+    Expression<bool>? isMatured,
+    Expression<String>? maturedTransactionId,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? deletedAt,
+    Expression<int>? version,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (accountId != null) 'account_id': accountId,
+      if (label != null) 'label': label,
+      if (principalCents != null) 'principal_cents': principalCents,
+      if (interestRate != null) 'interest_rate': interestRate,
+      if (interestMethod != null) 'interest_method': interestMethod,
+      if (startDate != null) 'start_date': startDate,
+      if (maturityDate != null) 'maturity_date': maturityDate,
+      if (maturityValueCents != null)
+        'maturity_value_cents': maturityValueCents,
+      if (isMatured != null) 'is_matured': isMatured,
+      if (maturedTransactionId != null)
+        'matured_transaction_id': maturedTransactionId,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (version != null) 'version': version,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TimeDepositsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? accountId,
+    Value<String>? label,
+    Value<int>? principalCents,
+    Value<double>? interestRate,
+    Value<String>? interestMethod,
+    Value<int>? startDate,
+    Value<int>? maturityDate,
+    Value<int>? maturityValueCents,
+    Value<bool>? isMatured,
+    Value<String?>? maturedTransactionId,
+    Value<int>? createdAt,
+    Value<int>? updatedAt,
+    Value<int?>? deletedAt,
+    Value<int>? version,
+    Value<int>? rowid,
+  }) {
+    return TimeDepositsCompanion(
+      id: id ?? this.id,
+      accountId: accountId ?? this.accountId,
+      label: label ?? this.label,
+      principalCents: principalCents ?? this.principalCents,
+      interestRate: interestRate ?? this.interestRate,
+      interestMethod: interestMethod ?? this.interestMethod,
+      startDate: startDate ?? this.startDate,
+      maturityDate: maturityDate ?? this.maturityDate,
+      maturityValueCents: maturityValueCents ?? this.maturityValueCents,
+      isMatured: isMatured ?? this.isMatured,
+      maturedTransactionId: maturedTransactionId ?? this.maturedTransactionId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      version: version ?? this.version,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (accountId.present) {
+      map['account_id'] = Variable<String>(accountId.value);
+    }
+    if (label.present) {
+      map['label'] = Variable<String>(label.value);
+    }
+    if (principalCents.present) {
+      map['principal_cents'] = Variable<int>(principalCents.value);
+    }
+    if (interestRate.present) {
+      map['interest_rate'] = Variable<double>(interestRate.value);
+    }
+    if (interestMethod.present) {
+      map['interest_method'] = Variable<String>(interestMethod.value);
+    }
+    if (startDate.present) {
+      map['start_date'] = Variable<int>(startDate.value);
+    }
+    if (maturityDate.present) {
+      map['maturity_date'] = Variable<int>(maturityDate.value);
+    }
+    if (maturityValueCents.present) {
+      map['maturity_value_cents'] = Variable<int>(maturityValueCents.value);
+    }
+    if (isMatured.present) {
+      map['is_matured'] = Variable<bool>(isMatured.value);
+    }
+    if (maturedTransactionId.present) {
+      map['matured_transaction_id'] = Variable<String>(
+        maturedTransactionId.value,
+      );
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(deletedAt.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TimeDepositsCompanion(')
+          ..write('id: $id, ')
+          ..write('accountId: $accountId, ')
+          ..write('label: $label, ')
+          ..write('principalCents: $principalCents, ')
+          ..write('interestRate: $interestRate, ')
+          ..write('interestMethod: $interestMethod, ')
+          ..write('startDate: $startDate, ')
+          ..write('maturityDate: $maturityDate, ')
+          ..write('maturityValueCents: $maturityValueCents, ')
+          ..write('isMatured: $isMatured, ')
+          ..write('maturedTransactionId: $maturedTransactionId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -8407,6 +9305,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   );
   late final $InterestSchedulesTable interestSchedules =
       $InterestSchedulesTable(this);
+  late final $TimeDepositsTable timeDeposits = $TimeDepositsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -8428,6 +9327,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     goalContributions,
     savingsAccounts,
     interestSchedules,
+    timeDeposits,
   ];
 }
 
@@ -8536,6 +9436,24 @@ final class $$AccountsTableReferences
     final cache = $_typedResult.readTableOrNull(
       _savingsAccountsRefsTable($_db),
     );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$TimeDepositsTable, List<TimeDeposit>>
+  _timeDepositsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.timeDeposits,
+    aliasName: 'accounts__id__time_deposits__account_id',
+  );
+
+  $$TimeDepositsTableProcessedTableManager get timeDepositsRefs {
+    final manager = $$TimeDepositsTableTableManager(
+      $_db,
+      $_db.timeDeposits,
+    ).filter((f) => f.accountId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_timeDepositsRefsTable($_db));
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -8697,6 +9615,31 @@ class $$AccountsTableFilterComposer
           }) => $$SavingsAccountsTableFilterComposer(
             $db: $db,
             $table: $db.savingsAccounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> timeDepositsRefs(
+    Expression<bool> Function($$TimeDepositsTableFilterComposer f) f,
+  ) {
+    final $$TimeDepositsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.timeDeposits,
+      getReferencedColumn: (t) => t.accountId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TimeDepositsTableFilterComposer(
+            $db: $db,
+            $table: $db.timeDeposits,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -8917,6 +9860,31 @@ class $$AccountsTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> timeDepositsRefs<T extends Object>(
+    Expression<T> Function($$TimeDepositsTableAnnotationComposer a) f,
+  ) {
+    final $$TimeDepositsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.timeDeposits,
+      getReferencedColumn: (t) => t.accountId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TimeDepositsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.timeDeposits,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$AccountsTableTableManager
@@ -8937,6 +9905,7 @@ class $$AccountsTableTableManager
             bool billsRefs,
             bool goalsRefs,
             bool savingsAccountsRefs,
+            bool timeDepositsRefs,
           })
         > {
   $$AccountsTableTableManager(_$AppDatabase db, $AccountsTable table)
@@ -9020,6 +9989,7 @@ class $$AccountsTableTableManager
                 billsRefs = false,
                 goalsRefs = false,
                 savingsAccountsRefs = false,
+                timeDepositsRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -9028,6 +9998,7 @@ class $$AccountsTableTableManager
                     if (billsRefs) db.bills,
                     if (goalsRefs) db.goals,
                     if (savingsAccountsRefs) db.savingsAccounts,
+                    if (timeDepositsRefs) db.timeDeposits,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -9116,6 +10087,27 @@ class $$AccountsTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (timeDepositsRefs)
+                        await $_getPrefetchedData<
+                          Account,
+                          $AccountsTable,
+                          TimeDeposit
+                        >(
+                          currentTable: table,
+                          referencedTable: $$AccountsTableReferences
+                              ._timeDepositsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$AccountsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).timeDepositsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.accountId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -9141,6 +10133,7 @@ typedef $$AccountsTableProcessedTableManager =
         bool billsRefs,
         bool goalsRefs,
         bool savingsAccountsRefs,
+        bool timeDepositsRefs,
       })
     >;
 typedef $$CategoriesTableCreateCompanionBuilder =
@@ -9873,6 +10866,25 @@ final class $$TransactionsTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$TimeDepositsTable, List<TimeDeposit>>
+  _timeDepositsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.timeDeposits,
+    aliasName: 'transactions__id__time_deposits__matured_transaction_id',
+  );
+
+  $$TimeDepositsTableProcessedTableManager get timeDepositsRefs {
+    final manager = $$TimeDepositsTableTableManager($_db, $_db.timeDeposits)
+        .filter(
+          (f) =>
+              f.maturedTransactionId.id.sqlEquals($_itemColumn<String>('id')!),
+        );
+
+    final cache = $_typedResult.readTableOrNull(_timeDepositsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$TransactionsTableFilterComposer
@@ -10040,6 +11052,31 @@ class $$TransactionsTableFilterComposer
           }) => $$InterestSchedulesTableFilterComposer(
             $db: $db,
             $table: $db.interestSchedules,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> timeDepositsRefs(
+    Expression<bool> Function($$TimeDepositsTableFilterComposer f) f,
+  ) {
+    final $$TimeDepositsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.timeDeposits,
+      getReferencedColumn: (t) => t.maturedTransactionId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TimeDepositsTableFilterComposer(
+            $db: $db,
+            $table: $db.timeDeposits,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -10263,6 +11300,31 @@ class $$TransactionsTableAnnotationComposer
         );
     return f(composer);
   }
+
+  Expression<T> timeDepositsRefs<T extends Object>(
+    Expression<T> Function($$TimeDepositsTableAnnotationComposer a) f,
+  ) {
+    final $$TimeDepositsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.timeDeposits,
+      getReferencedColumn: (t) => t.maturedTransactionId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TimeDepositsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.timeDeposits,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$TransactionsTableTableManager
@@ -10284,6 +11346,7 @@ class $$TransactionsTableTableManager
             bool billPaymentsRefs,
             bool goalContributionsRefs,
             bool interestSchedulesRefs,
+            bool timeDepositsRefs,
           })
         > {
   $$TransactionsTableTableManager(_$AppDatabase db, $TransactionsTable table)
@@ -10356,6 +11419,7 @@ class $$TransactionsTableTableManager
                 billPaymentsRefs = false,
                 goalContributionsRefs = false,
                 interestSchedulesRefs = false,
+                timeDepositsRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -10365,6 +11429,7 @@ class $$TransactionsTableTableManager
                     if (billPaymentsRefs) db.billPayments,
                     if (goalContributionsRefs) db.goalContributions,
                     if (interestSchedulesRefs) db.interestSchedules,
+                    if (timeDepositsRefs) db.timeDeposits,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -10474,6 +11539,27 @@ class $$TransactionsTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (timeDepositsRefs)
+                        await $_getPrefetchedData<
+                          Transaction,
+                          $TransactionsTable,
+                          TimeDeposit
+                        >(
+                          currentTable: table,
+                          referencedTable: $$TransactionsTableReferences
+                              ._timeDepositsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$TransactionsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).timeDepositsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.maturedTransactionId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -10500,6 +11586,7 @@ typedef $$TransactionsTableProcessedTableManager =
         bool billPaymentsRefs,
         bool goalContributionsRefs,
         bool interestSchedulesRefs,
+        bool timeDepositsRefs,
       })
     >;
 typedef $$LedgerEntriesTableCreateCompanionBuilder =
@@ -15935,6 +17022,617 @@ typedef $$InterestSchedulesTableProcessedTableManager =
       InterestSchedule,
       PrefetchHooks Function({bool transactionId})
     >;
+typedef $$TimeDepositsTableCreateCompanionBuilder =
+    TimeDepositsCompanion Function({
+      required String id,
+      required String accountId,
+      required String label,
+      required int principalCents,
+      required double interestRate,
+      required String interestMethod,
+      required int startDate,
+      required int maturityDate,
+      required int maturityValueCents,
+      Value<bool> isMatured,
+      Value<String?> maturedTransactionId,
+      required int createdAt,
+      required int updatedAt,
+      Value<int?> deletedAt,
+      Value<int> version,
+      Value<int> rowid,
+    });
+typedef $$TimeDepositsTableUpdateCompanionBuilder =
+    TimeDepositsCompanion Function({
+      Value<String> id,
+      Value<String> accountId,
+      Value<String> label,
+      Value<int> principalCents,
+      Value<double> interestRate,
+      Value<String> interestMethod,
+      Value<int> startDate,
+      Value<int> maturityDate,
+      Value<int> maturityValueCents,
+      Value<bool> isMatured,
+      Value<String?> maturedTransactionId,
+      Value<int> createdAt,
+      Value<int> updatedAt,
+      Value<int?> deletedAt,
+      Value<int> version,
+      Value<int> rowid,
+    });
+
+final class $$TimeDepositsTableReferences
+    extends BaseReferences<_$AppDatabase, $TimeDepositsTable, TimeDeposit> {
+  $$TimeDepositsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $AccountsTable _accountIdTable(_$AppDatabase db) =>
+      db.accounts.createAlias('time_deposits__account_id__accounts__id');
+
+  $$AccountsTableProcessedTableManager get accountId {
+    final $_column = $_itemColumn<String>('account_id')!;
+
+    final manager = $$AccountsTableTableManager(
+      $_db,
+      $_db.accounts,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_accountIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $TransactionsTable _maturedTransactionIdTable(_$AppDatabase db) => db
+      .transactions
+      .createAlias('time_deposits__matured_transaction_id__transactions__id');
+
+  $$TransactionsTableProcessedTableManager? get maturedTransactionId {
+    final $_column = $_itemColumn<String>('matured_transaction_id');
+    if ($_column == null) return null;
+    final manager = $$TransactionsTableTableManager(
+      $_db,
+      $_db.transactions,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(
+      _maturedTransactionIdTable($_db),
+    );
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$TimeDepositsTableFilterComposer
+    extends Composer<_$AppDatabase, $TimeDepositsTable> {
+  $$TimeDepositsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get principalCents => $composableBuilder(
+    column: $table.principalCents,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get interestRate => $composableBuilder(
+    column: $table.interestRate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get interestMethod => $composableBuilder(
+    column: $table.interestMethod,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get startDate => $composableBuilder(
+    column: $table.startDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get maturityDate => $composableBuilder(
+    column: $table.maturityDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get maturityValueCents => $composableBuilder(
+    column: $table.maturityValueCents,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isMatured => $composableBuilder(
+    column: $table.isMatured,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$AccountsTableFilterComposer get accountId {
+    final $$AccountsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.accountId,
+      referencedTable: $db.accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AccountsTableFilterComposer(
+            $db: $db,
+            $table: $db.accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TransactionsTableFilterComposer get maturedTransactionId {
+    final $$TransactionsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.maturedTransactionId,
+      referencedTable: $db.transactions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TransactionsTableFilterComposer(
+            $db: $db,
+            $table: $db.transactions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TimeDepositsTableOrderingComposer
+    extends Composer<_$AppDatabase, $TimeDepositsTable> {
+  $$TimeDepositsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get principalCents => $composableBuilder(
+    column: $table.principalCents,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get interestRate => $composableBuilder(
+    column: $table.interestRate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get interestMethod => $composableBuilder(
+    column: $table.interestMethod,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get startDate => $composableBuilder(
+    column: $table.startDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get maturityDate => $composableBuilder(
+    column: $table.maturityDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get maturityValueCents => $composableBuilder(
+    column: $table.maturityValueCents,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isMatured => $composableBuilder(
+    column: $table.isMatured,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$AccountsTableOrderingComposer get accountId {
+    final $$AccountsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.accountId,
+      referencedTable: $db.accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AccountsTableOrderingComposer(
+            $db: $db,
+            $table: $db.accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TransactionsTableOrderingComposer get maturedTransactionId {
+    final $$TransactionsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.maturedTransactionId,
+      referencedTable: $db.transactions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TransactionsTableOrderingComposer(
+            $db: $db,
+            $table: $db.transactions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TimeDepositsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $TimeDepositsTable> {
+  $$TimeDepositsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get label =>
+      $composableBuilder(column: $table.label, builder: (column) => column);
+
+  GeneratedColumn<int> get principalCents => $composableBuilder(
+    column: $table.principalCents,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get interestRate => $composableBuilder(
+    column: $table.interestRate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get interestMethod => $composableBuilder(
+    column: $table.interestMethod,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get startDate =>
+      $composableBuilder(column: $table.startDate, builder: (column) => column);
+
+  GeneratedColumn<int> get maturityDate => $composableBuilder(
+    column: $table.maturityDate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get maturityValueCents => $composableBuilder(
+    column: $table.maturityValueCents,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get isMatured =>
+      $composableBuilder(column: $table.isMatured, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<int> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  $$AccountsTableAnnotationComposer get accountId {
+    final $$AccountsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.accountId,
+      referencedTable: $db.accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AccountsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TransactionsTableAnnotationComposer get maturedTransactionId {
+    final $$TransactionsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.maturedTransactionId,
+      referencedTable: $db.transactions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TransactionsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.transactions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TimeDepositsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $TimeDepositsTable,
+          TimeDeposit,
+          $$TimeDepositsTableFilterComposer,
+          $$TimeDepositsTableOrderingComposer,
+          $$TimeDepositsTableAnnotationComposer,
+          $$TimeDepositsTableCreateCompanionBuilder,
+          $$TimeDepositsTableUpdateCompanionBuilder,
+          (TimeDeposit, $$TimeDepositsTableReferences),
+          TimeDeposit,
+          PrefetchHooks Function({bool accountId, bool maturedTransactionId})
+        > {
+  $$TimeDepositsTableTableManager(_$AppDatabase db, $TimeDepositsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TimeDepositsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TimeDepositsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TimeDepositsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> accountId = const Value.absent(),
+                Value<String> label = const Value.absent(),
+                Value<int> principalCents = const Value.absent(),
+                Value<double> interestRate = const Value.absent(),
+                Value<String> interestMethod = const Value.absent(),
+                Value<int> startDate = const Value.absent(),
+                Value<int> maturityDate = const Value.absent(),
+                Value<int> maturityValueCents = const Value.absent(),
+                Value<bool> isMatured = const Value.absent(),
+                Value<String?> maturedTransactionId = const Value.absent(),
+                Value<int> createdAt = const Value.absent(),
+                Value<int> updatedAt = const Value.absent(),
+                Value<int?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => TimeDepositsCompanion(
+                id: id,
+                accountId: accountId,
+                label: label,
+                principalCents: principalCents,
+                interestRate: interestRate,
+                interestMethod: interestMethod,
+                startDate: startDate,
+                maturityDate: maturityDate,
+                maturityValueCents: maturityValueCents,
+                isMatured: isMatured,
+                maturedTransactionId: maturedTransactionId,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String accountId,
+                required String label,
+                required int principalCents,
+                required double interestRate,
+                required String interestMethod,
+                required int startDate,
+                required int maturityDate,
+                required int maturityValueCents,
+                Value<bool> isMatured = const Value.absent(),
+                Value<String?> maturedTransactionId = const Value.absent(),
+                required int createdAt,
+                required int updatedAt,
+                Value<int?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => TimeDepositsCompanion.insert(
+                id: id,
+                accountId: accountId,
+                label: label,
+                principalCents: principalCents,
+                interestRate: interestRate,
+                interestMethod: interestMethod,
+                startDate: startDate,
+                maturityDate: maturityDate,
+                maturityValueCents: maturityValueCents,
+                isMatured: isMatured,
+                maturedTransactionId: maturedTransactionId,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$TimeDepositsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({accountId = false, maturedTransactionId = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (accountId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.accountId,
+                                    referencedTable:
+                                        $$TimeDepositsTableReferences
+                                            ._accountIdTable(db),
+                                    referencedColumn:
+                                        $$TimeDepositsTableReferences
+                                            ._accountIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (maturedTransactionId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.maturedTransactionId,
+                                    referencedTable:
+                                        $$TimeDepositsTableReferences
+                                            ._maturedTransactionIdTable(db),
+                                    referencedColumn:
+                                        $$TimeDepositsTableReferences
+                                            ._maturedTransactionIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$TimeDepositsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $TimeDepositsTable,
+      TimeDeposit,
+      $$TimeDepositsTableFilterComposer,
+      $$TimeDepositsTableOrderingComposer,
+      $$TimeDepositsTableAnnotationComposer,
+      $$TimeDepositsTableCreateCompanionBuilder,
+      $$TimeDepositsTableUpdateCompanionBuilder,
+      (TimeDeposit, $$TimeDepositsTableReferences),
+      TimeDeposit,
+      PrefetchHooks Function({bool accountId, bool maturedTransactionId})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -15970,4 +17668,6 @@ class $AppDatabaseManager {
       $$SavingsAccountsTableTableManager(_db, _db.savingsAccounts);
   $$InterestSchedulesTableTableManager get interestSchedules =>
       $$InterestSchedulesTableTableManager(_db, _db.interestSchedules);
+  $$TimeDepositsTableTableManager get timeDeposits =>
+      $$TimeDepositsTableTableManager(_db, _db.timeDeposits);
 }

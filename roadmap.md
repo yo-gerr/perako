@@ -342,19 +342,19 @@
 
 ### 3.2 — Time Deposits
 
-- [ ] **Add Drift table**:
-    - [ ] `time_deposits_table.dart` — `account_id` (FK), `principal`, `interest_rate`, `interest_method`, `start_date`, `maturity_date`, `maturity_value`, `is_matured`
-- [ ] **Create Freezed models**:
-    - [ ] `time_deposit.dart` — `TimeDeposit`, `InterestMethod` enum
-- [ ] **Build engine**:
-    - [ ] `TimeDepositService` — Maturity value calculation, maturity notification, auto-generate maturity transaction
-- [ ] **Create providers**:
-    - [ ] `time_deposits_provider.dart`
-- [ ] **Build screens**:
-    - [ ] `time_deposits_list_screen.dart`
-    - [ ] `time_deposit_form_screen.dart`
-    - [ ] `time_deposit_detail_screen.dart` — Countdown to maturity, interest earned
-- [ ] **Wire up GoRouter** — Add `/time-deposits` routes
+- [x] **Add Drift table**:
+    - [x] `time_deposits_table.dart` — `account_id` (FK), `principal`, `interest_rate`, `interest_method`, `start_date`, `maturity_date`, `maturity_value`, `is_matured`
+- [x] **Create Freezed models**:
+    - [x] `time_deposit.dart` — `TimeDeposit`, `InterestMethod` enum
+- [x] **Build engine**:
+    - [x] `TimeDepositService` — Maturity value calculation, maturity notification, auto-generate maturity transaction
+- [x] **Create providers**:
+    - [x] `time_deposits_provider.dart`
+- [x] **Build screens**:
+    - [x] `time_deposits_list_screen.dart`
+    - [x] `time_deposit_form_screen.dart`
+    - [x] `time_deposit_detail_screen.dart` — Countdown to maturity, interest earned
+- [x] **Wire up GoRouter** — Add `/time-deposits` routes
 
 ### 3.3 — MP2 Management
 

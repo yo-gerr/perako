@@ -12,6 +12,7 @@ import '../../core/database/daos/goals_dao.dart';
 import '../../core/database/daos/ledger_dao.dart';
 import '../../core/database/daos/profiles_dao.dart';
 import '../../core/database/daos/savings_dao.dart';
+import '../../core/database/daos/time_deposits_dao.dart';
 import '../../core/database/daos/transactions_dao.dart';
 import '../../features/ledger/domain/ledger_engine.dart';
 
@@ -70,6 +71,11 @@ final goalsDaoProvider = Provider<GoalsDao>((ref) {
 /// Non-reactive access to savings persistence.
 final savingsDaoProvider = Provider<SavingsDao>((ref) {
   return SavingsDao(ref.watch(appDatabaseProvider));
+});
+
+/// Non-reactive access to time deposit persistence.
+final timeDepositsDaoProvider = Provider<TimeDepositsDao>((ref) {
+  return TimeDepositsDao(ref.watch(appDatabaseProvider));
 });
 
 /// The Firestore instance used by the sync layer. Overridable in tests by a
