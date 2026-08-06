@@ -43,3 +43,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# GPL v3 reference copy (Cashew) - inspiration only, never distributed
+/Cashew-main/
+/packages/
+

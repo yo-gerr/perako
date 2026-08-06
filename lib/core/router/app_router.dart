@@ -7,6 +7,9 @@ import '../../features/accounts/presentation/screens/account_form_screen.dart';
 import '../../features/accounts/presentation/screens/accounts_list_screen.dart';
 import '../../features/auth/presentation/providers/auth_providers.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
+import '../../features/budgets/presentation/screens/budget_detail_screen.dart';
+import '../../features/budgets/presentation/screens/budget_form_screen.dart';
+import '../../features/budgets/presentation/screens/budgets_list_screen.dart';
 import '../../features/categories/presentation/screens/categories_list_screen.dart';
 import '../../features/categories/presentation/screens/category_form_screen.dart';
 import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
@@ -136,6 +139,28 @@ GoRouter createRouter(Ref ref) {
         path: '/categories',
         name: 'categories',
         builder: (context, state) => const CategoriesListScreen(),
+      ),
+      GoRoute(
+        path: '/budgets',
+        name: 'budgets',
+        builder: (context, state) => const BudgetsListScreen(),
+      ),
+      GoRoute(
+        path: '/budgets/new',
+        name: 'budget-new',
+        builder: (context, state) => const BudgetFormScreen(),
+      ),
+      GoRoute(
+        path: '/budgets/:id/edit',
+        name: 'budget-edit',
+        builder: (context, state) =>
+            BudgetFormScreen(budgetId: state.pathParameters['id']),
+      ),
+      GoRoute(
+        path: '/budgets/:id',
+        name: 'budget-detail',
+        builder: (context, state) =>
+            BudgetDetailScreen(budgetId: state.pathParameters['id']!),
       ),
       GoRoute(
         path: '/categories/new',

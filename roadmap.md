@@ -226,24 +226,24 @@
 
 ### 2.1 — Budgeting
 
-- [ ] **Add Drift tables**:
-    - [ ] `budgets_table.dart` — `id`, `name`, `account_id` (nullable), `category_id` (nullable), `amount`, `period` (monthly/yearly/envelope), `start_date`, `end_date`, `rollover`
-    - [ ] `budget_allocations_table.dart` — `id`, `budget_id`, `amount`, `period_start`, `period_end`
-- [ ] **Create Freezed models**:
-    - [ ] `budget.dart` — `Budget`, `BudgetPeriod` enum
-- [ ] **Create DAO** — `budgets_dao.dart` with spending queries
-- [ ] **Build budget engine**:
-    - [ ] `BudgetService` — Calculate remaining, forecast overrun, track spending vs budget
-- [ ] **Create providers**:
-    - [ ] `budgets_provider.dart` — Active budgets list
-    - [ ] `budget_detail_provider.dart` — Single budget with spending breakdown
-    - [ ] `budget_form_provider.dart`
-- [ ] **Build screens**:
-    - [ ] `budgets_list_screen.dart` — Progress bars for each budget
-    - [ ] `budget_detail_screen.dart` — Spending breakdown, remaining, forecast
-    - [ ] `budget_form_screen.dart` — Create/edit with category/account picker
-- [ ] **Wire up GoRouter** — Add `/budgets` routes
-- [ ] **Write tests** — Budget calculation, rollover logic, overrun detection
+- [x] **Add Drift tables**:
+    - [x] `budgets_table.dart` — `id`, `name`, `account_id` (nullable), `category_id` (nullable), `amount`, `period` (monthly/yearly), `start_date`, `end_date`, `rollover`
+    - [x] ~~`budget_allocations_table.dart`~~ — Not built: envelope periods deferred by design decision
+- [x] **Create models**:
+    - [x] `budget.dart` — `Budget`, `BudgetPeriod` enum (drift data classes, not Freezed)
+- [x] **Create DAO** — `budgets_dao.dart` with spending queries
+- [x] **Build budget engine**:
+    - [x] `BudgetService` — Calculate remaining, forecast overrun, track spending vs budget
+- [x] **Create providers**:
+    - [x] `budgets_provider.dart` — Active budgets list
+    - [x] `budget_detail_provider.dart` — Single budget with spending breakdown
+    - [x] `budget_form_provider.dart`
+- [x] **Build screens**:
+    - [x] `budgets_list_screen.dart` — Progress bars for each budget
+    - [x] `budget_detail_screen.dart` — Spending breakdown, remaining, forecast
+    - [x] `budget_form_screen.dart` — Create/edit with category/account picker
+- [x] **Wire up GoRouter** — Add `/budgets` routes
+- [x] **Write tests** — Budget calculation, rollover logic, overrun detection
 
 ### 2.2 — Bills & Recurring Transactions
 

@@ -167,3 +167,62 @@ class Profiles extends Table {
   @override
   Set<Column<Object>> get primaryKey => {uid};
 }
+
+/// A spending limit for a category over a period.
+///
+/// - [period] is `monthly` or `yearly` (calendar windows). Envelope periods
+///   are a later iteration.
+/// - [amountCents] is the budgeted amount in integer cents.
+/// - [rollover] carries a positive prior-period remainder into the current
+///   period's available amount.
+/// - [categoryId] scopes the budget to one category (exact match); when null,
+///   [accountId] scopes it to one account's spending.
+class Budgets extends Table {
+  TextColumn get id => text()();
+
+  TextColumn get name => text()();
+
+  /// When set, limits spending to a single account.
+  TextColumn get accountId => text().nullable()();
+
+  /// When set, limits spending to a single category (exact match).
+  TextColumn get categoryId => text().nullable()();
+
+  IntColumn get amountCents => integer()();
+
+  // monthly | yearly
+  TextColumn get period => text()();
+
+  IntColumn get startDate => integer().nullable()();
+
+  IntColumn get endDate => integer().nullable()();
+
+  BoolColumn get rollover => boolean().withDefault(const Constant(false))();
+
+  IntColumn get createdAt => integer()();
+
+  IntColumn get updatedAt => integer()();
+
+  IntColumn get deletedAt => integer().nullable()();
+
+  IntColumn get version => integer().withDefault(const Constant(0))();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
+/// Per-category spending limits inside a [Budgets] row.
+class CategoryBudgetLimits extends Table {
+  TextColumn get id => text()();
+
+  TextColumn get budgetId => text().references(Budgets, #id)();
+
+  TextColumn get categoryId => text().references(Categories, #id)();
+
+  IntColumn get amountCents => integer()();
+
+  IntColumn get updatedAt => integer()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}

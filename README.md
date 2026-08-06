@@ -70,6 +70,20 @@ This ensures:
 
 ---
 
+# 📜 License
+
+PeraKo is open source under the **MIT License**. See [LICENSE](LICENSE).
+
+# 🎨 Inspiration & Credits
+
+PeraKo's UX and feature design draws inspiration from
+[Cashew](https://github.com/jameskokoska/Cashew) (James Kokoska, **GPL v3**).
+Cashew is used strictly as a design reference — all code in this repository is
+PeraKo's own, reimplemented from scratch on a double-entry ledger architecture,
+and no Cashew source code is incorporated.
+
+---
+
 # 🧩 Planned Features
 
 ## 👤 User Management

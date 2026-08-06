@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/database/app_database.dart';
 import '../../core/database/daos/accounts_dao.dart';
+import '../../core/database/daos/budgets_dao.dart';
 import '../../core/database/daos/categories_dao.dart';
 import '../../core/database/daos/database_wipe_service.dart';
 import '../../core/database/daos/ledger_dao.dart';
@@ -46,6 +47,11 @@ final ledgerDaoProvider = Provider<LedgerDao>((ref) {
 /// Non-reactive access to profiles persistence.
 final profilesDaoProvider = Provider<ProfilesDao>((ref) {
   return ProfilesDao(ref.watch(appDatabaseProvider));
+});
+
+/// Non-reactive access to budgets persistence.
+final budgetsDaoProvider = Provider<BudgetsDao>((ref) {
+  return BudgetsDao(ref.watch(appDatabaseProvider));
 });
 
 /// The Firestore instance used by the sync layer. Overridable in tests by a

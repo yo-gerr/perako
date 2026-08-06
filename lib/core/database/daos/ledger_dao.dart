@@ -124,6 +124,55 @@ class LedgerDao extends DatabaseAccessor<AppDatabase> {
                 t.transactionId.equals(transactionId) & t.deletedAt.isNull()))
           .get();
 
+  /// Spending in integer cents within the inclusive millisecond range.
+  ///
+  /// Spending is measured on the hidden expense corpus (debit legs tagged with
+  /// a category). [categoryId] filters those entries directly; [accountId]
+  /// matches the real account credited by the same transaction, so
+  /// account-scoped budgets exclude transfers.
+  Future<int> spentCents({
+    required int fromMillis,
+    required int toMillis,
+    String? categoryId,
+    String? accountId,
+  }) async {
+    if (accountId == null) {
+      return _sumOf(
+        (t) =>
+            t.accountId.equals(LedgerConstants.counterpartyExpense) &
+            t.type.equals('debit') &
+            t.deletedAt.isNull() &
+            t.entryDate.isBiggerOrEqualValue(fromMillis) &
+            t.entryDate.isSmallerOrEqualValue(toMillis) &
+            (categoryId == null
+                ? const Constant(true)
+                : t.categoryId.equals(categoryId)),
+        sign: 1,
+      );
+    }
+    final corpus = ledgerEntries.createAlias('corpus');
+    final q = selectOnly(ledgerEntries);
+    final sum = ledgerEntries.amount.sum();
+    q.addColumns([sum]);
+    q.join([
+      innerJoin(
+        corpus,
+        corpus.transactionId.equalsExp(ledgerEntries.transactionId),
+      ),
+    ]);
+    q.where(
+      ledgerEntries.accountId.equals(accountId) &
+          ledgerEntries.type.equals('credit') &
+          ledgerEntries.deletedAt.isNull() &
+          ledgerEntries.entryDate.isBiggerOrEqualValue(fromMillis) &
+          ledgerEntries.entryDate.isSmallerOrEqualValue(toMillis) &
+          corpus.accountId.equals(LedgerConstants.counterpartyExpense) &
+          corpus.deletedAt.isNull(),
+    );
+    final row = await q.getSingle();
+    return row.read(sum) ?? 0;
+  }
+
   Future<List<LedgerEntry>> entriesForAccount(
     String accountId, {
     int? limit,
