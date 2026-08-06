@@ -358,21 +358,22 @@
 
 ### 3.3 — MP2 Management
 
-- [ ] **Add Drift table**:
-    - [ ] `mp2_accounts_table.dart` — `account_id` (FK), `dividend_rate`, `start_date`, `maturity_date` (5 years), `is_matured`
-    - [ ] `mp2_contributions_table.dart` — `mp2_account_id`, `amount`, `date`
-    - [ ] `mp2_withdrawals_table.dart` — `mp2_account_id`, `amount`, `date`
-- [ ] **Create Freezed models**:
-    - [ ] `mp2_account.dart` — `MP2Account`
-- [ ] **Build engine**:
-    - [ ] `MP2Service` — Forecast maturity value, forecast annual dividends, generate dividend transactions
-- [ ] **Create providers**:
-    - [ ] `mp2_accounts_provider.dart`
-- [ ] **Build screens**:
-    - [ ] `mp2_list_screen.dart`
-    - [ ] `mp2_detail_screen.dart` — Contribution history, dividend forecast, maturity countdown
-    - [ ] `mp2_form_screen.dart`
-- [ ] **Wire up GoRouter** — Add `/mp2` routes
+- [x] **Add Drift table**:
+    - [x] `mp2_accounts_table.dart` — `account_id` (FK), `dividend_rate`, `start_date`, `maturity_date` (5 years), `is_matured` (in `tables.dart`)
+    - [x] `mp2_contributions_table.dart` — `mp2_account_id`, `amount`, `date` (in `tables.dart`)
+    - [x] `mp2_withdrawals_table.dart` — `mp2_account_id`, `amount`, `date` (in `tables.dart`)
+    - [x] `mp2_dividends_table.dart` — `year`, `amount`, `paid_on`, `transaction_id` for idempotent dividend realization (in `tables.dart`)
+- [x] **Create Freezed models**:
+    - [x] `mp2_account.dart` — `Mp2Account` (Drift-generated)
+- [x] **Build engine**:
+    - [x] `Mp2Service` — Forecast maturity value, forecast annual dividends, generate dividend transactions
+- [x] **Create providers**:
+    - [x] `mp2_accounts_provider.dart`
+- [x] **Build screens**:
+    - [x] `mp2_list_screen.dart`
+    - [x] `mp2_detail_screen.dart` — Contribution history, dividend forecast, maturity countdown
+    - [x] `mp2_form_screen.dart`
+- [x] **Wire up GoRouter** — Add `/mp2` routes
 
 ### 3.4 — Bonds
 

@@ -9279,6 +9279,2139 @@ class TimeDepositsCompanion extends UpdateCompanion<TimeDeposit> {
   }
 }
 
+class $Mp2AccountsTable extends Mp2Accounts
+    with TableInfo<$Mp2AccountsTable, Mp2Account> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $Mp2AccountsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _accountIdMeta = const VerificationMeta(
+    'accountId',
+  );
+  @override
+  late final GeneratedColumn<String> accountId = GeneratedColumn<String>(
+    'account_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES accounts (id)',
+    ),
+  );
+  static const VerificationMeta _labelMeta = const VerificationMeta('label');
+  @override
+  late final GeneratedColumn<String> label = GeneratedColumn<String>(
+    'label',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _dividendRateMeta = const VerificationMeta(
+    'dividendRate',
+  );
+  @override
+  late final GeneratedColumn<double> dividendRate = GeneratedColumn<double>(
+    'dividend_rate',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _startDateMeta = const VerificationMeta(
+    'startDate',
+  );
+  @override
+  late final GeneratedColumn<int> startDate = GeneratedColumn<int>(
+    'start_date',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _maturityDateMeta = const VerificationMeta(
+    'maturityDate',
+  );
+  @override
+  late final GeneratedColumn<int> maturityDate = GeneratedColumn<int>(
+    'maturity_date',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _isMaturedMeta = const VerificationMeta(
+    'isMatured',
+  );
+  @override
+  late final GeneratedColumn<bool> isMatured = GeneratedColumn<bool>(
+    'is_matured',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_matured" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<int> deletedAt = GeneratedColumn<int>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    accountId,
+    label,
+    dividendRate,
+    startDate,
+    maturityDate,
+    isMatured,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'mp2_accounts';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<Mp2Account> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('account_id')) {
+      context.handle(
+        _accountIdMeta,
+        accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_accountIdMeta);
+    }
+    if (data.containsKey('label')) {
+      context.handle(
+        _labelMeta,
+        label.isAcceptableOrUnknown(data['label']!, _labelMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_labelMeta);
+    }
+    if (data.containsKey('dividend_rate')) {
+      context.handle(
+        _dividendRateMeta,
+        dividendRate.isAcceptableOrUnknown(
+          data['dividend_rate']!,
+          _dividendRateMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_dividendRateMeta);
+    }
+    if (data.containsKey('start_date')) {
+      context.handle(
+        _startDateMeta,
+        startDate.isAcceptableOrUnknown(data['start_date']!, _startDateMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_startDateMeta);
+    }
+    if (data.containsKey('maturity_date')) {
+      context.handle(
+        _maturityDateMeta,
+        maturityDate.isAcceptableOrUnknown(
+          data['maturity_date']!,
+          _maturityDateMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_maturityDateMeta);
+    }
+    if (data.containsKey('is_matured')) {
+      context.handle(
+        _isMaturedMeta,
+        isMatured.isAcceptableOrUnknown(data['is_matured']!, _isMaturedMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Mp2Account map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Mp2Account(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      accountId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}account_id'],
+      )!,
+      label: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}label'],
+      )!,
+      dividendRate: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}dividend_rate'],
+      )!,
+      startDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}start_date'],
+      )!,
+      maturityDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}maturity_date'],
+      )!,
+      isMatured: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_matured'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}deleted_at'],
+      ),
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+    );
+  }
+
+  @override
+  $Mp2AccountsTable createAlias(String alias) {
+    return $Mp2AccountsTable(attachedDatabase, alias);
+  }
+}
+
+class Mp2Account extends DataClass implements Insertable<Mp2Account> {
+  final String id;
+  final String accountId;
+
+  /// Display name; defaults to the account name when created.
+  final String label;
+
+  /// Annual dividend rate as a decimal fraction, e.g. 0.07 for 7% p.a.
+  final double dividendRate;
+  final int startDate;
+
+  /// Five years after [startDate] by MP2 rules.
+  final int maturityDate;
+  final bool isMatured;
+  final int createdAt;
+  final int updatedAt;
+  final int? deletedAt;
+  final int version;
+  const Mp2Account({
+    required this.id,
+    required this.accountId,
+    required this.label,
+    required this.dividendRate,
+    required this.startDate,
+    required this.maturityDate,
+    required this.isMatured,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+    required this.version,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['account_id'] = Variable<String>(accountId);
+    map['label'] = Variable<String>(label);
+    map['dividend_rate'] = Variable<double>(dividendRate);
+    map['start_date'] = Variable<int>(startDate);
+    map['maturity_date'] = Variable<int>(maturityDate);
+    map['is_matured'] = Variable<bool>(isMatured);
+    map['created_at'] = Variable<int>(createdAt);
+    map['updated_at'] = Variable<int>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(deletedAt);
+    }
+    map['version'] = Variable<int>(version);
+    return map;
+  }
+
+  Mp2AccountsCompanion toCompanion(bool nullToAbsent) {
+    return Mp2AccountsCompanion(
+      id: Value(id),
+      accountId: Value(accountId),
+      label: Value(label),
+      dividendRate: Value(dividendRate),
+      startDate: Value(startDate),
+      maturityDate: Value(maturityDate),
+      isMatured: Value(isMatured),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+      version: Value(version),
+    );
+  }
+
+  factory Mp2Account.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Mp2Account(
+      id: serializer.fromJson<String>(json['id']),
+      accountId: serializer.fromJson<String>(json['accountId']),
+      label: serializer.fromJson<String>(json['label']),
+      dividendRate: serializer.fromJson<double>(json['dividendRate']),
+      startDate: serializer.fromJson<int>(json['startDate']),
+      maturityDate: serializer.fromJson<int>(json['maturityDate']),
+      isMatured: serializer.fromJson<bool>(json['isMatured']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deletedAt: serializer.fromJson<int?>(json['deletedAt']),
+      version: serializer.fromJson<int>(json['version']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'accountId': serializer.toJson<String>(accountId),
+      'label': serializer.toJson<String>(label),
+      'dividendRate': serializer.toJson<double>(dividendRate),
+      'startDate': serializer.toJson<int>(startDate),
+      'maturityDate': serializer.toJson<int>(maturityDate),
+      'isMatured': serializer.toJson<bool>(isMatured),
+      'createdAt': serializer.toJson<int>(createdAt),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deletedAt': serializer.toJson<int?>(deletedAt),
+      'version': serializer.toJson<int>(version),
+    };
+  }
+
+  Mp2Account copyWith({
+    String? id,
+    String? accountId,
+    String? label,
+    double? dividendRate,
+    int? startDate,
+    int? maturityDate,
+    bool? isMatured,
+    int? createdAt,
+    int? updatedAt,
+    Value<int?> deletedAt = const Value.absent(),
+    int? version,
+  }) => Mp2Account(
+    id: id ?? this.id,
+    accountId: accountId ?? this.accountId,
+    label: label ?? this.label,
+    dividendRate: dividendRate ?? this.dividendRate,
+    startDate: startDate ?? this.startDate,
+    maturityDate: maturityDate ?? this.maturityDate,
+    isMatured: isMatured ?? this.isMatured,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+    version: version ?? this.version,
+  );
+  Mp2Account copyWithCompanion(Mp2AccountsCompanion data) {
+    return Mp2Account(
+      id: data.id.present ? data.id.value : this.id,
+      accountId: data.accountId.present ? data.accountId.value : this.accountId,
+      label: data.label.present ? data.label.value : this.label,
+      dividendRate: data.dividendRate.present
+          ? data.dividendRate.value
+          : this.dividendRate,
+      startDate: data.startDate.present ? data.startDate.value : this.startDate,
+      maturityDate: data.maturityDate.present
+          ? data.maturityDate.value
+          : this.maturityDate,
+      isMatured: data.isMatured.present ? data.isMatured.value : this.isMatured,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+      version: data.version.present ? data.version.value : this.version,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Mp2Account(')
+          ..write('id: $id, ')
+          ..write('accountId: $accountId, ')
+          ..write('label: $label, ')
+          ..write('dividendRate: $dividendRate, ')
+          ..write('startDate: $startDate, ')
+          ..write('maturityDate: $maturityDate, ')
+          ..write('isMatured: $isMatured, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    accountId,
+    label,
+    dividendRate,
+    startDate,
+    maturityDate,
+    isMatured,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Mp2Account &&
+          other.id == this.id &&
+          other.accountId == this.accountId &&
+          other.label == this.label &&
+          other.dividendRate == this.dividendRate &&
+          other.startDate == this.startDate &&
+          other.maturityDate == this.maturityDate &&
+          other.isMatured == this.isMatured &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt &&
+          other.version == this.version);
+}
+
+class Mp2AccountsCompanion extends UpdateCompanion<Mp2Account> {
+  final Value<String> id;
+  final Value<String> accountId;
+  final Value<String> label;
+  final Value<double> dividendRate;
+  final Value<int> startDate;
+  final Value<int> maturityDate;
+  final Value<bool> isMatured;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
+  final Value<int?> deletedAt;
+  final Value<int> version;
+  final Value<int> rowid;
+  const Mp2AccountsCompanion({
+    this.id = const Value.absent(),
+    this.accountId = const Value.absent(),
+    this.label = const Value.absent(),
+    this.dividendRate = const Value.absent(),
+    this.startDate = const Value.absent(),
+    this.maturityDate = const Value.absent(),
+    this.isMatured = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  Mp2AccountsCompanion.insert({
+    required String id,
+    required String accountId,
+    required String label,
+    required double dividendRate,
+    required int startDate,
+    required int maturityDate,
+    this.isMatured = const Value.absent(),
+    required int createdAt,
+    required int updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       accountId = Value(accountId),
+       label = Value(label),
+       dividendRate = Value(dividendRate),
+       startDate = Value(startDate),
+       maturityDate = Value(maturityDate),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<Mp2Account> custom({
+    Expression<String>? id,
+    Expression<String>? accountId,
+    Expression<String>? label,
+    Expression<double>? dividendRate,
+    Expression<int>? startDate,
+    Expression<int>? maturityDate,
+    Expression<bool>? isMatured,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? deletedAt,
+    Expression<int>? version,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (accountId != null) 'account_id': accountId,
+      if (label != null) 'label': label,
+      if (dividendRate != null) 'dividend_rate': dividendRate,
+      if (startDate != null) 'start_date': startDate,
+      if (maturityDate != null) 'maturity_date': maturityDate,
+      if (isMatured != null) 'is_matured': isMatured,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (version != null) 'version': version,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  Mp2AccountsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? accountId,
+    Value<String>? label,
+    Value<double>? dividendRate,
+    Value<int>? startDate,
+    Value<int>? maturityDate,
+    Value<bool>? isMatured,
+    Value<int>? createdAt,
+    Value<int>? updatedAt,
+    Value<int?>? deletedAt,
+    Value<int>? version,
+    Value<int>? rowid,
+  }) {
+    return Mp2AccountsCompanion(
+      id: id ?? this.id,
+      accountId: accountId ?? this.accountId,
+      label: label ?? this.label,
+      dividendRate: dividendRate ?? this.dividendRate,
+      startDate: startDate ?? this.startDate,
+      maturityDate: maturityDate ?? this.maturityDate,
+      isMatured: isMatured ?? this.isMatured,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      version: version ?? this.version,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (accountId.present) {
+      map['account_id'] = Variable<String>(accountId.value);
+    }
+    if (label.present) {
+      map['label'] = Variable<String>(label.value);
+    }
+    if (dividendRate.present) {
+      map['dividend_rate'] = Variable<double>(dividendRate.value);
+    }
+    if (startDate.present) {
+      map['start_date'] = Variable<int>(startDate.value);
+    }
+    if (maturityDate.present) {
+      map['maturity_date'] = Variable<int>(maturityDate.value);
+    }
+    if (isMatured.present) {
+      map['is_matured'] = Variable<bool>(isMatured.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(deletedAt.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Mp2AccountsCompanion(')
+          ..write('id: $id, ')
+          ..write('accountId: $accountId, ')
+          ..write('label: $label, ')
+          ..write('dividendRate: $dividendRate, ')
+          ..write('startDate: $startDate, ')
+          ..write('maturityDate: $maturityDate, ')
+          ..write('isMatured: $isMatured, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $Mp2ContributionsTable extends Mp2Contributions
+    with TableInfo<$Mp2ContributionsTable, Mp2Contribution> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $Mp2ContributionsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _mp2AccountIdMeta = const VerificationMeta(
+    'mp2AccountId',
+  );
+  @override
+  late final GeneratedColumn<String> mp2AccountId = GeneratedColumn<String>(
+    'mp2_account_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES mp2_accounts (id)',
+    ),
+  );
+  static const VerificationMeta _transactionIdMeta = const VerificationMeta(
+    'transactionId',
+  );
+  @override
+  late final GeneratedColumn<String> transactionId = GeneratedColumn<String>(
+    'transaction_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES transactions (id)',
+    ),
+  );
+  static const VerificationMeta _amountCentsMeta = const VerificationMeta(
+    'amountCents',
+  );
+  @override
+  late final GeneratedColumn<int> amountCents = GeneratedColumn<int>(
+    'amount_cents',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _contributedOnMeta = const VerificationMeta(
+    'contributedOn',
+  );
+  @override
+  late final GeneratedColumn<int> contributedOn = GeneratedColumn<int>(
+    'contributed_on',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _noteMeta = const VerificationMeta('note');
+  @override
+  late final GeneratedColumn<String> note = GeneratedColumn<String>(
+    'note',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    mp2AccountId,
+    transactionId,
+    amountCents,
+    contributedOn,
+    note,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'mp2_contributions';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<Mp2Contribution> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('mp2_account_id')) {
+      context.handle(
+        _mp2AccountIdMeta,
+        mp2AccountId.isAcceptableOrUnknown(
+          data['mp2_account_id']!,
+          _mp2AccountIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_mp2AccountIdMeta);
+    }
+    if (data.containsKey('transaction_id')) {
+      context.handle(
+        _transactionIdMeta,
+        transactionId.isAcceptableOrUnknown(
+          data['transaction_id']!,
+          _transactionIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_transactionIdMeta);
+    }
+    if (data.containsKey('amount_cents')) {
+      context.handle(
+        _amountCentsMeta,
+        amountCents.isAcceptableOrUnknown(
+          data['amount_cents']!,
+          _amountCentsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_amountCentsMeta);
+    }
+    if (data.containsKey('contributed_on')) {
+      context.handle(
+        _contributedOnMeta,
+        contributedOn.isAcceptableOrUnknown(
+          data['contributed_on']!,
+          _contributedOnMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_contributedOnMeta);
+    }
+    if (data.containsKey('note')) {
+      context.handle(
+        _noteMeta,
+        note.isAcceptableOrUnknown(data['note']!, _noteMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Mp2Contribution map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Mp2Contribution(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      mp2AccountId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}mp2_account_id'],
+      )!,
+      transactionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}transaction_id'],
+      )!,
+      amountCents: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}amount_cents'],
+      )!,
+      contributedOn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}contributed_on'],
+      )!,
+      note: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}note'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $Mp2ContributionsTable createAlias(String alias) {
+    return $Mp2ContributionsTable(attachedDatabase, alias);
+  }
+}
+
+class Mp2Contribution extends DataClass implements Insertable<Mp2Contribution> {
+  final String id;
+  final String mp2AccountId;
+  final String transactionId;
+  final int amountCents;
+  final int contributedOn;
+  final String? note;
+  final int createdAt;
+  const Mp2Contribution({
+    required this.id,
+    required this.mp2AccountId,
+    required this.transactionId,
+    required this.amountCents,
+    required this.contributedOn,
+    this.note,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['mp2_account_id'] = Variable<String>(mp2AccountId);
+    map['transaction_id'] = Variable<String>(transactionId);
+    map['amount_cents'] = Variable<int>(amountCents);
+    map['contributed_on'] = Variable<int>(contributedOn);
+    if (!nullToAbsent || note != null) {
+      map['note'] = Variable<String>(note);
+    }
+    map['created_at'] = Variable<int>(createdAt);
+    return map;
+  }
+
+  Mp2ContributionsCompanion toCompanion(bool nullToAbsent) {
+    return Mp2ContributionsCompanion(
+      id: Value(id),
+      mp2AccountId: Value(mp2AccountId),
+      transactionId: Value(transactionId),
+      amountCents: Value(amountCents),
+      contributedOn: Value(contributedOn),
+      note: note == null && nullToAbsent ? const Value.absent() : Value(note),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory Mp2Contribution.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Mp2Contribution(
+      id: serializer.fromJson<String>(json['id']),
+      mp2AccountId: serializer.fromJson<String>(json['mp2AccountId']),
+      transactionId: serializer.fromJson<String>(json['transactionId']),
+      amountCents: serializer.fromJson<int>(json['amountCents']),
+      contributedOn: serializer.fromJson<int>(json['contributedOn']),
+      note: serializer.fromJson<String?>(json['note']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'mp2AccountId': serializer.toJson<String>(mp2AccountId),
+      'transactionId': serializer.toJson<String>(transactionId),
+      'amountCents': serializer.toJson<int>(amountCents),
+      'contributedOn': serializer.toJson<int>(contributedOn),
+      'note': serializer.toJson<String?>(note),
+      'createdAt': serializer.toJson<int>(createdAt),
+    };
+  }
+
+  Mp2Contribution copyWith({
+    String? id,
+    String? mp2AccountId,
+    String? transactionId,
+    int? amountCents,
+    int? contributedOn,
+    Value<String?> note = const Value.absent(),
+    int? createdAt,
+  }) => Mp2Contribution(
+    id: id ?? this.id,
+    mp2AccountId: mp2AccountId ?? this.mp2AccountId,
+    transactionId: transactionId ?? this.transactionId,
+    amountCents: amountCents ?? this.amountCents,
+    contributedOn: contributedOn ?? this.contributedOn,
+    note: note.present ? note.value : this.note,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  Mp2Contribution copyWithCompanion(Mp2ContributionsCompanion data) {
+    return Mp2Contribution(
+      id: data.id.present ? data.id.value : this.id,
+      mp2AccountId: data.mp2AccountId.present
+          ? data.mp2AccountId.value
+          : this.mp2AccountId,
+      transactionId: data.transactionId.present
+          ? data.transactionId.value
+          : this.transactionId,
+      amountCents: data.amountCents.present
+          ? data.amountCents.value
+          : this.amountCents,
+      contributedOn: data.contributedOn.present
+          ? data.contributedOn.value
+          : this.contributedOn,
+      note: data.note.present ? data.note.value : this.note,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Mp2Contribution(')
+          ..write('id: $id, ')
+          ..write('mp2AccountId: $mp2AccountId, ')
+          ..write('transactionId: $transactionId, ')
+          ..write('amountCents: $amountCents, ')
+          ..write('contributedOn: $contributedOn, ')
+          ..write('note: $note, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    mp2AccountId,
+    transactionId,
+    amountCents,
+    contributedOn,
+    note,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Mp2Contribution &&
+          other.id == this.id &&
+          other.mp2AccountId == this.mp2AccountId &&
+          other.transactionId == this.transactionId &&
+          other.amountCents == this.amountCents &&
+          other.contributedOn == this.contributedOn &&
+          other.note == this.note &&
+          other.createdAt == this.createdAt);
+}
+
+class Mp2ContributionsCompanion extends UpdateCompanion<Mp2Contribution> {
+  final Value<String> id;
+  final Value<String> mp2AccountId;
+  final Value<String> transactionId;
+  final Value<int> amountCents;
+  final Value<int> contributedOn;
+  final Value<String?> note;
+  final Value<int> createdAt;
+  final Value<int> rowid;
+  const Mp2ContributionsCompanion({
+    this.id = const Value.absent(),
+    this.mp2AccountId = const Value.absent(),
+    this.transactionId = const Value.absent(),
+    this.amountCents = const Value.absent(),
+    this.contributedOn = const Value.absent(),
+    this.note = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  Mp2ContributionsCompanion.insert({
+    required String id,
+    required String mp2AccountId,
+    required String transactionId,
+    required int amountCents,
+    required int contributedOn,
+    this.note = const Value.absent(),
+    required int createdAt,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       mp2AccountId = Value(mp2AccountId),
+       transactionId = Value(transactionId),
+       amountCents = Value(amountCents),
+       contributedOn = Value(contributedOn),
+       createdAt = Value(createdAt);
+  static Insertable<Mp2Contribution> custom({
+    Expression<String>? id,
+    Expression<String>? mp2AccountId,
+    Expression<String>? transactionId,
+    Expression<int>? amountCents,
+    Expression<int>? contributedOn,
+    Expression<String>? note,
+    Expression<int>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (mp2AccountId != null) 'mp2_account_id': mp2AccountId,
+      if (transactionId != null) 'transaction_id': transactionId,
+      if (amountCents != null) 'amount_cents': amountCents,
+      if (contributedOn != null) 'contributed_on': contributedOn,
+      if (note != null) 'note': note,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  Mp2ContributionsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? mp2AccountId,
+    Value<String>? transactionId,
+    Value<int>? amountCents,
+    Value<int>? contributedOn,
+    Value<String?>? note,
+    Value<int>? createdAt,
+    Value<int>? rowid,
+  }) {
+    return Mp2ContributionsCompanion(
+      id: id ?? this.id,
+      mp2AccountId: mp2AccountId ?? this.mp2AccountId,
+      transactionId: transactionId ?? this.transactionId,
+      amountCents: amountCents ?? this.amountCents,
+      contributedOn: contributedOn ?? this.contributedOn,
+      note: note ?? this.note,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (mp2AccountId.present) {
+      map['mp2_account_id'] = Variable<String>(mp2AccountId.value);
+    }
+    if (transactionId.present) {
+      map['transaction_id'] = Variable<String>(transactionId.value);
+    }
+    if (amountCents.present) {
+      map['amount_cents'] = Variable<int>(amountCents.value);
+    }
+    if (contributedOn.present) {
+      map['contributed_on'] = Variable<int>(contributedOn.value);
+    }
+    if (note.present) {
+      map['note'] = Variable<String>(note.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Mp2ContributionsCompanion(')
+          ..write('id: $id, ')
+          ..write('mp2AccountId: $mp2AccountId, ')
+          ..write('transactionId: $transactionId, ')
+          ..write('amountCents: $amountCents, ')
+          ..write('contributedOn: $contributedOn, ')
+          ..write('note: $note, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $Mp2WithdrawalsTable extends Mp2Withdrawals
+    with TableInfo<$Mp2WithdrawalsTable, Mp2Withdrawal> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $Mp2WithdrawalsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _mp2AccountIdMeta = const VerificationMeta(
+    'mp2AccountId',
+  );
+  @override
+  late final GeneratedColumn<String> mp2AccountId = GeneratedColumn<String>(
+    'mp2_account_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES mp2_accounts (id)',
+    ),
+  );
+  static const VerificationMeta _transactionIdMeta = const VerificationMeta(
+    'transactionId',
+  );
+  @override
+  late final GeneratedColumn<String> transactionId = GeneratedColumn<String>(
+    'transaction_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES transactions (id)',
+    ),
+  );
+  static const VerificationMeta _amountCentsMeta = const VerificationMeta(
+    'amountCents',
+  );
+  @override
+  late final GeneratedColumn<int> amountCents = GeneratedColumn<int>(
+    'amount_cents',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _withdrawnOnMeta = const VerificationMeta(
+    'withdrawnOn',
+  );
+  @override
+  late final GeneratedColumn<int> withdrawnOn = GeneratedColumn<int>(
+    'withdrawn_on',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _noteMeta = const VerificationMeta('note');
+  @override
+  late final GeneratedColumn<String> note = GeneratedColumn<String>(
+    'note',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    mp2AccountId,
+    transactionId,
+    amountCents,
+    withdrawnOn,
+    note,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'mp2_withdrawals';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<Mp2Withdrawal> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('mp2_account_id')) {
+      context.handle(
+        _mp2AccountIdMeta,
+        mp2AccountId.isAcceptableOrUnknown(
+          data['mp2_account_id']!,
+          _mp2AccountIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_mp2AccountIdMeta);
+    }
+    if (data.containsKey('transaction_id')) {
+      context.handle(
+        _transactionIdMeta,
+        transactionId.isAcceptableOrUnknown(
+          data['transaction_id']!,
+          _transactionIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_transactionIdMeta);
+    }
+    if (data.containsKey('amount_cents')) {
+      context.handle(
+        _amountCentsMeta,
+        amountCents.isAcceptableOrUnknown(
+          data['amount_cents']!,
+          _amountCentsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_amountCentsMeta);
+    }
+    if (data.containsKey('withdrawn_on')) {
+      context.handle(
+        _withdrawnOnMeta,
+        withdrawnOn.isAcceptableOrUnknown(
+          data['withdrawn_on']!,
+          _withdrawnOnMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_withdrawnOnMeta);
+    }
+    if (data.containsKey('note')) {
+      context.handle(
+        _noteMeta,
+        note.isAcceptableOrUnknown(data['note']!, _noteMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Mp2Withdrawal map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Mp2Withdrawal(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      mp2AccountId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}mp2_account_id'],
+      )!,
+      transactionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}transaction_id'],
+      )!,
+      amountCents: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}amount_cents'],
+      )!,
+      withdrawnOn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}withdrawn_on'],
+      )!,
+      note: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}note'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $Mp2WithdrawalsTable createAlias(String alias) {
+    return $Mp2WithdrawalsTable(attachedDatabase, alias);
+  }
+}
+
+class Mp2Withdrawal extends DataClass implements Insertable<Mp2Withdrawal> {
+  final String id;
+  final String mp2AccountId;
+  final String transactionId;
+  final int amountCents;
+  final int withdrawnOn;
+  final String? note;
+  final int createdAt;
+  const Mp2Withdrawal({
+    required this.id,
+    required this.mp2AccountId,
+    required this.transactionId,
+    required this.amountCents,
+    required this.withdrawnOn,
+    this.note,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['mp2_account_id'] = Variable<String>(mp2AccountId);
+    map['transaction_id'] = Variable<String>(transactionId);
+    map['amount_cents'] = Variable<int>(amountCents);
+    map['withdrawn_on'] = Variable<int>(withdrawnOn);
+    if (!nullToAbsent || note != null) {
+      map['note'] = Variable<String>(note);
+    }
+    map['created_at'] = Variable<int>(createdAt);
+    return map;
+  }
+
+  Mp2WithdrawalsCompanion toCompanion(bool nullToAbsent) {
+    return Mp2WithdrawalsCompanion(
+      id: Value(id),
+      mp2AccountId: Value(mp2AccountId),
+      transactionId: Value(transactionId),
+      amountCents: Value(amountCents),
+      withdrawnOn: Value(withdrawnOn),
+      note: note == null && nullToAbsent ? const Value.absent() : Value(note),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory Mp2Withdrawal.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Mp2Withdrawal(
+      id: serializer.fromJson<String>(json['id']),
+      mp2AccountId: serializer.fromJson<String>(json['mp2AccountId']),
+      transactionId: serializer.fromJson<String>(json['transactionId']),
+      amountCents: serializer.fromJson<int>(json['amountCents']),
+      withdrawnOn: serializer.fromJson<int>(json['withdrawnOn']),
+      note: serializer.fromJson<String?>(json['note']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'mp2AccountId': serializer.toJson<String>(mp2AccountId),
+      'transactionId': serializer.toJson<String>(transactionId),
+      'amountCents': serializer.toJson<int>(amountCents),
+      'withdrawnOn': serializer.toJson<int>(withdrawnOn),
+      'note': serializer.toJson<String?>(note),
+      'createdAt': serializer.toJson<int>(createdAt),
+    };
+  }
+
+  Mp2Withdrawal copyWith({
+    String? id,
+    String? mp2AccountId,
+    String? transactionId,
+    int? amountCents,
+    int? withdrawnOn,
+    Value<String?> note = const Value.absent(),
+    int? createdAt,
+  }) => Mp2Withdrawal(
+    id: id ?? this.id,
+    mp2AccountId: mp2AccountId ?? this.mp2AccountId,
+    transactionId: transactionId ?? this.transactionId,
+    amountCents: amountCents ?? this.amountCents,
+    withdrawnOn: withdrawnOn ?? this.withdrawnOn,
+    note: note.present ? note.value : this.note,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  Mp2Withdrawal copyWithCompanion(Mp2WithdrawalsCompanion data) {
+    return Mp2Withdrawal(
+      id: data.id.present ? data.id.value : this.id,
+      mp2AccountId: data.mp2AccountId.present
+          ? data.mp2AccountId.value
+          : this.mp2AccountId,
+      transactionId: data.transactionId.present
+          ? data.transactionId.value
+          : this.transactionId,
+      amountCents: data.amountCents.present
+          ? data.amountCents.value
+          : this.amountCents,
+      withdrawnOn: data.withdrawnOn.present
+          ? data.withdrawnOn.value
+          : this.withdrawnOn,
+      note: data.note.present ? data.note.value : this.note,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Mp2Withdrawal(')
+          ..write('id: $id, ')
+          ..write('mp2AccountId: $mp2AccountId, ')
+          ..write('transactionId: $transactionId, ')
+          ..write('amountCents: $amountCents, ')
+          ..write('withdrawnOn: $withdrawnOn, ')
+          ..write('note: $note, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    mp2AccountId,
+    transactionId,
+    amountCents,
+    withdrawnOn,
+    note,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Mp2Withdrawal &&
+          other.id == this.id &&
+          other.mp2AccountId == this.mp2AccountId &&
+          other.transactionId == this.transactionId &&
+          other.amountCents == this.amountCents &&
+          other.withdrawnOn == this.withdrawnOn &&
+          other.note == this.note &&
+          other.createdAt == this.createdAt);
+}
+
+class Mp2WithdrawalsCompanion extends UpdateCompanion<Mp2Withdrawal> {
+  final Value<String> id;
+  final Value<String> mp2AccountId;
+  final Value<String> transactionId;
+  final Value<int> amountCents;
+  final Value<int> withdrawnOn;
+  final Value<String?> note;
+  final Value<int> createdAt;
+  final Value<int> rowid;
+  const Mp2WithdrawalsCompanion({
+    this.id = const Value.absent(),
+    this.mp2AccountId = const Value.absent(),
+    this.transactionId = const Value.absent(),
+    this.amountCents = const Value.absent(),
+    this.withdrawnOn = const Value.absent(),
+    this.note = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  Mp2WithdrawalsCompanion.insert({
+    required String id,
+    required String mp2AccountId,
+    required String transactionId,
+    required int amountCents,
+    required int withdrawnOn,
+    this.note = const Value.absent(),
+    required int createdAt,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       mp2AccountId = Value(mp2AccountId),
+       transactionId = Value(transactionId),
+       amountCents = Value(amountCents),
+       withdrawnOn = Value(withdrawnOn),
+       createdAt = Value(createdAt);
+  static Insertable<Mp2Withdrawal> custom({
+    Expression<String>? id,
+    Expression<String>? mp2AccountId,
+    Expression<String>? transactionId,
+    Expression<int>? amountCents,
+    Expression<int>? withdrawnOn,
+    Expression<String>? note,
+    Expression<int>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (mp2AccountId != null) 'mp2_account_id': mp2AccountId,
+      if (transactionId != null) 'transaction_id': transactionId,
+      if (amountCents != null) 'amount_cents': amountCents,
+      if (withdrawnOn != null) 'withdrawn_on': withdrawnOn,
+      if (note != null) 'note': note,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  Mp2WithdrawalsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? mp2AccountId,
+    Value<String>? transactionId,
+    Value<int>? amountCents,
+    Value<int>? withdrawnOn,
+    Value<String?>? note,
+    Value<int>? createdAt,
+    Value<int>? rowid,
+  }) {
+    return Mp2WithdrawalsCompanion(
+      id: id ?? this.id,
+      mp2AccountId: mp2AccountId ?? this.mp2AccountId,
+      transactionId: transactionId ?? this.transactionId,
+      amountCents: amountCents ?? this.amountCents,
+      withdrawnOn: withdrawnOn ?? this.withdrawnOn,
+      note: note ?? this.note,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (mp2AccountId.present) {
+      map['mp2_account_id'] = Variable<String>(mp2AccountId.value);
+    }
+    if (transactionId.present) {
+      map['transaction_id'] = Variable<String>(transactionId.value);
+    }
+    if (amountCents.present) {
+      map['amount_cents'] = Variable<int>(amountCents.value);
+    }
+    if (withdrawnOn.present) {
+      map['withdrawn_on'] = Variable<int>(withdrawnOn.value);
+    }
+    if (note.present) {
+      map['note'] = Variable<String>(note.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Mp2WithdrawalsCompanion(')
+          ..write('id: $id, ')
+          ..write('mp2AccountId: $mp2AccountId, ')
+          ..write('transactionId: $transactionId, ')
+          ..write('amountCents: $amountCents, ')
+          ..write('withdrawnOn: $withdrawnOn, ')
+          ..write('note: $note, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $Mp2DividendsTable extends Mp2Dividends
+    with TableInfo<$Mp2DividendsTable, Mp2Dividend> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $Mp2DividendsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _mp2AccountIdMeta = const VerificationMeta(
+    'mp2AccountId',
+  );
+  @override
+  late final GeneratedColumn<String> mp2AccountId = GeneratedColumn<String>(
+    'mp2_account_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES mp2_accounts (id)',
+    ),
+  );
+  static const VerificationMeta _transactionIdMeta = const VerificationMeta(
+    'transactionId',
+  );
+  @override
+  late final GeneratedColumn<String> transactionId = GeneratedColumn<String>(
+    'transaction_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES transactions (id)',
+    ),
+  );
+  static const VerificationMeta _yearMeta = const VerificationMeta('year');
+  @override
+  late final GeneratedColumn<int> year = GeneratedColumn<int>(
+    'year',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _amountCentsMeta = const VerificationMeta(
+    'amountCents',
+  );
+  @override
+  late final GeneratedColumn<int> amountCents = GeneratedColumn<int>(
+    'amount_cents',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _paidOnMeta = const VerificationMeta('paidOn');
+  @override
+  late final GeneratedColumn<int> paidOn = GeneratedColumn<int>(
+    'paid_on',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    mp2AccountId,
+    transactionId,
+    year,
+    amountCents,
+    paidOn,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'mp2_dividends';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<Mp2Dividend> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('mp2_account_id')) {
+      context.handle(
+        _mp2AccountIdMeta,
+        mp2AccountId.isAcceptableOrUnknown(
+          data['mp2_account_id']!,
+          _mp2AccountIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_mp2AccountIdMeta);
+    }
+    if (data.containsKey('transaction_id')) {
+      context.handle(
+        _transactionIdMeta,
+        transactionId.isAcceptableOrUnknown(
+          data['transaction_id']!,
+          _transactionIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('year')) {
+      context.handle(
+        _yearMeta,
+        year.isAcceptableOrUnknown(data['year']!, _yearMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_yearMeta);
+    }
+    if (data.containsKey('amount_cents')) {
+      context.handle(
+        _amountCentsMeta,
+        amountCents.isAcceptableOrUnknown(
+          data['amount_cents']!,
+          _amountCentsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_amountCentsMeta);
+    }
+    if (data.containsKey('paid_on')) {
+      context.handle(
+        _paidOnMeta,
+        paidOn.isAcceptableOrUnknown(data['paid_on']!, _paidOnMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_paidOnMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Mp2Dividend map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Mp2Dividend(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      mp2AccountId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}mp2_account_id'],
+      )!,
+      transactionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}transaction_id'],
+      ),
+      year: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}year'],
+      )!,
+      amountCents: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}amount_cents'],
+      )!,
+      paidOn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}paid_on'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $Mp2DividendsTable createAlias(String alias) {
+    return $Mp2DividendsTable(attachedDatabase, alias);
+  }
+}
+
+class Mp2Dividend extends DataClass implements Insertable<Mp2Dividend> {
+  final String id;
+  final String mp2AccountId;
+  final String? transactionId;
+  final int year;
+  final int amountCents;
+
+  /// The anniversary date the dividend was credited on.
+  final int paidOn;
+  final int createdAt;
+  const Mp2Dividend({
+    required this.id,
+    required this.mp2AccountId,
+    this.transactionId,
+    required this.year,
+    required this.amountCents,
+    required this.paidOn,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['mp2_account_id'] = Variable<String>(mp2AccountId);
+    if (!nullToAbsent || transactionId != null) {
+      map['transaction_id'] = Variable<String>(transactionId);
+    }
+    map['year'] = Variable<int>(year);
+    map['amount_cents'] = Variable<int>(amountCents);
+    map['paid_on'] = Variable<int>(paidOn);
+    map['created_at'] = Variable<int>(createdAt);
+    return map;
+  }
+
+  Mp2DividendsCompanion toCompanion(bool nullToAbsent) {
+    return Mp2DividendsCompanion(
+      id: Value(id),
+      mp2AccountId: Value(mp2AccountId),
+      transactionId: transactionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(transactionId),
+      year: Value(year),
+      amountCents: Value(amountCents),
+      paidOn: Value(paidOn),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory Mp2Dividend.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Mp2Dividend(
+      id: serializer.fromJson<String>(json['id']),
+      mp2AccountId: serializer.fromJson<String>(json['mp2AccountId']),
+      transactionId: serializer.fromJson<String?>(json['transactionId']),
+      year: serializer.fromJson<int>(json['year']),
+      amountCents: serializer.fromJson<int>(json['amountCents']),
+      paidOn: serializer.fromJson<int>(json['paidOn']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'mp2AccountId': serializer.toJson<String>(mp2AccountId),
+      'transactionId': serializer.toJson<String?>(transactionId),
+      'year': serializer.toJson<int>(year),
+      'amountCents': serializer.toJson<int>(amountCents),
+      'paidOn': serializer.toJson<int>(paidOn),
+      'createdAt': serializer.toJson<int>(createdAt),
+    };
+  }
+
+  Mp2Dividend copyWith({
+    String? id,
+    String? mp2AccountId,
+    Value<String?> transactionId = const Value.absent(),
+    int? year,
+    int? amountCents,
+    int? paidOn,
+    int? createdAt,
+  }) => Mp2Dividend(
+    id: id ?? this.id,
+    mp2AccountId: mp2AccountId ?? this.mp2AccountId,
+    transactionId: transactionId.present
+        ? transactionId.value
+        : this.transactionId,
+    year: year ?? this.year,
+    amountCents: amountCents ?? this.amountCents,
+    paidOn: paidOn ?? this.paidOn,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  Mp2Dividend copyWithCompanion(Mp2DividendsCompanion data) {
+    return Mp2Dividend(
+      id: data.id.present ? data.id.value : this.id,
+      mp2AccountId: data.mp2AccountId.present
+          ? data.mp2AccountId.value
+          : this.mp2AccountId,
+      transactionId: data.transactionId.present
+          ? data.transactionId.value
+          : this.transactionId,
+      year: data.year.present ? data.year.value : this.year,
+      amountCents: data.amountCents.present
+          ? data.amountCents.value
+          : this.amountCents,
+      paidOn: data.paidOn.present ? data.paidOn.value : this.paidOn,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Mp2Dividend(')
+          ..write('id: $id, ')
+          ..write('mp2AccountId: $mp2AccountId, ')
+          ..write('transactionId: $transactionId, ')
+          ..write('year: $year, ')
+          ..write('amountCents: $amountCents, ')
+          ..write('paidOn: $paidOn, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    mp2AccountId,
+    transactionId,
+    year,
+    amountCents,
+    paidOn,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Mp2Dividend &&
+          other.id == this.id &&
+          other.mp2AccountId == this.mp2AccountId &&
+          other.transactionId == this.transactionId &&
+          other.year == this.year &&
+          other.amountCents == this.amountCents &&
+          other.paidOn == this.paidOn &&
+          other.createdAt == this.createdAt);
+}
+
+class Mp2DividendsCompanion extends UpdateCompanion<Mp2Dividend> {
+  final Value<String> id;
+  final Value<String> mp2AccountId;
+  final Value<String?> transactionId;
+  final Value<int> year;
+  final Value<int> amountCents;
+  final Value<int> paidOn;
+  final Value<int> createdAt;
+  final Value<int> rowid;
+  const Mp2DividendsCompanion({
+    this.id = const Value.absent(),
+    this.mp2AccountId = const Value.absent(),
+    this.transactionId = const Value.absent(),
+    this.year = const Value.absent(),
+    this.amountCents = const Value.absent(),
+    this.paidOn = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  Mp2DividendsCompanion.insert({
+    required String id,
+    required String mp2AccountId,
+    this.transactionId = const Value.absent(),
+    required int year,
+    required int amountCents,
+    required int paidOn,
+    required int createdAt,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       mp2AccountId = Value(mp2AccountId),
+       year = Value(year),
+       amountCents = Value(amountCents),
+       paidOn = Value(paidOn),
+       createdAt = Value(createdAt);
+  static Insertable<Mp2Dividend> custom({
+    Expression<String>? id,
+    Expression<String>? mp2AccountId,
+    Expression<String>? transactionId,
+    Expression<int>? year,
+    Expression<int>? amountCents,
+    Expression<int>? paidOn,
+    Expression<int>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (mp2AccountId != null) 'mp2_account_id': mp2AccountId,
+      if (transactionId != null) 'transaction_id': transactionId,
+      if (year != null) 'year': year,
+      if (amountCents != null) 'amount_cents': amountCents,
+      if (paidOn != null) 'paid_on': paidOn,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  Mp2DividendsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? mp2AccountId,
+    Value<String?>? transactionId,
+    Value<int>? year,
+    Value<int>? amountCents,
+    Value<int>? paidOn,
+    Value<int>? createdAt,
+    Value<int>? rowid,
+  }) {
+    return Mp2DividendsCompanion(
+      id: id ?? this.id,
+      mp2AccountId: mp2AccountId ?? this.mp2AccountId,
+      transactionId: transactionId ?? this.transactionId,
+      year: year ?? this.year,
+      amountCents: amountCents ?? this.amountCents,
+      paidOn: paidOn ?? this.paidOn,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (mp2AccountId.present) {
+      map['mp2_account_id'] = Variable<String>(mp2AccountId.value);
+    }
+    if (transactionId.present) {
+      map['transaction_id'] = Variable<String>(transactionId.value);
+    }
+    if (year.present) {
+      map['year'] = Variable<int>(year.value);
+    }
+    if (amountCents.present) {
+      map['amount_cents'] = Variable<int>(amountCents.value);
+    }
+    if (paidOn.present) {
+      map['paid_on'] = Variable<int>(paidOn.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Mp2DividendsCompanion(')
+          ..write('id: $id, ')
+          ..write('mp2AccountId: $mp2AccountId, ')
+          ..write('transactionId: $transactionId, ')
+          ..write('year: $year, ')
+          ..write('amountCents: $amountCents, ')
+          ..write('paidOn: $paidOn, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -9306,6 +11439,12 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $InterestSchedulesTable interestSchedules =
       $InterestSchedulesTable(this);
   late final $TimeDepositsTable timeDeposits = $TimeDepositsTable(this);
+  late final $Mp2AccountsTable mp2Accounts = $Mp2AccountsTable(this);
+  late final $Mp2ContributionsTable mp2Contributions = $Mp2ContributionsTable(
+    this,
+  );
+  late final $Mp2WithdrawalsTable mp2Withdrawals = $Mp2WithdrawalsTable(this);
+  late final $Mp2DividendsTable mp2Dividends = $Mp2DividendsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -9328,6 +11467,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     savingsAccounts,
     interestSchedules,
     timeDeposits,
+    mp2Accounts,
+    mp2Contributions,
+    mp2Withdrawals,
+    mp2Dividends,
   ];
 }
 
@@ -9454,6 +11597,24 @@ final class $$AccountsTableReferences
     ).filter((f) => f.accountId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_timeDepositsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$Mp2AccountsTable, List<Mp2Account>>
+  _mp2AccountsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.mp2Accounts,
+    aliasName: 'accounts__id__mp2_accounts__account_id',
+  );
+
+  $$Mp2AccountsTableProcessedTableManager get mp2AccountsRefs {
+    final manager = $$Mp2AccountsTableTableManager(
+      $_db,
+      $_db.mp2Accounts,
+    ).filter((f) => f.accountId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_mp2AccountsRefsTable($_db));
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -9640,6 +11801,31 @@ class $$AccountsTableFilterComposer
           }) => $$TimeDepositsTableFilterComposer(
             $db: $db,
             $table: $db.timeDeposits,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> mp2AccountsRefs(
+    Expression<bool> Function($$Mp2AccountsTableFilterComposer f) f,
+  ) {
+    final $$Mp2AccountsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mp2Accounts,
+      getReferencedColumn: (t) => t.accountId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2AccountsTableFilterComposer(
+            $db: $db,
+            $table: $db.mp2Accounts,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -9885,6 +12071,31 @@ class $$AccountsTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> mp2AccountsRefs<T extends Object>(
+    Expression<T> Function($$Mp2AccountsTableAnnotationComposer a) f,
+  ) {
+    final $$Mp2AccountsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mp2Accounts,
+      getReferencedColumn: (t) => t.accountId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2AccountsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.mp2Accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$AccountsTableTableManager
@@ -9906,6 +12117,7 @@ class $$AccountsTableTableManager
             bool goalsRefs,
             bool savingsAccountsRefs,
             bool timeDepositsRefs,
+            bool mp2AccountsRefs,
           })
         > {
   $$AccountsTableTableManager(_$AppDatabase db, $AccountsTable table)
@@ -9990,6 +12202,7 @@ class $$AccountsTableTableManager
                 goalsRefs = false,
                 savingsAccountsRefs = false,
                 timeDepositsRefs = false,
+                mp2AccountsRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -9999,6 +12212,7 @@ class $$AccountsTableTableManager
                     if (goalsRefs) db.goals,
                     if (savingsAccountsRefs) db.savingsAccounts,
                     if (timeDepositsRefs) db.timeDeposits,
+                    if (mp2AccountsRefs) db.mp2Accounts,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -10108,6 +12322,27 @@ class $$AccountsTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (mp2AccountsRefs)
+                        await $_getPrefetchedData<
+                          Account,
+                          $AccountsTable,
+                          Mp2Account
+                        >(
+                          currentTable: table,
+                          referencedTable: $$AccountsTableReferences
+                              ._mp2AccountsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$AccountsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).mp2AccountsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.accountId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -10134,6 +12369,7 @@ typedef $$AccountsTableProcessedTableManager =
         bool goalsRefs,
         bool savingsAccountsRefs,
         bool timeDepositsRefs,
+        bool mp2AccountsRefs,
       })
     >;
 typedef $$CategoriesTableCreateCompanionBuilder =
@@ -10885,6 +13121,62 @@ final class $$TransactionsTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$Mp2ContributionsTable, List<Mp2Contribution>>
+  _mp2ContributionsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.mp2Contributions,
+    aliasName: 'transactions__id__mp2_contributions__transaction_id',
+  );
+
+  $$Mp2ContributionsTableProcessedTableManager get mp2ContributionsRefs {
+    final manager = $$Mp2ContributionsTableTableManager(
+      $_db,
+      $_db.mp2Contributions,
+    ).filter((f) => f.transactionId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _mp2ContributionsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$Mp2WithdrawalsTable, List<Mp2Withdrawal>>
+  _mp2WithdrawalsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.mp2Withdrawals,
+    aliasName: 'transactions__id__mp2_withdrawals__transaction_id',
+  );
+
+  $$Mp2WithdrawalsTableProcessedTableManager get mp2WithdrawalsRefs {
+    final manager = $$Mp2WithdrawalsTableTableManager(
+      $_db,
+      $_db.mp2Withdrawals,
+    ).filter((f) => f.transactionId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_mp2WithdrawalsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$Mp2DividendsTable, List<Mp2Dividend>>
+  _mp2DividendsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.mp2Dividends,
+    aliasName: 'transactions__id__mp2_dividends__transaction_id',
+  );
+
+  $$Mp2DividendsTableProcessedTableManager get mp2DividendsRefs {
+    final manager = $$Mp2DividendsTableTableManager(
+      $_db,
+      $_db.mp2Dividends,
+    ).filter((f) => f.transactionId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_mp2DividendsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$TransactionsTableFilterComposer
@@ -11077,6 +13369,81 @@ class $$TransactionsTableFilterComposer
           }) => $$TimeDepositsTableFilterComposer(
             $db: $db,
             $table: $db.timeDeposits,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> mp2ContributionsRefs(
+    Expression<bool> Function($$Mp2ContributionsTableFilterComposer f) f,
+  ) {
+    final $$Mp2ContributionsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mp2Contributions,
+      getReferencedColumn: (t) => t.transactionId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2ContributionsTableFilterComposer(
+            $db: $db,
+            $table: $db.mp2Contributions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> mp2WithdrawalsRefs(
+    Expression<bool> Function($$Mp2WithdrawalsTableFilterComposer f) f,
+  ) {
+    final $$Mp2WithdrawalsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mp2Withdrawals,
+      getReferencedColumn: (t) => t.transactionId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2WithdrawalsTableFilterComposer(
+            $db: $db,
+            $table: $db.mp2Withdrawals,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> mp2DividendsRefs(
+    Expression<bool> Function($$Mp2DividendsTableFilterComposer f) f,
+  ) {
+    final $$Mp2DividendsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mp2Dividends,
+      getReferencedColumn: (t) => t.transactionId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2DividendsTableFilterComposer(
+            $db: $db,
+            $table: $db.mp2Dividends,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -11325,6 +13692,81 @@ class $$TransactionsTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> mp2ContributionsRefs<T extends Object>(
+    Expression<T> Function($$Mp2ContributionsTableAnnotationComposer a) f,
+  ) {
+    final $$Mp2ContributionsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mp2Contributions,
+      getReferencedColumn: (t) => t.transactionId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2ContributionsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.mp2Contributions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> mp2WithdrawalsRefs<T extends Object>(
+    Expression<T> Function($$Mp2WithdrawalsTableAnnotationComposer a) f,
+  ) {
+    final $$Mp2WithdrawalsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mp2Withdrawals,
+      getReferencedColumn: (t) => t.transactionId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2WithdrawalsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.mp2Withdrawals,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> mp2DividendsRefs<T extends Object>(
+    Expression<T> Function($$Mp2DividendsTableAnnotationComposer a) f,
+  ) {
+    final $$Mp2DividendsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mp2Dividends,
+      getReferencedColumn: (t) => t.transactionId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2DividendsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.mp2Dividends,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$TransactionsTableTableManager
@@ -11347,6 +13789,9 @@ class $$TransactionsTableTableManager
             bool goalContributionsRefs,
             bool interestSchedulesRefs,
             bool timeDepositsRefs,
+            bool mp2ContributionsRefs,
+            bool mp2WithdrawalsRefs,
+            bool mp2DividendsRefs,
           })
         > {
   $$TransactionsTableTableManager(_$AppDatabase db, $TransactionsTable table)
@@ -11420,6 +13865,9 @@ class $$TransactionsTableTableManager
                 goalContributionsRefs = false,
                 interestSchedulesRefs = false,
                 timeDepositsRefs = false,
+                mp2ContributionsRefs = false,
+                mp2WithdrawalsRefs = false,
+                mp2DividendsRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -11430,6 +13878,9 @@ class $$TransactionsTableTableManager
                     if (goalContributionsRefs) db.goalContributions,
                     if (interestSchedulesRefs) db.interestSchedules,
                     if (timeDepositsRefs) db.timeDeposits,
+                    if (mp2ContributionsRefs) db.mp2Contributions,
+                    if (mp2WithdrawalsRefs) db.mp2Withdrawals,
+                    if (mp2DividendsRefs) db.mp2Dividends,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -11560,6 +14011,69 @@ class $$TransactionsTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (mp2ContributionsRefs)
+                        await $_getPrefetchedData<
+                          Transaction,
+                          $TransactionsTable,
+                          Mp2Contribution
+                        >(
+                          currentTable: table,
+                          referencedTable: $$TransactionsTableReferences
+                              ._mp2ContributionsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$TransactionsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).mp2ContributionsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.transactionId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (mp2WithdrawalsRefs)
+                        await $_getPrefetchedData<
+                          Transaction,
+                          $TransactionsTable,
+                          Mp2Withdrawal
+                        >(
+                          currentTable: table,
+                          referencedTable: $$TransactionsTableReferences
+                              ._mp2WithdrawalsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$TransactionsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).mp2WithdrawalsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.transactionId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (mp2DividendsRefs)
+                        await $_getPrefetchedData<
+                          Transaction,
+                          $TransactionsTable,
+                          Mp2Dividend
+                        >(
+                          currentTable: table,
+                          referencedTable: $$TransactionsTableReferences
+                              ._mp2DividendsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$TransactionsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).mp2DividendsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.transactionId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -11587,6 +14101,9 @@ typedef $$TransactionsTableProcessedTableManager =
         bool goalContributionsRefs,
         bool interestSchedulesRefs,
         bool timeDepositsRefs,
+        bool mp2ContributionsRefs,
+        bool mp2WithdrawalsRefs,
+        bool mp2DividendsRefs,
       })
     >;
 typedef $$LedgerEntriesTableCreateCompanionBuilder =
@@ -17633,6 +20150,2100 @@ typedef $$TimeDepositsTableProcessedTableManager =
       TimeDeposit,
       PrefetchHooks Function({bool accountId, bool maturedTransactionId})
     >;
+typedef $$Mp2AccountsTableCreateCompanionBuilder =
+    Mp2AccountsCompanion Function({
+      required String id,
+      required String accountId,
+      required String label,
+      required double dividendRate,
+      required int startDate,
+      required int maturityDate,
+      Value<bool> isMatured,
+      required int createdAt,
+      required int updatedAt,
+      Value<int?> deletedAt,
+      Value<int> version,
+      Value<int> rowid,
+    });
+typedef $$Mp2AccountsTableUpdateCompanionBuilder =
+    Mp2AccountsCompanion Function({
+      Value<String> id,
+      Value<String> accountId,
+      Value<String> label,
+      Value<double> dividendRate,
+      Value<int> startDate,
+      Value<int> maturityDate,
+      Value<bool> isMatured,
+      Value<int> createdAt,
+      Value<int> updatedAt,
+      Value<int?> deletedAt,
+      Value<int> version,
+      Value<int> rowid,
+    });
+
+final class $$Mp2AccountsTableReferences
+    extends BaseReferences<_$AppDatabase, $Mp2AccountsTable, Mp2Account> {
+  $$Mp2AccountsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $AccountsTable _accountIdTable(_$AppDatabase db) =>
+      db.accounts.createAlias('mp2_accounts__account_id__accounts__id');
+
+  $$AccountsTableProcessedTableManager get accountId {
+    final $_column = $_itemColumn<String>('account_id')!;
+
+    final manager = $$AccountsTableTableManager(
+      $_db,
+      $_db.accounts,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_accountIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$Mp2ContributionsTable, List<Mp2Contribution>>
+  _mp2ContributionsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.mp2Contributions,
+    aliasName: 'mp2_accounts__id__mp2_contributions__mp2_account_id',
+  );
+
+  $$Mp2ContributionsTableProcessedTableManager get mp2ContributionsRefs {
+    final manager = $$Mp2ContributionsTableTableManager(
+      $_db,
+      $_db.mp2Contributions,
+    ).filter((f) => f.mp2AccountId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _mp2ContributionsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$Mp2WithdrawalsTable, List<Mp2Withdrawal>>
+  _mp2WithdrawalsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.mp2Withdrawals,
+    aliasName: 'mp2_accounts__id__mp2_withdrawals__mp2_account_id',
+  );
+
+  $$Mp2WithdrawalsTableProcessedTableManager get mp2WithdrawalsRefs {
+    final manager = $$Mp2WithdrawalsTableTableManager(
+      $_db,
+      $_db.mp2Withdrawals,
+    ).filter((f) => f.mp2AccountId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_mp2WithdrawalsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$Mp2DividendsTable, List<Mp2Dividend>>
+  _mp2DividendsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.mp2Dividends,
+    aliasName: 'mp2_accounts__id__mp2_dividends__mp2_account_id',
+  );
+
+  $$Mp2DividendsTableProcessedTableManager get mp2DividendsRefs {
+    final manager = $$Mp2DividendsTableTableManager(
+      $_db,
+      $_db.mp2Dividends,
+    ).filter((f) => f.mp2AccountId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_mp2DividendsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$Mp2AccountsTableFilterComposer
+    extends Composer<_$AppDatabase, $Mp2AccountsTable> {
+  $$Mp2AccountsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get dividendRate => $composableBuilder(
+    column: $table.dividendRate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get startDate => $composableBuilder(
+    column: $table.startDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get maturityDate => $composableBuilder(
+    column: $table.maturityDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isMatured => $composableBuilder(
+    column: $table.isMatured,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$AccountsTableFilterComposer get accountId {
+    final $$AccountsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.accountId,
+      referencedTable: $db.accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AccountsTableFilterComposer(
+            $db: $db,
+            $table: $db.accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> mp2ContributionsRefs(
+    Expression<bool> Function($$Mp2ContributionsTableFilterComposer f) f,
+  ) {
+    final $$Mp2ContributionsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mp2Contributions,
+      getReferencedColumn: (t) => t.mp2AccountId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2ContributionsTableFilterComposer(
+            $db: $db,
+            $table: $db.mp2Contributions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> mp2WithdrawalsRefs(
+    Expression<bool> Function($$Mp2WithdrawalsTableFilterComposer f) f,
+  ) {
+    final $$Mp2WithdrawalsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mp2Withdrawals,
+      getReferencedColumn: (t) => t.mp2AccountId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2WithdrawalsTableFilterComposer(
+            $db: $db,
+            $table: $db.mp2Withdrawals,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> mp2DividendsRefs(
+    Expression<bool> Function($$Mp2DividendsTableFilterComposer f) f,
+  ) {
+    final $$Mp2DividendsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mp2Dividends,
+      getReferencedColumn: (t) => t.mp2AccountId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2DividendsTableFilterComposer(
+            $db: $db,
+            $table: $db.mp2Dividends,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$Mp2AccountsTableOrderingComposer
+    extends Composer<_$AppDatabase, $Mp2AccountsTable> {
+  $$Mp2AccountsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get dividendRate => $composableBuilder(
+    column: $table.dividendRate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get startDate => $composableBuilder(
+    column: $table.startDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get maturityDate => $composableBuilder(
+    column: $table.maturityDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isMatured => $composableBuilder(
+    column: $table.isMatured,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$AccountsTableOrderingComposer get accountId {
+    final $$AccountsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.accountId,
+      referencedTable: $db.accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AccountsTableOrderingComposer(
+            $db: $db,
+            $table: $db.accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$Mp2AccountsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $Mp2AccountsTable> {
+  $$Mp2AccountsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get label =>
+      $composableBuilder(column: $table.label, builder: (column) => column);
+
+  GeneratedColumn<double> get dividendRate => $composableBuilder(
+    column: $table.dividendRate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get startDate =>
+      $composableBuilder(column: $table.startDate, builder: (column) => column);
+
+  GeneratedColumn<int> get maturityDate => $composableBuilder(
+    column: $table.maturityDate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get isMatured =>
+      $composableBuilder(column: $table.isMatured, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<int> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  $$AccountsTableAnnotationComposer get accountId {
+    final $$AccountsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.accountId,
+      referencedTable: $db.accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AccountsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> mp2ContributionsRefs<T extends Object>(
+    Expression<T> Function($$Mp2ContributionsTableAnnotationComposer a) f,
+  ) {
+    final $$Mp2ContributionsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mp2Contributions,
+      getReferencedColumn: (t) => t.mp2AccountId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2ContributionsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.mp2Contributions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> mp2WithdrawalsRefs<T extends Object>(
+    Expression<T> Function($$Mp2WithdrawalsTableAnnotationComposer a) f,
+  ) {
+    final $$Mp2WithdrawalsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mp2Withdrawals,
+      getReferencedColumn: (t) => t.mp2AccountId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2WithdrawalsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.mp2Withdrawals,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> mp2DividendsRefs<T extends Object>(
+    Expression<T> Function($$Mp2DividendsTableAnnotationComposer a) f,
+  ) {
+    final $$Mp2DividendsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.mp2Dividends,
+      getReferencedColumn: (t) => t.mp2AccountId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2DividendsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.mp2Dividends,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$Mp2AccountsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $Mp2AccountsTable,
+          Mp2Account,
+          $$Mp2AccountsTableFilterComposer,
+          $$Mp2AccountsTableOrderingComposer,
+          $$Mp2AccountsTableAnnotationComposer,
+          $$Mp2AccountsTableCreateCompanionBuilder,
+          $$Mp2AccountsTableUpdateCompanionBuilder,
+          (Mp2Account, $$Mp2AccountsTableReferences),
+          Mp2Account,
+          PrefetchHooks Function({
+            bool accountId,
+            bool mp2ContributionsRefs,
+            bool mp2WithdrawalsRefs,
+            bool mp2DividendsRefs,
+          })
+        > {
+  $$Mp2AccountsTableTableManager(_$AppDatabase db, $Mp2AccountsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$Mp2AccountsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$Mp2AccountsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$Mp2AccountsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> accountId = const Value.absent(),
+                Value<String> label = const Value.absent(),
+                Value<double> dividendRate = const Value.absent(),
+                Value<int> startDate = const Value.absent(),
+                Value<int> maturityDate = const Value.absent(),
+                Value<bool> isMatured = const Value.absent(),
+                Value<int> createdAt = const Value.absent(),
+                Value<int> updatedAt = const Value.absent(),
+                Value<int?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => Mp2AccountsCompanion(
+                id: id,
+                accountId: accountId,
+                label: label,
+                dividendRate: dividendRate,
+                startDate: startDate,
+                maturityDate: maturityDate,
+                isMatured: isMatured,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String accountId,
+                required String label,
+                required double dividendRate,
+                required int startDate,
+                required int maturityDate,
+                Value<bool> isMatured = const Value.absent(),
+                required int createdAt,
+                required int updatedAt,
+                Value<int?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => Mp2AccountsCompanion.insert(
+                id: id,
+                accountId: accountId,
+                label: label,
+                dividendRate: dividendRate,
+                startDate: startDate,
+                maturityDate: maturityDate,
+                isMatured: isMatured,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$Mp2AccountsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                accountId = false,
+                mp2ContributionsRefs = false,
+                mp2WithdrawalsRefs = false,
+                mp2DividendsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (mp2ContributionsRefs) db.mp2Contributions,
+                    if (mp2WithdrawalsRefs) db.mp2Withdrawals,
+                    if (mp2DividendsRefs) db.mp2Dividends,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (accountId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.accountId,
+                                    referencedTable:
+                                        $$Mp2AccountsTableReferences
+                                            ._accountIdTable(db),
+                                    referencedColumn:
+                                        $$Mp2AccountsTableReferences
+                                            ._accountIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (mp2ContributionsRefs)
+                        await $_getPrefetchedData<
+                          Mp2Account,
+                          $Mp2AccountsTable,
+                          Mp2Contribution
+                        >(
+                          currentTable: table,
+                          referencedTable: $$Mp2AccountsTableReferences
+                              ._mp2ContributionsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$Mp2AccountsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).mp2ContributionsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.mp2AccountId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (mp2WithdrawalsRefs)
+                        await $_getPrefetchedData<
+                          Mp2Account,
+                          $Mp2AccountsTable,
+                          Mp2Withdrawal
+                        >(
+                          currentTable: table,
+                          referencedTable: $$Mp2AccountsTableReferences
+                              ._mp2WithdrawalsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$Mp2AccountsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).mp2WithdrawalsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.mp2AccountId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (mp2DividendsRefs)
+                        await $_getPrefetchedData<
+                          Mp2Account,
+                          $Mp2AccountsTable,
+                          Mp2Dividend
+                        >(
+                          currentTable: table,
+                          referencedTable: $$Mp2AccountsTableReferences
+                              ._mp2DividendsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$Mp2AccountsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).mp2DividendsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.mp2AccountId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$Mp2AccountsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $Mp2AccountsTable,
+      Mp2Account,
+      $$Mp2AccountsTableFilterComposer,
+      $$Mp2AccountsTableOrderingComposer,
+      $$Mp2AccountsTableAnnotationComposer,
+      $$Mp2AccountsTableCreateCompanionBuilder,
+      $$Mp2AccountsTableUpdateCompanionBuilder,
+      (Mp2Account, $$Mp2AccountsTableReferences),
+      Mp2Account,
+      PrefetchHooks Function({
+        bool accountId,
+        bool mp2ContributionsRefs,
+        bool mp2WithdrawalsRefs,
+        bool mp2DividendsRefs,
+      })
+    >;
+typedef $$Mp2ContributionsTableCreateCompanionBuilder =
+    Mp2ContributionsCompanion Function({
+      required String id,
+      required String mp2AccountId,
+      required String transactionId,
+      required int amountCents,
+      required int contributedOn,
+      Value<String?> note,
+      required int createdAt,
+      Value<int> rowid,
+    });
+typedef $$Mp2ContributionsTableUpdateCompanionBuilder =
+    Mp2ContributionsCompanion Function({
+      Value<String> id,
+      Value<String> mp2AccountId,
+      Value<String> transactionId,
+      Value<int> amountCents,
+      Value<int> contributedOn,
+      Value<String?> note,
+      Value<int> createdAt,
+      Value<int> rowid,
+    });
+
+final class $$Mp2ContributionsTableReferences
+    extends
+        BaseReferences<_$AppDatabase, $Mp2ContributionsTable, Mp2Contribution> {
+  $$Mp2ContributionsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $Mp2AccountsTable _mp2AccountIdTable(_$AppDatabase db) => db
+      .mp2Accounts
+      .createAlias('mp2_contributions__mp2_account_id__mp2_accounts__id');
+
+  $$Mp2AccountsTableProcessedTableManager get mp2AccountId {
+    final $_column = $_itemColumn<String>('mp2_account_id')!;
+
+    final manager = $$Mp2AccountsTableTableManager(
+      $_db,
+      $_db.mp2Accounts,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_mp2AccountIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $TransactionsTable _transactionIdTable(_$AppDatabase db) => db
+      .transactions
+      .createAlias('mp2_contributions__transaction_id__transactions__id');
+
+  $$TransactionsTableProcessedTableManager get transactionId {
+    final $_column = $_itemColumn<String>('transaction_id')!;
+
+    final manager = $$TransactionsTableTableManager(
+      $_db,
+      $_db.transactions,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_transactionIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$Mp2ContributionsTableFilterComposer
+    extends Composer<_$AppDatabase, $Mp2ContributionsTable> {
+  $$Mp2ContributionsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get amountCents => $composableBuilder(
+    column: $table.amountCents,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get contributedOn => $composableBuilder(
+    column: $table.contributedOn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get note => $composableBuilder(
+    column: $table.note,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$Mp2AccountsTableFilterComposer get mp2AccountId {
+    final $$Mp2AccountsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.mp2AccountId,
+      referencedTable: $db.mp2Accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2AccountsTableFilterComposer(
+            $db: $db,
+            $table: $db.mp2Accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TransactionsTableFilterComposer get transactionId {
+    final $$TransactionsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.transactionId,
+      referencedTable: $db.transactions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TransactionsTableFilterComposer(
+            $db: $db,
+            $table: $db.transactions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$Mp2ContributionsTableOrderingComposer
+    extends Composer<_$AppDatabase, $Mp2ContributionsTable> {
+  $$Mp2ContributionsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get amountCents => $composableBuilder(
+    column: $table.amountCents,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get contributedOn => $composableBuilder(
+    column: $table.contributedOn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get note => $composableBuilder(
+    column: $table.note,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$Mp2AccountsTableOrderingComposer get mp2AccountId {
+    final $$Mp2AccountsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.mp2AccountId,
+      referencedTable: $db.mp2Accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2AccountsTableOrderingComposer(
+            $db: $db,
+            $table: $db.mp2Accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TransactionsTableOrderingComposer get transactionId {
+    final $$TransactionsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.transactionId,
+      referencedTable: $db.transactions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TransactionsTableOrderingComposer(
+            $db: $db,
+            $table: $db.transactions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$Mp2ContributionsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $Mp2ContributionsTable> {
+  $$Mp2ContributionsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get amountCents => $composableBuilder(
+    column: $table.amountCents,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get contributedOn => $composableBuilder(
+    column: $table.contributedOn,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get note =>
+      $composableBuilder(column: $table.note, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$Mp2AccountsTableAnnotationComposer get mp2AccountId {
+    final $$Mp2AccountsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.mp2AccountId,
+      referencedTable: $db.mp2Accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2AccountsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.mp2Accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TransactionsTableAnnotationComposer get transactionId {
+    final $$TransactionsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.transactionId,
+      referencedTable: $db.transactions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TransactionsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.transactions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$Mp2ContributionsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $Mp2ContributionsTable,
+          Mp2Contribution,
+          $$Mp2ContributionsTableFilterComposer,
+          $$Mp2ContributionsTableOrderingComposer,
+          $$Mp2ContributionsTableAnnotationComposer,
+          $$Mp2ContributionsTableCreateCompanionBuilder,
+          $$Mp2ContributionsTableUpdateCompanionBuilder,
+          (Mp2Contribution, $$Mp2ContributionsTableReferences),
+          Mp2Contribution,
+          PrefetchHooks Function({bool mp2AccountId, bool transactionId})
+        > {
+  $$Mp2ContributionsTableTableManager(
+    _$AppDatabase db,
+    $Mp2ContributionsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$Mp2ContributionsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$Mp2ContributionsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$Mp2ContributionsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> mp2AccountId = const Value.absent(),
+                Value<String> transactionId = const Value.absent(),
+                Value<int> amountCents = const Value.absent(),
+                Value<int> contributedOn = const Value.absent(),
+                Value<String?> note = const Value.absent(),
+                Value<int> createdAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => Mp2ContributionsCompanion(
+                id: id,
+                mp2AccountId: mp2AccountId,
+                transactionId: transactionId,
+                amountCents: amountCents,
+                contributedOn: contributedOn,
+                note: note,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String mp2AccountId,
+                required String transactionId,
+                required int amountCents,
+                required int contributedOn,
+                Value<String?> note = const Value.absent(),
+                required int createdAt,
+                Value<int> rowid = const Value.absent(),
+              }) => Mp2ContributionsCompanion.insert(
+                id: id,
+                mp2AccountId: mp2AccountId,
+                transactionId: transactionId,
+                amountCents: amountCents,
+                contributedOn: contributedOn,
+                note: note,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$Mp2ContributionsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({mp2AccountId = false, transactionId = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (mp2AccountId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.mp2AccountId,
+                                    referencedTable:
+                                        $$Mp2ContributionsTableReferences
+                                            ._mp2AccountIdTable(db),
+                                    referencedColumn:
+                                        $$Mp2ContributionsTableReferences
+                                            ._mp2AccountIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (transactionId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.transactionId,
+                                    referencedTable:
+                                        $$Mp2ContributionsTableReferences
+                                            ._transactionIdTable(db),
+                                    referencedColumn:
+                                        $$Mp2ContributionsTableReferences
+                                            ._transactionIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$Mp2ContributionsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $Mp2ContributionsTable,
+      Mp2Contribution,
+      $$Mp2ContributionsTableFilterComposer,
+      $$Mp2ContributionsTableOrderingComposer,
+      $$Mp2ContributionsTableAnnotationComposer,
+      $$Mp2ContributionsTableCreateCompanionBuilder,
+      $$Mp2ContributionsTableUpdateCompanionBuilder,
+      (Mp2Contribution, $$Mp2ContributionsTableReferences),
+      Mp2Contribution,
+      PrefetchHooks Function({bool mp2AccountId, bool transactionId})
+    >;
+typedef $$Mp2WithdrawalsTableCreateCompanionBuilder =
+    Mp2WithdrawalsCompanion Function({
+      required String id,
+      required String mp2AccountId,
+      required String transactionId,
+      required int amountCents,
+      required int withdrawnOn,
+      Value<String?> note,
+      required int createdAt,
+      Value<int> rowid,
+    });
+typedef $$Mp2WithdrawalsTableUpdateCompanionBuilder =
+    Mp2WithdrawalsCompanion Function({
+      Value<String> id,
+      Value<String> mp2AccountId,
+      Value<String> transactionId,
+      Value<int> amountCents,
+      Value<int> withdrawnOn,
+      Value<String?> note,
+      Value<int> createdAt,
+      Value<int> rowid,
+    });
+
+final class $$Mp2WithdrawalsTableReferences
+    extends BaseReferences<_$AppDatabase, $Mp2WithdrawalsTable, Mp2Withdrawal> {
+  $$Mp2WithdrawalsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $Mp2AccountsTable _mp2AccountIdTable(_$AppDatabase db) => db
+      .mp2Accounts
+      .createAlias('mp2_withdrawals__mp2_account_id__mp2_accounts__id');
+
+  $$Mp2AccountsTableProcessedTableManager get mp2AccountId {
+    final $_column = $_itemColumn<String>('mp2_account_id')!;
+
+    final manager = $$Mp2AccountsTableTableManager(
+      $_db,
+      $_db.mp2Accounts,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_mp2AccountIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $TransactionsTable _transactionIdTable(_$AppDatabase db) => db
+      .transactions
+      .createAlias('mp2_withdrawals__transaction_id__transactions__id');
+
+  $$TransactionsTableProcessedTableManager get transactionId {
+    final $_column = $_itemColumn<String>('transaction_id')!;
+
+    final manager = $$TransactionsTableTableManager(
+      $_db,
+      $_db.transactions,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_transactionIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$Mp2WithdrawalsTableFilterComposer
+    extends Composer<_$AppDatabase, $Mp2WithdrawalsTable> {
+  $$Mp2WithdrawalsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get amountCents => $composableBuilder(
+    column: $table.amountCents,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get withdrawnOn => $composableBuilder(
+    column: $table.withdrawnOn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get note => $composableBuilder(
+    column: $table.note,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$Mp2AccountsTableFilterComposer get mp2AccountId {
+    final $$Mp2AccountsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.mp2AccountId,
+      referencedTable: $db.mp2Accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2AccountsTableFilterComposer(
+            $db: $db,
+            $table: $db.mp2Accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TransactionsTableFilterComposer get transactionId {
+    final $$TransactionsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.transactionId,
+      referencedTable: $db.transactions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TransactionsTableFilterComposer(
+            $db: $db,
+            $table: $db.transactions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$Mp2WithdrawalsTableOrderingComposer
+    extends Composer<_$AppDatabase, $Mp2WithdrawalsTable> {
+  $$Mp2WithdrawalsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get amountCents => $composableBuilder(
+    column: $table.amountCents,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get withdrawnOn => $composableBuilder(
+    column: $table.withdrawnOn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get note => $composableBuilder(
+    column: $table.note,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$Mp2AccountsTableOrderingComposer get mp2AccountId {
+    final $$Mp2AccountsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.mp2AccountId,
+      referencedTable: $db.mp2Accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2AccountsTableOrderingComposer(
+            $db: $db,
+            $table: $db.mp2Accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TransactionsTableOrderingComposer get transactionId {
+    final $$TransactionsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.transactionId,
+      referencedTable: $db.transactions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TransactionsTableOrderingComposer(
+            $db: $db,
+            $table: $db.transactions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$Mp2WithdrawalsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $Mp2WithdrawalsTable> {
+  $$Mp2WithdrawalsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get amountCents => $composableBuilder(
+    column: $table.amountCents,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get withdrawnOn => $composableBuilder(
+    column: $table.withdrawnOn,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get note =>
+      $composableBuilder(column: $table.note, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$Mp2AccountsTableAnnotationComposer get mp2AccountId {
+    final $$Mp2AccountsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.mp2AccountId,
+      referencedTable: $db.mp2Accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2AccountsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.mp2Accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TransactionsTableAnnotationComposer get transactionId {
+    final $$TransactionsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.transactionId,
+      referencedTable: $db.transactions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TransactionsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.transactions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$Mp2WithdrawalsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $Mp2WithdrawalsTable,
+          Mp2Withdrawal,
+          $$Mp2WithdrawalsTableFilterComposer,
+          $$Mp2WithdrawalsTableOrderingComposer,
+          $$Mp2WithdrawalsTableAnnotationComposer,
+          $$Mp2WithdrawalsTableCreateCompanionBuilder,
+          $$Mp2WithdrawalsTableUpdateCompanionBuilder,
+          (Mp2Withdrawal, $$Mp2WithdrawalsTableReferences),
+          Mp2Withdrawal,
+          PrefetchHooks Function({bool mp2AccountId, bool transactionId})
+        > {
+  $$Mp2WithdrawalsTableTableManager(
+    _$AppDatabase db,
+    $Mp2WithdrawalsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$Mp2WithdrawalsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$Mp2WithdrawalsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$Mp2WithdrawalsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> mp2AccountId = const Value.absent(),
+                Value<String> transactionId = const Value.absent(),
+                Value<int> amountCents = const Value.absent(),
+                Value<int> withdrawnOn = const Value.absent(),
+                Value<String?> note = const Value.absent(),
+                Value<int> createdAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => Mp2WithdrawalsCompanion(
+                id: id,
+                mp2AccountId: mp2AccountId,
+                transactionId: transactionId,
+                amountCents: amountCents,
+                withdrawnOn: withdrawnOn,
+                note: note,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String mp2AccountId,
+                required String transactionId,
+                required int amountCents,
+                required int withdrawnOn,
+                Value<String?> note = const Value.absent(),
+                required int createdAt,
+                Value<int> rowid = const Value.absent(),
+              }) => Mp2WithdrawalsCompanion.insert(
+                id: id,
+                mp2AccountId: mp2AccountId,
+                transactionId: transactionId,
+                amountCents: amountCents,
+                withdrawnOn: withdrawnOn,
+                note: note,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$Mp2WithdrawalsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({mp2AccountId = false, transactionId = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (mp2AccountId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.mp2AccountId,
+                                    referencedTable:
+                                        $$Mp2WithdrawalsTableReferences
+                                            ._mp2AccountIdTable(db),
+                                    referencedColumn:
+                                        $$Mp2WithdrawalsTableReferences
+                                            ._mp2AccountIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (transactionId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.transactionId,
+                                    referencedTable:
+                                        $$Mp2WithdrawalsTableReferences
+                                            ._transactionIdTable(db),
+                                    referencedColumn:
+                                        $$Mp2WithdrawalsTableReferences
+                                            ._transactionIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$Mp2WithdrawalsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $Mp2WithdrawalsTable,
+      Mp2Withdrawal,
+      $$Mp2WithdrawalsTableFilterComposer,
+      $$Mp2WithdrawalsTableOrderingComposer,
+      $$Mp2WithdrawalsTableAnnotationComposer,
+      $$Mp2WithdrawalsTableCreateCompanionBuilder,
+      $$Mp2WithdrawalsTableUpdateCompanionBuilder,
+      (Mp2Withdrawal, $$Mp2WithdrawalsTableReferences),
+      Mp2Withdrawal,
+      PrefetchHooks Function({bool mp2AccountId, bool transactionId})
+    >;
+typedef $$Mp2DividendsTableCreateCompanionBuilder =
+    Mp2DividendsCompanion Function({
+      required String id,
+      required String mp2AccountId,
+      Value<String?> transactionId,
+      required int year,
+      required int amountCents,
+      required int paidOn,
+      required int createdAt,
+      Value<int> rowid,
+    });
+typedef $$Mp2DividendsTableUpdateCompanionBuilder =
+    Mp2DividendsCompanion Function({
+      Value<String> id,
+      Value<String> mp2AccountId,
+      Value<String?> transactionId,
+      Value<int> year,
+      Value<int> amountCents,
+      Value<int> paidOn,
+      Value<int> createdAt,
+      Value<int> rowid,
+    });
+
+final class $$Mp2DividendsTableReferences
+    extends BaseReferences<_$AppDatabase, $Mp2DividendsTable, Mp2Dividend> {
+  $$Mp2DividendsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $Mp2AccountsTable _mp2AccountIdTable(_$AppDatabase db) => db
+      .mp2Accounts
+      .createAlias('mp2_dividends__mp2_account_id__mp2_accounts__id');
+
+  $$Mp2AccountsTableProcessedTableManager get mp2AccountId {
+    final $_column = $_itemColumn<String>('mp2_account_id')!;
+
+    final manager = $$Mp2AccountsTableTableManager(
+      $_db,
+      $_db.mp2Accounts,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_mp2AccountIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $TransactionsTable _transactionIdTable(_$AppDatabase db) => db
+      .transactions
+      .createAlias('mp2_dividends__transaction_id__transactions__id');
+
+  $$TransactionsTableProcessedTableManager? get transactionId {
+    final $_column = $_itemColumn<String>('transaction_id');
+    if ($_column == null) return null;
+    final manager = $$TransactionsTableTableManager(
+      $_db,
+      $_db.transactions,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_transactionIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$Mp2DividendsTableFilterComposer
+    extends Composer<_$AppDatabase, $Mp2DividendsTable> {
+  $$Mp2DividendsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get year => $composableBuilder(
+    column: $table.year,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get amountCents => $composableBuilder(
+    column: $table.amountCents,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get paidOn => $composableBuilder(
+    column: $table.paidOn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$Mp2AccountsTableFilterComposer get mp2AccountId {
+    final $$Mp2AccountsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.mp2AccountId,
+      referencedTable: $db.mp2Accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2AccountsTableFilterComposer(
+            $db: $db,
+            $table: $db.mp2Accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TransactionsTableFilterComposer get transactionId {
+    final $$TransactionsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.transactionId,
+      referencedTable: $db.transactions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TransactionsTableFilterComposer(
+            $db: $db,
+            $table: $db.transactions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$Mp2DividendsTableOrderingComposer
+    extends Composer<_$AppDatabase, $Mp2DividendsTable> {
+  $$Mp2DividendsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get year => $composableBuilder(
+    column: $table.year,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get amountCents => $composableBuilder(
+    column: $table.amountCents,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get paidOn => $composableBuilder(
+    column: $table.paidOn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$Mp2AccountsTableOrderingComposer get mp2AccountId {
+    final $$Mp2AccountsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.mp2AccountId,
+      referencedTable: $db.mp2Accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2AccountsTableOrderingComposer(
+            $db: $db,
+            $table: $db.mp2Accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TransactionsTableOrderingComposer get transactionId {
+    final $$TransactionsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.transactionId,
+      referencedTable: $db.transactions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TransactionsTableOrderingComposer(
+            $db: $db,
+            $table: $db.transactions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$Mp2DividendsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $Mp2DividendsTable> {
+  $$Mp2DividendsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get year =>
+      $composableBuilder(column: $table.year, builder: (column) => column);
+
+  GeneratedColumn<int> get amountCents => $composableBuilder(
+    column: $table.amountCents,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get paidOn =>
+      $composableBuilder(column: $table.paidOn, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$Mp2AccountsTableAnnotationComposer get mp2AccountId {
+    final $$Mp2AccountsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.mp2AccountId,
+      referencedTable: $db.mp2Accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$Mp2AccountsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.mp2Accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TransactionsTableAnnotationComposer get transactionId {
+    final $$TransactionsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.transactionId,
+      referencedTable: $db.transactions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TransactionsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.transactions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$Mp2DividendsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $Mp2DividendsTable,
+          Mp2Dividend,
+          $$Mp2DividendsTableFilterComposer,
+          $$Mp2DividendsTableOrderingComposer,
+          $$Mp2DividendsTableAnnotationComposer,
+          $$Mp2DividendsTableCreateCompanionBuilder,
+          $$Mp2DividendsTableUpdateCompanionBuilder,
+          (Mp2Dividend, $$Mp2DividendsTableReferences),
+          Mp2Dividend,
+          PrefetchHooks Function({bool mp2AccountId, bool transactionId})
+        > {
+  $$Mp2DividendsTableTableManager(_$AppDatabase db, $Mp2DividendsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$Mp2DividendsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$Mp2DividendsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$Mp2DividendsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> mp2AccountId = const Value.absent(),
+                Value<String?> transactionId = const Value.absent(),
+                Value<int> year = const Value.absent(),
+                Value<int> amountCents = const Value.absent(),
+                Value<int> paidOn = const Value.absent(),
+                Value<int> createdAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => Mp2DividendsCompanion(
+                id: id,
+                mp2AccountId: mp2AccountId,
+                transactionId: transactionId,
+                year: year,
+                amountCents: amountCents,
+                paidOn: paidOn,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String mp2AccountId,
+                Value<String?> transactionId = const Value.absent(),
+                required int year,
+                required int amountCents,
+                required int paidOn,
+                required int createdAt,
+                Value<int> rowid = const Value.absent(),
+              }) => Mp2DividendsCompanion.insert(
+                id: id,
+                mp2AccountId: mp2AccountId,
+                transactionId: transactionId,
+                year: year,
+                amountCents: amountCents,
+                paidOn: paidOn,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$Mp2DividendsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({mp2AccountId = false, transactionId = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (mp2AccountId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.mp2AccountId,
+                                    referencedTable:
+                                        $$Mp2DividendsTableReferences
+                                            ._mp2AccountIdTable(db),
+                                    referencedColumn:
+                                        $$Mp2DividendsTableReferences
+                                            ._mp2AccountIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (transactionId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.transactionId,
+                                    referencedTable:
+                                        $$Mp2DividendsTableReferences
+                                            ._transactionIdTable(db),
+                                    referencedColumn:
+                                        $$Mp2DividendsTableReferences
+                                            ._transactionIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$Mp2DividendsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $Mp2DividendsTable,
+      Mp2Dividend,
+      $$Mp2DividendsTableFilterComposer,
+      $$Mp2DividendsTableOrderingComposer,
+      $$Mp2DividendsTableAnnotationComposer,
+      $$Mp2DividendsTableCreateCompanionBuilder,
+      $$Mp2DividendsTableUpdateCompanionBuilder,
+      (Mp2Dividend, $$Mp2DividendsTableReferences),
+      Mp2Dividend,
+      PrefetchHooks Function({bool mp2AccountId, bool transactionId})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -17670,4 +22281,12 @@ class $AppDatabaseManager {
       $$InterestSchedulesTableTableManager(_db, _db.interestSchedules);
   $$TimeDepositsTableTableManager get timeDeposits =>
       $$TimeDepositsTableTableManager(_db, _db.timeDeposits);
+  $$Mp2AccountsTableTableManager get mp2Accounts =>
+      $$Mp2AccountsTableTableManager(_db, _db.mp2Accounts);
+  $$Mp2ContributionsTableTableManager get mp2Contributions =>
+      $$Mp2ContributionsTableTableManager(_db, _db.mp2Contributions);
+  $$Mp2WithdrawalsTableTableManager get mp2Withdrawals =>
+      $$Mp2WithdrawalsTableTableManager(_db, _db.mp2Withdrawals);
+  $$Mp2DividendsTableTableManager get mp2Dividends =>
+      $$Mp2DividendsTableTableManager(_db, _db.mp2Dividends);
 }

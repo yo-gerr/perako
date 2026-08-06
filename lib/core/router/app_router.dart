@@ -19,6 +19,9 @@ import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
 import '../../features/goals/presentation/screens/goal_detail_screen.dart';
 import '../../features/goals/presentation/screens/goal_form_screen.dart';
 import '../../features/goals/presentation/screens/goals_list_screen.dart';
+import '../../features/mp2/presentation/screens/mp2_detail_screen.dart';
+import '../../features/mp2/presentation/screens/mp2_form_screen.dart';
+import '../../features/mp2/presentation/screens/mp2_list_screen.dart';
 import '../../features/reports/presentation/screens/budget_performance_screen.dart';
 import '../../features/reports/presentation/screens/cash_flow_report_screen.dart';
 import '../../features/reports/presentation/screens/category_analysis_screen.dart';
@@ -185,6 +188,28 @@ GoRouter createRouter(Ref ref) {
         name: 'time-deposit-detail',
         builder: (context, state) => TimeDepositDetailScreen(
             depositId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/mp2',
+        name: 'mp2',
+        builder: (context, state) => const Mp2ListScreen(),
+      ),
+      GoRoute(
+        path: '/mp2/new',
+        name: 'mp2-new',
+        builder: (context, state) => const Mp2FormScreen(),
+      ),
+      GoRoute(
+        path: '/mp2/:id/edit',
+        name: 'mp2-edit',
+        builder: (context, state) =>
+            Mp2FormScreen(mp2Id: state.pathParameters['id']),
+      ),
+      GoRoute(
+        path: '/mp2/:id',
+        name: 'mp2-detail',
+        builder: (context, state) =>
+            Mp2DetailScreen(mp2Id: state.pathParameters['id']!),
       ),
       GoRoute(
         path: '/categories',

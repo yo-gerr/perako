@@ -10,6 +10,7 @@ import '../../core/database/daos/categories_dao.dart';
 import '../../core/database/daos/database_wipe_service.dart';
 import '../../core/database/daos/goals_dao.dart';
 import '../../core/database/daos/ledger_dao.dart';
+import '../../core/database/daos/mp2_dao.dart';
 import '../../core/database/daos/profiles_dao.dart';
 import '../../core/database/daos/savings_dao.dart';
 import '../../core/database/daos/time_deposits_dao.dart';
@@ -76,6 +77,11 @@ final savingsDaoProvider = Provider<SavingsDao>((ref) {
 /// Non-reactive access to time deposit persistence.
 final timeDepositsDaoProvider = Provider<TimeDepositsDao>((ref) {
   return TimeDepositsDao(ref.watch(appDatabaseProvider));
+});
+
+/// Non-reactive access to MP2 persistence.
+final mp2DaoProvider = Provider<Mp2Dao>((ref) {
+  return Mp2Dao(ref.watch(appDatabaseProvider));
 });
 
 /// The Firestore instance used by the sync layer. Overridable in tests by a

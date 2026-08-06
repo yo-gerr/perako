@@ -463,3 +463,111 @@ class InterestSchedules extends Table {
   @override
   Set<Column<Object>> get primaryKey => {id};
 }
+
+/// A Pag-IBIG MP2 savings account — a 5-year, tax-free savings vehicle that
+/// pays annual dividends on the balance held in [accountId].
+///
+/// Contributions transfer money into [accountId]; withdrawals move it out.
+/// Each dividend year is realized by [MP2Service] as a balanced income posting
+/// recorded in [Mp2Dividends], so dividends are never credited twice.
+class Mp2Accounts extends Table {
+  TextColumn get id => text()();
+
+  TextColumn get accountId => text().references(Accounts, #id)();
+
+  /// Display name; defaults to the account name when created.
+  TextColumn get label => text()();
+
+  /// Annual dividend rate as a decimal fraction, e.g. 0.07 for 7% p.a.
+  RealColumn get dividendRate => real()();
+
+  IntColumn get startDate => integer()();
+
+  /// Five years after [startDate] by MP2 rules.
+  IntColumn get maturityDate => integer()();
+
+  BoolColumn get isMatured => boolean().withDefault(const Constant(false))();
+
+  IntColumn get createdAt => integer()();
+
+  IntColumn get updatedAt => integer()();
+
+  IntColumn get deletedAt => integer().nullable()();
+
+  IntColumn get version => integer().withDefault(const Constant(0))();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
+/// A ledger-backed contribution against an [Mp2Accounts] row.
+///
+/// Every contribution posts a balanced transfer into the MP2 account;
+/// [transactionId] keeps the audit trail pointing at that posting.
+class Mp2Contributions extends Table {
+  TextColumn get id => text()();
+
+  TextColumn get mp2AccountId => text().references(Mp2Accounts, #id)();
+
+  TextColumn get transactionId => text().references(Transactions, #id)();
+
+  IntColumn get amountCents => integer()();
+
+  IntColumn get contributedOn => integer()();
+
+  TextColumn get note => text().nullable()();
+
+  IntColumn get createdAt => integer()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
+/// A ledger-backed partial or full withdrawal from an [Mp2Accounts] row.
+///
+/// Every withdrawal posts a balanced transfer out of the MP2 account;
+/// [transactionId] keeps the audit trail pointing at that posting.
+class Mp2Withdrawals extends Table {
+  TextColumn get id => text()();
+
+  TextColumn get mp2AccountId => text().references(Mp2Accounts, #id)();
+
+  TextColumn get transactionId => text().references(Transactions, #id)();
+
+  IntColumn get amountCents => integer()();
+
+  IntColumn get withdrawnOn => integer()();
+
+  TextColumn get note => text().nullable()();
+
+  IntColumn get createdAt => integer()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
+/// A realized annual dividend for an [Mp2Accounts] row.
+///
+/// [year] is the zero-based dividend year (0 = the first year of the term);
+/// the dividend is credited on that year's anniversary. [transactionId] is
+/// null when the dividend was zero and nothing was posted.
+class Mp2Dividends extends Table {
+  TextColumn get id => text()();
+
+  TextColumn get mp2AccountId => text().references(Mp2Accounts, #id)();
+
+  TextColumn get transactionId =>
+      text().references(Transactions, #id).nullable()();
+
+  IntColumn get year => integer()();
+
+  IntColumn get amountCents => integer()();
+
+  /// The anniversary date the dividend was credited on.
+  IntColumn get paidOn => integer()();
+
+  IntColumn get createdAt => integer()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
