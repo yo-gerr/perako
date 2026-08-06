@@ -377,19 +377,20 @@
 
 ### 3.4 — Bonds
 
-- [ ] **Add Drift table**:
-    - [ ] `bonds_table.dart` — `account_id` (FK), `face_value`, `coupon_rate`, `coupon_schedule` (monthly/quarterly/semi-annual/annual), `next_coupon_date`, `maturity_date`, `is_matured`
-- [ ] **Create Freezed models**:
-    - [ ] `bond.dart` — `Bond`, `CouponSchedule` enum
-- [ ] **Build engine**:
-    - [ ] `BondService` — Generate coupon payment transactions, forecast maturity value, notify maturity
-- [ ] **Create providers**:
-    - [ ] `bonds_provider.dart`
-- [ ] **Build screens**:
-    - [ ] `bonds_list_screen.dart`
-    - [ ] `bond_form_screen.dart`
-    - [ ] `bond_detail_screen.dart` — Coupon history, next payment, yield
-- [ ] **Wire up GoRouter** — Add `/bonds` routes
+- [x] **Add Drift table**:
+    - [x] `bonds_table.dart` — `account_id` (FK), `face_value`, `coupon_rate`, `coupon_schedule` (monthly/quarterly/semi-annual/annual), `next_coupon_date`, `maturity_date`, `is_matured` (in `tables.dart`)
+    - [x] `bond_coupons_table.dart` — `period`, `amount`, `paid_on`, `transaction_id` for idempotent coupon realization (in `tables.dart`)
+- [x] **Create Freezed models**:
+    - [x] `bond.dart` — `Bond`, `CouponSchedule` enum (Drift-generated)
+- [x] **Build engine**:
+    - [x] `BondService` — Generate coupon payment transactions, forecast maturity value, notify maturity
+- [x] **Create providers**:
+    - [x] `bonds_provider.dart`
+- [x] **Build screens**:
+    - [x] `bonds_list_screen.dart`
+    - [x] `bond_form_screen.dart`
+    - [x] `bond_detail_screen.dart` — Coupon history, next payment, yield
+- [x] **Wire up GoRouter** — Add `/bonds` routes
 
 ---
 

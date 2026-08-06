@@ -11412,6 +11412,1315 @@ class Mp2DividendsCompanion extends UpdateCompanion<Mp2Dividend> {
   }
 }
 
+class $BondsTable extends Bonds with TableInfo<$BondsTable, Bond> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $BondsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _accountIdMeta = const VerificationMeta(
+    'accountId',
+  );
+  @override
+  late final GeneratedColumn<String> accountId = GeneratedColumn<String>(
+    'account_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES accounts (id)',
+    ),
+  );
+  static const VerificationMeta _labelMeta = const VerificationMeta('label');
+  @override
+  late final GeneratedColumn<String> label = GeneratedColumn<String>(
+    'label',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _faceValueCentsMeta = const VerificationMeta(
+    'faceValueCents',
+  );
+  @override
+  late final GeneratedColumn<int> faceValueCents = GeneratedColumn<int>(
+    'face_value_cents',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _couponRateMeta = const VerificationMeta(
+    'couponRate',
+  );
+  @override
+  late final GeneratedColumn<double> couponRate = GeneratedColumn<double>(
+    'coupon_rate',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _couponScheduleMeta = const VerificationMeta(
+    'couponSchedule',
+  );
+  @override
+  late final GeneratedColumn<String> couponSchedule = GeneratedColumn<String>(
+    'coupon_schedule',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _startDateMeta = const VerificationMeta(
+    'startDate',
+  );
+  @override
+  late final GeneratedColumn<int> startDate = GeneratedColumn<int>(
+    'start_date',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _maturityDateMeta = const VerificationMeta(
+    'maturityDate',
+  );
+  @override
+  late final GeneratedColumn<int> maturityDate = GeneratedColumn<int>(
+    'maturity_date',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nextCouponDateMeta = const VerificationMeta(
+    'nextCouponDate',
+  );
+  @override
+  late final GeneratedColumn<int> nextCouponDate = GeneratedColumn<int>(
+    'next_coupon_date',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _isMaturedMeta = const VerificationMeta(
+    'isMatured',
+  );
+  @override
+  late final GeneratedColumn<bool> isMatured = GeneratedColumn<bool>(
+    'is_matured',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_matured" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _deletedAtMeta = const VerificationMeta(
+    'deletedAt',
+  );
+  @override
+  late final GeneratedColumn<int> deletedAt = GeneratedColumn<int>(
+    'deleted_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    accountId,
+    label,
+    faceValueCents,
+    couponRate,
+    couponSchedule,
+    startDate,
+    maturityDate,
+    nextCouponDate,
+    isMatured,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'bonds';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<Bond> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('account_id')) {
+      context.handle(
+        _accountIdMeta,
+        accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_accountIdMeta);
+    }
+    if (data.containsKey('label')) {
+      context.handle(
+        _labelMeta,
+        label.isAcceptableOrUnknown(data['label']!, _labelMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_labelMeta);
+    }
+    if (data.containsKey('face_value_cents')) {
+      context.handle(
+        _faceValueCentsMeta,
+        faceValueCents.isAcceptableOrUnknown(
+          data['face_value_cents']!,
+          _faceValueCentsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_faceValueCentsMeta);
+    }
+    if (data.containsKey('coupon_rate')) {
+      context.handle(
+        _couponRateMeta,
+        couponRate.isAcceptableOrUnknown(data['coupon_rate']!, _couponRateMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_couponRateMeta);
+    }
+    if (data.containsKey('coupon_schedule')) {
+      context.handle(
+        _couponScheduleMeta,
+        couponSchedule.isAcceptableOrUnknown(
+          data['coupon_schedule']!,
+          _couponScheduleMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_couponScheduleMeta);
+    }
+    if (data.containsKey('start_date')) {
+      context.handle(
+        _startDateMeta,
+        startDate.isAcceptableOrUnknown(data['start_date']!, _startDateMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_startDateMeta);
+    }
+    if (data.containsKey('maturity_date')) {
+      context.handle(
+        _maturityDateMeta,
+        maturityDate.isAcceptableOrUnknown(
+          data['maturity_date']!,
+          _maturityDateMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_maturityDateMeta);
+    }
+    if (data.containsKey('next_coupon_date')) {
+      context.handle(
+        _nextCouponDateMeta,
+        nextCouponDate.isAcceptableOrUnknown(
+          data['next_coupon_date']!,
+          _nextCouponDateMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_nextCouponDateMeta);
+    }
+    if (data.containsKey('is_matured')) {
+      context.handle(
+        _isMaturedMeta,
+        isMatured.isAcceptableOrUnknown(data['is_matured']!, _isMaturedMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    if (data.containsKey('deleted_at')) {
+      context.handle(
+        _deletedAtMeta,
+        deletedAt.isAcceptableOrUnknown(data['deleted_at']!, _deletedAtMeta),
+      );
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Bond map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Bond(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      accountId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}account_id'],
+      )!,
+      label: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}label'],
+      )!,
+      faceValueCents: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}face_value_cents'],
+      )!,
+      couponRate: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}coupon_rate'],
+      )!,
+      couponSchedule: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}coupon_schedule'],
+      )!,
+      startDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}start_date'],
+      )!,
+      maturityDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}maturity_date'],
+      )!,
+      nextCouponDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}next_coupon_date'],
+      )!,
+      isMatured: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_matured'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      deletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}deleted_at'],
+      ),
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+    );
+  }
+
+  @override
+  $BondsTable createAlias(String alias) {
+    return $BondsTable(attachedDatabase, alias);
+  }
+}
+
+class Bond extends DataClass implements Insertable<Bond> {
+  final String id;
+  final String accountId;
+
+  /// Display name; defaults to the account name when created.
+  final String label;
+
+  /// The bond's face value in integer cents; coupons are computed on this.
+  final int faceValueCents;
+
+  /// Annual coupon rate as a decimal fraction, e.g. 0.05 for 5% p.a.
+  final double couponRate;
+  final String couponSchedule;
+  final int startDate;
+  final int maturityDate;
+
+  /// The next coupon date to realize; advanced as coupons are credited.
+  final int nextCouponDate;
+  final bool isMatured;
+  final int createdAt;
+  final int updatedAt;
+  final int? deletedAt;
+  final int version;
+  const Bond({
+    required this.id,
+    required this.accountId,
+    required this.label,
+    required this.faceValueCents,
+    required this.couponRate,
+    required this.couponSchedule,
+    required this.startDate,
+    required this.maturityDate,
+    required this.nextCouponDate,
+    required this.isMatured,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+    required this.version,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['account_id'] = Variable<String>(accountId);
+    map['label'] = Variable<String>(label);
+    map['face_value_cents'] = Variable<int>(faceValueCents);
+    map['coupon_rate'] = Variable<double>(couponRate);
+    map['coupon_schedule'] = Variable<String>(couponSchedule);
+    map['start_date'] = Variable<int>(startDate);
+    map['maturity_date'] = Variable<int>(maturityDate);
+    map['next_coupon_date'] = Variable<int>(nextCouponDate);
+    map['is_matured'] = Variable<bool>(isMatured);
+    map['created_at'] = Variable<int>(createdAt);
+    map['updated_at'] = Variable<int>(updatedAt);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(deletedAt);
+    }
+    map['version'] = Variable<int>(version);
+    return map;
+  }
+
+  BondsCompanion toCompanion(bool nullToAbsent) {
+    return BondsCompanion(
+      id: Value(id),
+      accountId: Value(accountId),
+      label: Value(label),
+      faceValueCents: Value(faceValueCents),
+      couponRate: Value(couponRate),
+      couponSchedule: Value(couponSchedule),
+      startDate: Value(startDate),
+      maturityDate: Value(maturityDate),
+      nextCouponDate: Value(nextCouponDate),
+      isMatured: Value(isMatured),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+      version: Value(version),
+    );
+  }
+
+  factory Bond.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Bond(
+      id: serializer.fromJson<String>(json['id']),
+      accountId: serializer.fromJson<String>(json['accountId']),
+      label: serializer.fromJson<String>(json['label']),
+      faceValueCents: serializer.fromJson<int>(json['faceValueCents']),
+      couponRate: serializer.fromJson<double>(json['couponRate']),
+      couponSchedule: serializer.fromJson<String>(json['couponSchedule']),
+      startDate: serializer.fromJson<int>(json['startDate']),
+      maturityDate: serializer.fromJson<int>(json['maturityDate']),
+      nextCouponDate: serializer.fromJson<int>(json['nextCouponDate']),
+      isMatured: serializer.fromJson<bool>(json['isMatured']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+      updatedAt: serializer.fromJson<int>(json['updatedAt']),
+      deletedAt: serializer.fromJson<int?>(json['deletedAt']),
+      version: serializer.fromJson<int>(json['version']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'accountId': serializer.toJson<String>(accountId),
+      'label': serializer.toJson<String>(label),
+      'faceValueCents': serializer.toJson<int>(faceValueCents),
+      'couponRate': serializer.toJson<double>(couponRate),
+      'couponSchedule': serializer.toJson<String>(couponSchedule),
+      'startDate': serializer.toJson<int>(startDate),
+      'maturityDate': serializer.toJson<int>(maturityDate),
+      'nextCouponDate': serializer.toJson<int>(nextCouponDate),
+      'isMatured': serializer.toJson<bool>(isMatured),
+      'createdAt': serializer.toJson<int>(createdAt),
+      'updatedAt': serializer.toJson<int>(updatedAt),
+      'deletedAt': serializer.toJson<int?>(deletedAt),
+      'version': serializer.toJson<int>(version),
+    };
+  }
+
+  Bond copyWith({
+    String? id,
+    String? accountId,
+    String? label,
+    int? faceValueCents,
+    double? couponRate,
+    String? couponSchedule,
+    int? startDate,
+    int? maturityDate,
+    int? nextCouponDate,
+    bool? isMatured,
+    int? createdAt,
+    int? updatedAt,
+    Value<int?> deletedAt = const Value.absent(),
+    int? version,
+  }) => Bond(
+    id: id ?? this.id,
+    accountId: accountId ?? this.accountId,
+    label: label ?? this.label,
+    faceValueCents: faceValueCents ?? this.faceValueCents,
+    couponRate: couponRate ?? this.couponRate,
+    couponSchedule: couponSchedule ?? this.couponSchedule,
+    startDate: startDate ?? this.startDate,
+    maturityDate: maturityDate ?? this.maturityDate,
+    nextCouponDate: nextCouponDate ?? this.nextCouponDate,
+    isMatured: isMatured ?? this.isMatured,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+    version: version ?? this.version,
+  );
+  Bond copyWithCompanion(BondsCompanion data) {
+    return Bond(
+      id: data.id.present ? data.id.value : this.id,
+      accountId: data.accountId.present ? data.accountId.value : this.accountId,
+      label: data.label.present ? data.label.value : this.label,
+      faceValueCents: data.faceValueCents.present
+          ? data.faceValueCents.value
+          : this.faceValueCents,
+      couponRate: data.couponRate.present
+          ? data.couponRate.value
+          : this.couponRate,
+      couponSchedule: data.couponSchedule.present
+          ? data.couponSchedule.value
+          : this.couponSchedule,
+      startDate: data.startDate.present ? data.startDate.value : this.startDate,
+      maturityDate: data.maturityDate.present
+          ? data.maturityDate.value
+          : this.maturityDate,
+      nextCouponDate: data.nextCouponDate.present
+          ? data.nextCouponDate.value
+          : this.nextCouponDate,
+      isMatured: data.isMatured.present ? data.isMatured.value : this.isMatured,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+      version: data.version.present ? data.version.value : this.version,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Bond(')
+          ..write('id: $id, ')
+          ..write('accountId: $accountId, ')
+          ..write('label: $label, ')
+          ..write('faceValueCents: $faceValueCents, ')
+          ..write('couponRate: $couponRate, ')
+          ..write('couponSchedule: $couponSchedule, ')
+          ..write('startDate: $startDate, ')
+          ..write('maturityDate: $maturityDate, ')
+          ..write('nextCouponDate: $nextCouponDate, ')
+          ..write('isMatured: $isMatured, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    accountId,
+    label,
+    faceValueCents,
+    couponRate,
+    couponSchedule,
+    startDate,
+    maturityDate,
+    nextCouponDate,
+    isMatured,
+    createdAt,
+    updatedAt,
+    deletedAt,
+    version,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Bond &&
+          other.id == this.id &&
+          other.accountId == this.accountId &&
+          other.label == this.label &&
+          other.faceValueCents == this.faceValueCents &&
+          other.couponRate == this.couponRate &&
+          other.couponSchedule == this.couponSchedule &&
+          other.startDate == this.startDate &&
+          other.maturityDate == this.maturityDate &&
+          other.nextCouponDate == this.nextCouponDate &&
+          other.isMatured == this.isMatured &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt &&
+          other.deletedAt == this.deletedAt &&
+          other.version == this.version);
+}
+
+class BondsCompanion extends UpdateCompanion<Bond> {
+  final Value<String> id;
+  final Value<String> accountId;
+  final Value<String> label;
+  final Value<int> faceValueCents;
+  final Value<double> couponRate;
+  final Value<String> couponSchedule;
+  final Value<int> startDate;
+  final Value<int> maturityDate;
+  final Value<int> nextCouponDate;
+  final Value<bool> isMatured;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
+  final Value<int?> deletedAt;
+  final Value<int> version;
+  final Value<int> rowid;
+  const BondsCompanion({
+    this.id = const Value.absent(),
+    this.accountId = const Value.absent(),
+    this.label = const Value.absent(),
+    this.faceValueCents = const Value.absent(),
+    this.couponRate = const Value.absent(),
+    this.couponSchedule = const Value.absent(),
+    this.startDate = const Value.absent(),
+    this.maturityDate = const Value.absent(),
+    this.nextCouponDate = const Value.absent(),
+    this.isMatured = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  BondsCompanion.insert({
+    required String id,
+    required String accountId,
+    required String label,
+    required int faceValueCents,
+    required double couponRate,
+    required String couponSchedule,
+    required int startDate,
+    required int maturityDate,
+    required int nextCouponDate,
+    this.isMatured = const Value.absent(),
+    required int createdAt,
+    required int updatedAt,
+    this.deletedAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       accountId = Value(accountId),
+       label = Value(label),
+       faceValueCents = Value(faceValueCents),
+       couponRate = Value(couponRate),
+       couponSchedule = Value(couponSchedule),
+       startDate = Value(startDate),
+       maturityDate = Value(maturityDate),
+       nextCouponDate = Value(nextCouponDate),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<Bond> custom({
+    Expression<String>? id,
+    Expression<String>? accountId,
+    Expression<String>? label,
+    Expression<int>? faceValueCents,
+    Expression<double>? couponRate,
+    Expression<String>? couponSchedule,
+    Expression<int>? startDate,
+    Expression<int>? maturityDate,
+    Expression<int>? nextCouponDate,
+    Expression<bool>? isMatured,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? deletedAt,
+    Expression<int>? version,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (accountId != null) 'account_id': accountId,
+      if (label != null) 'label': label,
+      if (faceValueCents != null) 'face_value_cents': faceValueCents,
+      if (couponRate != null) 'coupon_rate': couponRate,
+      if (couponSchedule != null) 'coupon_schedule': couponSchedule,
+      if (startDate != null) 'start_date': startDate,
+      if (maturityDate != null) 'maturity_date': maturityDate,
+      if (nextCouponDate != null) 'next_coupon_date': nextCouponDate,
+      if (isMatured != null) 'is_matured': isMatured,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (version != null) 'version': version,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  BondsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? accountId,
+    Value<String>? label,
+    Value<int>? faceValueCents,
+    Value<double>? couponRate,
+    Value<String>? couponSchedule,
+    Value<int>? startDate,
+    Value<int>? maturityDate,
+    Value<int>? nextCouponDate,
+    Value<bool>? isMatured,
+    Value<int>? createdAt,
+    Value<int>? updatedAt,
+    Value<int?>? deletedAt,
+    Value<int>? version,
+    Value<int>? rowid,
+  }) {
+    return BondsCompanion(
+      id: id ?? this.id,
+      accountId: accountId ?? this.accountId,
+      label: label ?? this.label,
+      faceValueCents: faceValueCents ?? this.faceValueCents,
+      couponRate: couponRate ?? this.couponRate,
+      couponSchedule: couponSchedule ?? this.couponSchedule,
+      startDate: startDate ?? this.startDate,
+      maturityDate: maturityDate ?? this.maturityDate,
+      nextCouponDate: nextCouponDate ?? this.nextCouponDate,
+      isMatured: isMatured ?? this.isMatured,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      version: version ?? this.version,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (accountId.present) {
+      map['account_id'] = Variable<String>(accountId.value);
+    }
+    if (label.present) {
+      map['label'] = Variable<String>(label.value);
+    }
+    if (faceValueCents.present) {
+      map['face_value_cents'] = Variable<int>(faceValueCents.value);
+    }
+    if (couponRate.present) {
+      map['coupon_rate'] = Variable<double>(couponRate.value);
+    }
+    if (couponSchedule.present) {
+      map['coupon_schedule'] = Variable<String>(couponSchedule.value);
+    }
+    if (startDate.present) {
+      map['start_date'] = Variable<int>(startDate.value);
+    }
+    if (maturityDate.present) {
+      map['maturity_date'] = Variable<int>(maturityDate.value);
+    }
+    if (nextCouponDate.present) {
+      map['next_coupon_date'] = Variable<int>(nextCouponDate.value);
+    }
+    if (isMatured.present) {
+      map['is_matured'] = Variable<bool>(isMatured.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<int>(updatedAt.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(deletedAt.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BondsCompanion(')
+          ..write('id: $id, ')
+          ..write('accountId: $accountId, ')
+          ..write('label: $label, ')
+          ..write('faceValueCents: $faceValueCents, ')
+          ..write('couponRate: $couponRate, ')
+          ..write('couponSchedule: $couponSchedule, ')
+          ..write('startDate: $startDate, ')
+          ..write('maturityDate: $maturityDate, ')
+          ..write('nextCouponDate: $nextCouponDate, ')
+          ..write('isMatured: $isMatured, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('version: $version, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $BondCouponsTable extends BondCoupons
+    with TableInfo<$BondCouponsTable, BondCoupon> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $BondCouponsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _bondIdMeta = const VerificationMeta('bondId');
+  @override
+  late final GeneratedColumn<String> bondId = GeneratedColumn<String>(
+    'bond_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES bonds (id)',
+    ),
+  );
+  static const VerificationMeta _transactionIdMeta = const VerificationMeta(
+    'transactionId',
+  );
+  @override
+  late final GeneratedColumn<String> transactionId = GeneratedColumn<String>(
+    'transaction_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES transactions (id)',
+    ),
+  );
+  static const VerificationMeta _periodMeta = const VerificationMeta('period');
+  @override
+  late final GeneratedColumn<int> period = GeneratedColumn<int>(
+    'period',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _couponCentsMeta = const VerificationMeta(
+    'couponCents',
+  );
+  @override
+  late final GeneratedColumn<int> couponCents = GeneratedColumn<int>(
+    'coupon_cents',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _paidOnMeta = const VerificationMeta('paidOn');
+  @override
+  late final GeneratedColumn<int> paidOn = GeneratedColumn<int>(
+    'paid_on',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    bondId,
+    transactionId,
+    period,
+    couponCents,
+    paidOn,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'bond_coupons';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<BondCoupon> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('bond_id')) {
+      context.handle(
+        _bondIdMeta,
+        bondId.isAcceptableOrUnknown(data['bond_id']!, _bondIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_bondIdMeta);
+    }
+    if (data.containsKey('transaction_id')) {
+      context.handle(
+        _transactionIdMeta,
+        transactionId.isAcceptableOrUnknown(
+          data['transaction_id']!,
+          _transactionIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('period')) {
+      context.handle(
+        _periodMeta,
+        period.isAcceptableOrUnknown(data['period']!, _periodMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_periodMeta);
+    }
+    if (data.containsKey('coupon_cents')) {
+      context.handle(
+        _couponCentsMeta,
+        couponCents.isAcceptableOrUnknown(
+          data['coupon_cents']!,
+          _couponCentsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_couponCentsMeta);
+    }
+    if (data.containsKey('paid_on')) {
+      context.handle(
+        _paidOnMeta,
+        paidOn.isAcceptableOrUnknown(data['paid_on']!, _paidOnMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_paidOnMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  BondCoupon map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return BondCoupon(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      bondId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}bond_id'],
+      )!,
+      transactionId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}transaction_id'],
+      ),
+      period: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}period'],
+      )!,
+      couponCents: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}coupon_cents'],
+      )!,
+      paidOn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}paid_on'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $BondCouponsTable createAlias(String alias) {
+    return $BondCouponsTable(attachedDatabase, alias);
+  }
+}
+
+class BondCoupon extends DataClass implements Insertable<BondCoupon> {
+  final String id;
+  final String bondId;
+  final String? transactionId;
+  final int period;
+  final int couponCents;
+
+  /// The coupon date the income was credited on.
+  final int paidOn;
+  final int createdAt;
+  const BondCoupon({
+    required this.id,
+    required this.bondId,
+    this.transactionId,
+    required this.period,
+    required this.couponCents,
+    required this.paidOn,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['bond_id'] = Variable<String>(bondId);
+    if (!nullToAbsent || transactionId != null) {
+      map['transaction_id'] = Variable<String>(transactionId);
+    }
+    map['period'] = Variable<int>(period);
+    map['coupon_cents'] = Variable<int>(couponCents);
+    map['paid_on'] = Variable<int>(paidOn);
+    map['created_at'] = Variable<int>(createdAt);
+    return map;
+  }
+
+  BondCouponsCompanion toCompanion(bool nullToAbsent) {
+    return BondCouponsCompanion(
+      id: Value(id),
+      bondId: Value(bondId),
+      transactionId: transactionId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(transactionId),
+      period: Value(period),
+      couponCents: Value(couponCents),
+      paidOn: Value(paidOn),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory BondCoupon.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return BondCoupon(
+      id: serializer.fromJson<String>(json['id']),
+      bondId: serializer.fromJson<String>(json['bondId']),
+      transactionId: serializer.fromJson<String?>(json['transactionId']),
+      period: serializer.fromJson<int>(json['period']),
+      couponCents: serializer.fromJson<int>(json['couponCents']),
+      paidOn: serializer.fromJson<int>(json['paidOn']),
+      createdAt: serializer.fromJson<int>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'bondId': serializer.toJson<String>(bondId),
+      'transactionId': serializer.toJson<String?>(transactionId),
+      'period': serializer.toJson<int>(period),
+      'couponCents': serializer.toJson<int>(couponCents),
+      'paidOn': serializer.toJson<int>(paidOn),
+      'createdAt': serializer.toJson<int>(createdAt),
+    };
+  }
+
+  BondCoupon copyWith({
+    String? id,
+    String? bondId,
+    Value<String?> transactionId = const Value.absent(),
+    int? period,
+    int? couponCents,
+    int? paidOn,
+    int? createdAt,
+  }) => BondCoupon(
+    id: id ?? this.id,
+    bondId: bondId ?? this.bondId,
+    transactionId: transactionId.present
+        ? transactionId.value
+        : this.transactionId,
+    period: period ?? this.period,
+    couponCents: couponCents ?? this.couponCents,
+    paidOn: paidOn ?? this.paidOn,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  BondCoupon copyWithCompanion(BondCouponsCompanion data) {
+    return BondCoupon(
+      id: data.id.present ? data.id.value : this.id,
+      bondId: data.bondId.present ? data.bondId.value : this.bondId,
+      transactionId: data.transactionId.present
+          ? data.transactionId.value
+          : this.transactionId,
+      period: data.period.present ? data.period.value : this.period,
+      couponCents: data.couponCents.present
+          ? data.couponCents.value
+          : this.couponCents,
+      paidOn: data.paidOn.present ? data.paidOn.value : this.paidOn,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BondCoupon(')
+          ..write('id: $id, ')
+          ..write('bondId: $bondId, ')
+          ..write('transactionId: $transactionId, ')
+          ..write('period: $period, ')
+          ..write('couponCents: $couponCents, ')
+          ..write('paidOn: $paidOn, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    bondId,
+    transactionId,
+    period,
+    couponCents,
+    paidOn,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is BondCoupon &&
+          other.id == this.id &&
+          other.bondId == this.bondId &&
+          other.transactionId == this.transactionId &&
+          other.period == this.period &&
+          other.couponCents == this.couponCents &&
+          other.paidOn == this.paidOn &&
+          other.createdAt == this.createdAt);
+}
+
+class BondCouponsCompanion extends UpdateCompanion<BondCoupon> {
+  final Value<String> id;
+  final Value<String> bondId;
+  final Value<String?> transactionId;
+  final Value<int> period;
+  final Value<int> couponCents;
+  final Value<int> paidOn;
+  final Value<int> createdAt;
+  final Value<int> rowid;
+  const BondCouponsCompanion({
+    this.id = const Value.absent(),
+    this.bondId = const Value.absent(),
+    this.transactionId = const Value.absent(),
+    this.period = const Value.absent(),
+    this.couponCents = const Value.absent(),
+    this.paidOn = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  BondCouponsCompanion.insert({
+    required String id,
+    required String bondId,
+    this.transactionId = const Value.absent(),
+    required int period,
+    required int couponCents,
+    required int paidOn,
+    required int createdAt,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       bondId = Value(bondId),
+       period = Value(period),
+       couponCents = Value(couponCents),
+       paidOn = Value(paidOn),
+       createdAt = Value(createdAt);
+  static Insertable<BondCoupon> custom({
+    Expression<String>? id,
+    Expression<String>? bondId,
+    Expression<String>? transactionId,
+    Expression<int>? period,
+    Expression<int>? couponCents,
+    Expression<int>? paidOn,
+    Expression<int>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (bondId != null) 'bond_id': bondId,
+      if (transactionId != null) 'transaction_id': transactionId,
+      if (period != null) 'period': period,
+      if (couponCents != null) 'coupon_cents': couponCents,
+      if (paidOn != null) 'paid_on': paidOn,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  BondCouponsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? bondId,
+    Value<String?>? transactionId,
+    Value<int>? period,
+    Value<int>? couponCents,
+    Value<int>? paidOn,
+    Value<int>? createdAt,
+    Value<int>? rowid,
+  }) {
+    return BondCouponsCompanion(
+      id: id ?? this.id,
+      bondId: bondId ?? this.bondId,
+      transactionId: transactionId ?? this.transactionId,
+      period: period ?? this.period,
+      couponCents: couponCents ?? this.couponCents,
+      paidOn: paidOn ?? this.paidOn,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (bondId.present) {
+      map['bond_id'] = Variable<String>(bondId.value);
+    }
+    if (transactionId.present) {
+      map['transaction_id'] = Variable<String>(transactionId.value);
+    }
+    if (period.present) {
+      map['period'] = Variable<int>(period.value);
+    }
+    if (couponCents.present) {
+      map['coupon_cents'] = Variable<int>(couponCents.value);
+    }
+    if (paidOn.present) {
+      map['paid_on'] = Variable<int>(paidOn.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BondCouponsCompanion(')
+          ..write('id: $id, ')
+          ..write('bondId: $bondId, ')
+          ..write('transactionId: $transactionId, ')
+          ..write('period: $period, ')
+          ..write('couponCents: $couponCents, ')
+          ..write('paidOn: $paidOn, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -11445,6 +12754,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   );
   late final $Mp2WithdrawalsTable mp2Withdrawals = $Mp2WithdrawalsTable(this);
   late final $Mp2DividendsTable mp2Dividends = $Mp2DividendsTable(this);
+  late final $BondsTable bonds = $BondsTable(this);
+  late final $BondCouponsTable bondCoupons = $BondCouponsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -11471,6 +12782,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     mp2Contributions,
     mp2Withdrawals,
     mp2Dividends,
+    bonds,
+    bondCoupons,
   ];
 }
 
@@ -11615,6 +12928,25 @@ final class $$AccountsTableReferences
     ).filter((f) => f.accountId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_mp2AccountsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$BondsTable, List<Bond>> _bondsRefsTable(
+    _$AppDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.bonds,
+    aliasName: 'accounts__id__bonds__account_id',
+  );
+
+  $$BondsTableProcessedTableManager get bondsRefs {
+    final manager = $$BondsTableTableManager(
+      $_db,
+      $_db.bonds,
+    ).filter((f) => f.accountId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_bondsRefsTable($_db));
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -11826,6 +13158,31 @@ class $$AccountsTableFilterComposer
           }) => $$Mp2AccountsTableFilterComposer(
             $db: $db,
             $table: $db.mp2Accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> bondsRefs(
+    Expression<bool> Function($$BondsTableFilterComposer f) f,
+  ) {
+    final $$BondsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.bonds,
+      getReferencedColumn: (t) => t.accountId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BondsTableFilterComposer(
+            $db: $db,
+            $table: $db.bonds,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -12096,6 +13453,31 @@ class $$AccountsTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> bondsRefs<T extends Object>(
+    Expression<T> Function($$BondsTableAnnotationComposer a) f,
+  ) {
+    final $$BondsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.bonds,
+      getReferencedColumn: (t) => t.accountId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BondsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.bonds,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$AccountsTableTableManager
@@ -12118,6 +13500,7 @@ class $$AccountsTableTableManager
             bool savingsAccountsRefs,
             bool timeDepositsRefs,
             bool mp2AccountsRefs,
+            bool bondsRefs,
           })
         > {
   $$AccountsTableTableManager(_$AppDatabase db, $AccountsTable table)
@@ -12203,6 +13586,7 @@ class $$AccountsTableTableManager
                 savingsAccountsRefs = false,
                 timeDepositsRefs = false,
                 mp2AccountsRefs = false,
+                bondsRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -12213,6 +13597,7 @@ class $$AccountsTableTableManager
                     if (savingsAccountsRefs) db.savingsAccounts,
                     if (timeDepositsRefs) db.timeDeposits,
                     if (mp2AccountsRefs) db.mp2Accounts,
+                    if (bondsRefs) db.bonds,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -12343,6 +13728,27 @@ class $$AccountsTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (bondsRefs)
+                        await $_getPrefetchedData<
+                          Account,
+                          $AccountsTable,
+                          Bond
+                        >(
+                          currentTable: table,
+                          referencedTable: $$AccountsTableReferences
+                              ._bondsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$AccountsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).bondsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.accountId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -12370,6 +13776,7 @@ typedef $$AccountsTableProcessedTableManager =
         bool savingsAccountsRefs,
         bool timeDepositsRefs,
         bool mp2AccountsRefs,
+        bool bondsRefs,
       })
     >;
 typedef $$CategoriesTableCreateCompanionBuilder =
@@ -13177,6 +14584,24 @@ final class $$TransactionsTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$BondCouponsTable, List<BondCoupon>>
+  _bondCouponsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.bondCoupons,
+    aliasName: 'transactions__id__bond_coupons__transaction_id',
+  );
+
+  $$BondCouponsTableProcessedTableManager get bondCouponsRefs {
+    final manager = $$BondCouponsTableTableManager(
+      $_db,
+      $_db.bondCoupons,
+    ).filter((f) => f.transactionId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_bondCouponsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$TransactionsTableFilterComposer
@@ -13444,6 +14869,31 @@ class $$TransactionsTableFilterComposer
           }) => $$Mp2DividendsTableFilterComposer(
             $db: $db,
             $table: $db.mp2Dividends,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> bondCouponsRefs(
+    Expression<bool> Function($$BondCouponsTableFilterComposer f) f,
+  ) {
+    final $$BondCouponsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.bondCoupons,
+      getReferencedColumn: (t) => t.transactionId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BondCouponsTableFilterComposer(
+            $db: $db,
+            $table: $db.bondCoupons,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -13767,6 +15217,31 @@ class $$TransactionsTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> bondCouponsRefs<T extends Object>(
+    Expression<T> Function($$BondCouponsTableAnnotationComposer a) f,
+  ) {
+    final $$BondCouponsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.bondCoupons,
+      getReferencedColumn: (t) => t.transactionId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BondCouponsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.bondCoupons,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$TransactionsTableTableManager
@@ -13792,6 +15267,7 @@ class $$TransactionsTableTableManager
             bool mp2ContributionsRefs,
             bool mp2WithdrawalsRefs,
             bool mp2DividendsRefs,
+            bool bondCouponsRefs,
           })
         > {
   $$TransactionsTableTableManager(_$AppDatabase db, $TransactionsTable table)
@@ -13868,6 +15344,7 @@ class $$TransactionsTableTableManager
                 mp2ContributionsRefs = false,
                 mp2WithdrawalsRefs = false,
                 mp2DividendsRefs = false,
+                bondCouponsRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -13881,6 +15358,7 @@ class $$TransactionsTableTableManager
                     if (mp2ContributionsRefs) db.mp2Contributions,
                     if (mp2WithdrawalsRefs) db.mp2Withdrawals,
                     if (mp2DividendsRefs) db.mp2Dividends,
+                    if (bondCouponsRefs) db.bondCoupons,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -14074,6 +15552,27 @@ class $$TransactionsTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (bondCouponsRefs)
+                        await $_getPrefetchedData<
+                          Transaction,
+                          $TransactionsTable,
+                          BondCoupon
+                        >(
+                          currentTable: table,
+                          referencedTable: $$TransactionsTableReferences
+                              ._bondCouponsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$TransactionsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).bondCouponsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.transactionId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -14104,6 +15603,7 @@ typedef $$TransactionsTableProcessedTableManager =
         bool mp2ContributionsRefs,
         bool mp2WithdrawalsRefs,
         bool mp2DividendsRefs,
+        bool bondCouponsRefs,
       })
     >;
 typedef $$LedgerEntriesTableCreateCompanionBuilder =
@@ -22244,6 +23744,1038 @@ typedef $$Mp2DividendsTableProcessedTableManager =
       Mp2Dividend,
       PrefetchHooks Function({bool mp2AccountId, bool transactionId})
     >;
+typedef $$BondsTableCreateCompanionBuilder =
+    BondsCompanion Function({
+      required String id,
+      required String accountId,
+      required String label,
+      required int faceValueCents,
+      required double couponRate,
+      required String couponSchedule,
+      required int startDate,
+      required int maturityDate,
+      required int nextCouponDate,
+      Value<bool> isMatured,
+      required int createdAt,
+      required int updatedAt,
+      Value<int?> deletedAt,
+      Value<int> version,
+      Value<int> rowid,
+    });
+typedef $$BondsTableUpdateCompanionBuilder =
+    BondsCompanion Function({
+      Value<String> id,
+      Value<String> accountId,
+      Value<String> label,
+      Value<int> faceValueCents,
+      Value<double> couponRate,
+      Value<String> couponSchedule,
+      Value<int> startDate,
+      Value<int> maturityDate,
+      Value<int> nextCouponDate,
+      Value<bool> isMatured,
+      Value<int> createdAt,
+      Value<int> updatedAt,
+      Value<int?> deletedAt,
+      Value<int> version,
+      Value<int> rowid,
+    });
+
+final class $$BondsTableReferences
+    extends BaseReferences<_$AppDatabase, $BondsTable, Bond> {
+  $$BondsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $AccountsTable _accountIdTable(_$AppDatabase db) =>
+      db.accounts.createAlias('bonds__account_id__accounts__id');
+
+  $$AccountsTableProcessedTableManager get accountId {
+    final $_column = $_itemColumn<String>('account_id')!;
+
+    final manager = $$AccountsTableTableManager(
+      $_db,
+      $_db.accounts,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_accountIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$BondCouponsTable, List<BondCoupon>>
+  _bondCouponsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.bondCoupons,
+    aliasName: 'bonds__id__bond_coupons__bond_id',
+  );
+
+  $$BondCouponsTableProcessedTableManager get bondCouponsRefs {
+    final manager = $$BondCouponsTableTableManager(
+      $_db,
+      $_db.bondCoupons,
+    ).filter((f) => f.bondId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_bondCouponsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$BondsTableFilterComposer extends Composer<_$AppDatabase, $BondsTable> {
+  $$BondsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get faceValueCents => $composableBuilder(
+    column: $table.faceValueCents,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get couponRate => $composableBuilder(
+    column: $table.couponRate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get couponSchedule => $composableBuilder(
+    column: $table.couponSchedule,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get startDate => $composableBuilder(
+    column: $table.startDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get maturityDate => $composableBuilder(
+    column: $table.maturityDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get nextCouponDate => $composableBuilder(
+    column: $table.nextCouponDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isMatured => $composableBuilder(
+    column: $table.isMatured,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$AccountsTableFilterComposer get accountId {
+    final $$AccountsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.accountId,
+      referencedTable: $db.accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AccountsTableFilterComposer(
+            $db: $db,
+            $table: $db.accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> bondCouponsRefs(
+    Expression<bool> Function($$BondCouponsTableFilterComposer f) f,
+  ) {
+    final $$BondCouponsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.bondCoupons,
+      getReferencedColumn: (t) => t.bondId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BondCouponsTableFilterComposer(
+            $db: $db,
+            $table: $db.bondCoupons,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$BondsTableOrderingComposer
+    extends Composer<_$AppDatabase, $BondsTable> {
+  $$BondsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get label => $composableBuilder(
+    column: $table.label,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get faceValueCents => $composableBuilder(
+    column: $table.faceValueCents,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get couponRate => $composableBuilder(
+    column: $table.couponRate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get couponSchedule => $composableBuilder(
+    column: $table.couponSchedule,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get startDate => $composableBuilder(
+    column: $table.startDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get maturityDate => $composableBuilder(
+    column: $table.maturityDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get nextCouponDate => $composableBuilder(
+    column: $table.nextCouponDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isMatured => $composableBuilder(
+    column: $table.isMatured,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$AccountsTableOrderingComposer get accountId {
+    final $$AccountsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.accountId,
+      referencedTable: $db.accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AccountsTableOrderingComposer(
+            $db: $db,
+            $table: $db.accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$BondsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $BondsTable> {
+  $$BondsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get label =>
+      $composableBuilder(column: $table.label, builder: (column) => column);
+
+  GeneratedColumn<int> get faceValueCents => $composableBuilder(
+    column: $table.faceValueCents,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get couponRate => $composableBuilder(
+    column: $table.couponRate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get couponSchedule => $composableBuilder(
+    column: $table.couponSchedule,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get startDate =>
+      $composableBuilder(column: $table.startDate, builder: (column) => column);
+
+  GeneratedColumn<int> get maturityDate => $composableBuilder(
+    column: $table.maturityDate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get nextCouponDate => $composableBuilder(
+    column: $table.nextCouponDate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get isMatured =>
+      $composableBuilder(column: $table.isMatured, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<int> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  $$AccountsTableAnnotationComposer get accountId {
+    final $$AccountsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.accountId,
+      referencedTable: $db.accounts,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AccountsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.accounts,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> bondCouponsRefs<T extends Object>(
+    Expression<T> Function($$BondCouponsTableAnnotationComposer a) f,
+  ) {
+    final $$BondCouponsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.bondCoupons,
+      getReferencedColumn: (t) => t.bondId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BondCouponsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.bondCoupons,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$BondsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $BondsTable,
+          Bond,
+          $$BondsTableFilterComposer,
+          $$BondsTableOrderingComposer,
+          $$BondsTableAnnotationComposer,
+          $$BondsTableCreateCompanionBuilder,
+          $$BondsTableUpdateCompanionBuilder,
+          (Bond, $$BondsTableReferences),
+          Bond,
+          PrefetchHooks Function({bool accountId, bool bondCouponsRefs})
+        > {
+  $$BondsTableTableManager(_$AppDatabase db, $BondsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$BondsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$BondsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$BondsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> accountId = const Value.absent(),
+                Value<String> label = const Value.absent(),
+                Value<int> faceValueCents = const Value.absent(),
+                Value<double> couponRate = const Value.absent(),
+                Value<String> couponSchedule = const Value.absent(),
+                Value<int> startDate = const Value.absent(),
+                Value<int> maturityDate = const Value.absent(),
+                Value<int> nextCouponDate = const Value.absent(),
+                Value<bool> isMatured = const Value.absent(),
+                Value<int> createdAt = const Value.absent(),
+                Value<int> updatedAt = const Value.absent(),
+                Value<int?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => BondsCompanion(
+                id: id,
+                accountId: accountId,
+                label: label,
+                faceValueCents: faceValueCents,
+                couponRate: couponRate,
+                couponSchedule: couponSchedule,
+                startDate: startDate,
+                maturityDate: maturityDate,
+                nextCouponDate: nextCouponDate,
+                isMatured: isMatured,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String accountId,
+                required String label,
+                required int faceValueCents,
+                required double couponRate,
+                required String couponSchedule,
+                required int startDate,
+                required int maturityDate,
+                required int nextCouponDate,
+                Value<bool> isMatured = const Value.absent(),
+                required int createdAt,
+                required int updatedAt,
+                Value<int?> deletedAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => BondsCompanion.insert(
+                id: id,
+                accountId: accountId,
+                label: label,
+                faceValueCents: faceValueCents,
+                couponRate: couponRate,
+                couponSchedule: couponSchedule,
+                startDate: startDate,
+                maturityDate: maturityDate,
+                nextCouponDate: nextCouponDate,
+                isMatured: isMatured,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+                deletedAt: deletedAt,
+                version: version,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) =>
+                    (e.readTable(table), $$BondsTableReferences(db, table, e)),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({accountId = false, bondCouponsRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (bondCouponsRefs) db.bondCoupons,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (accountId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.accountId,
+                                    referencedTable: $$BondsTableReferences
+                                        ._accountIdTable(db),
+                                    referencedColumn: $$BondsTableReferences
+                                        ._accountIdTable(db)
+                                        .id,
+                                  )
+                                  as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (bondCouponsRefs)
+                        await $_getPrefetchedData<
+                          Bond,
+                          $BondsTable,
+                          BondCoupon
+                        >(
+                          currentTable: table,
+                          referencedTable: $$BondsTableReferences
+                              ._bondCouponsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$BondsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).bondCouponsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.bondId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$BondsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $BondsTable,
+      Bond,
+      $$BondsTableFilterComposer,
+      $$BondsTableOrderingComposer,
+      $$BondsTableAnnotationComposer,
+      $$BondsTableCreateCompanionBuilder,
+      $$BondsTableUpdateCompanionBuilder,
+      (Bond, $$BondsTableReferences),
+      Bond,
+      PrefetchHooks Function({bool accountId, bool bondCouponsRefs})
+    >;
+typedef $$BondCouponsTableCreateCompanionBuilder =
+    BondCouponsCompanion Function({
+      required String id,
+      required String bondId,
+      Value<String?> transactionId,
+      required int period,
+      required int couponCents,
+      required int paidOn,
+      required int createdAt,
+      Value<int> rowid,
+    });
+typedef $$BondCouponsTableUpdateCompanionBuilder =
+    BondCouponsCompanion Function({
+      Value<String> id,
+      Value<String> bondId,
+      Value<String?> transactionId,
+      Value<int> period,
+      Value<int> couponCents,
+      Value<int> paidOn,
+      Value<int> createdAt,
+      Value<int> rowid,
+    });
+
+final class $$BondCouponsTableReferences
+    extends BaseReferences<_$AppDatabase, $BondCouponsTable, BondCoupon> {
+  $$BondCouponsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $BondsTable _bondIdTable(_$AppDatabase db) =>
+      db.bonds.createAlias('bond_coupons__bond_id__bonds__id');
+
+  $$BondsTableProcessedTableManager get bondId {
+    final $_column = $_itemColumn<String>('bond_id')!;
+
+    final manager = $$BondsTableTableManager(
+      $_db,
+      $_db.bonds,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_bondIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $TransactionsTable _transactionIdTable(_$AppDatabase db) => db
+      .transactions
+      .createAlias('bond_coupons__transaction_id__transactions__id');
+
+  $$TransactionsTableProcessedTableManager? get transactionId {
+    final $_column = $_itemColumn<String>('transaction_id');
+    if ($_column == null) return null;
+    final manager = $$TransactionsTableTableManager(
+      $_db,
+      $_db.transactions,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_transactionIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$BondCouponsTableFilterComposer
+    extends Composer<_$AppDatabase, $BondCouponsTable> {
+  $$BondCouponsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get period => $composableBuilder(
+    column: $table.period,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get couponCents => $composableBuilder(
+    column: $table.couponCents,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get paidOn => $composableBuilder(
+    column: $table.paidOn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$BondsTableFilterComposer get bondId {
+    final $$BondsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.bondId,
+      referencedTable: $db.bonds,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BondsTableFilterComposer(
+            $db: $db,
+            $table: $db.bonds,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TransactionsTableFilterComposer get transactionId {
+    final $$TransactionsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.transactionId,
+      referencedTable: $db.transactions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TransactionsTableFilterComposer(
+            $db: $db,
+            $table: $db.transactions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$BondCouponsTableOrderingComposer
+    extends Composer<_$AppDatabase, $BondCouponsTable> {
+  $$BondCouponsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get period => $composableBuilder(
+    column: $table.period,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get couponCents => $composableBuilder(
+    column: $table.couponCents,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get paidOn => $composableBuilder(
+    column: $table.paidOn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$BondsTableOrderingComposer get bondId {
+    final $$BondsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.bondId,
+      referencedTable: $db.bonds,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BondsTableOrderingComposer(
+            $db: $db,
+            $table: $db.bonds,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TransactionsTableOrderingComposer get transactionId {
+    final $$TransactionsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.transactionId,
+      referencedTable: $db.transactions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TransactionsTableOrderingComposer(
+            $db: $db,
+            $table: $db.transactions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$BondCouponsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $BondCouponsTable> {
+  $$BondCouponsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get period =>
+      $composableBuilder(column: $table.period, builder: (column) => column);
+
+  GeneratedColumn<int> get couponCents => $composableBuilder(
+    column: $table.couponCents,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get paidOn =>
+      $composableBuilder(column: $table.paidOn, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$BondsTableAnnotationComposer get bondId {
+    final $$BondsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.bondId,
+      referencedTable: $db.bonds,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$BondsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.bonds,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$TransactionsTableAnnotationComposer get transactionId {
+    final $$TransactionsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.transactionId,
+      referencedTable: $db.transactions,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TransactionsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.transactions,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$BondCouponsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $BondCouponsTable,
+          BondCoupon,
+          $$BondCouponsTableFilterComposer,
+          $$BondCouponsTableOrderingComposer,
+          $$BondCouponsTableAnnotationComposer,
+          $$BondCouponsTableCreateCompanionBuilder,
+          $$BondCouponsTableUpdateCompanionBuilder,
+          (BondCoupon, $$BondCouponsTableReferences),
+          BondCoupon,
+          PrefetchHooks Function({bool bondId, bool transactionId})
+        > {
+  $$BondCouponsTableTableManager(_$AppDatabase db, $BondCouponsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$BondCouponsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$BondCouponsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$BondCouponsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> bondId = const Value.absent(),
+                Value<String?> transactionId = const Value.absent(),
+                Value<int> period = const Value.absent(),
+                Value<int> couponCents = const Value.absent(),
+                Value<int> paidOn = const Value.absent(),
+                Value<int> createdAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => BondCouponsCompanion(
+                id: id,
+                bondId: bondId,
+                transactionId: transactionId,
+                period: period,
+                couponCents: couponCents,
+                paidOn: paidOn,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String bondId,
+                Value<String?> transactionId = const Value.absent(),
+                required int period,
+                required int couponCents,
+                required int paidOn,
+                required int createdAt,
+                Value<int> rowid = const Value.absent(),
+              }) => BondCouponsCompanion.insert(
+                id: id,
+                bondId: bondId,
+                transactionId: transactionId,
+                period: period,
+                couponCents: couponCents,
+                paidOn: paidOn,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$BondCouponsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({bondId = false, transactionId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (bondId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.bondId,
+                                referencedTable: $$BondCouponsTableReferences
+                                    ._bondIdTable(db),
+                                referencedColumn: $$BondCouponsTableReferences
+                                    ._bondIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+                    if (transactionId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.transactionId,
+                                referencedTable: $$BondCouponsTableReferences
+                                    ._transactionIdTable(db),
+                                referencedColumn: $$BondCouponsTableReferences
+                                    ._transactionIdTable(db)
+                                    .id,
+                              )
+                              as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$BondCouponsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $BondCouponsTable,
+      BondCoupon,
+      $$BondCouponsTableFilterComposer,
+      $$BondCouponsTableOrderingComposer,
+      $$BondCouponsTableAnnotationComposer,
+      $$BondCouponsTableCreateCompanionBuilder,
+      $$BondCouponsTableUpdateCompanionBuilder,
+      (BondCoupon, $$BondCouponsTableReferences),
+      BondCoupon,
+      PrefetchHooks Function({bool bondId, bool transactionId})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -22289,4 +24821,8 @@ class $AppDatabaseManager {
       $$Mp2WithdrawalsTableTableManager(_db, _db.mp2Withdrawals);
   $$Mp2DividendsTableTableManager get mp2Dividends =>
       $$Mp2DividendsTableTableManager(_db, _db.mp2Dividends);
+  $$BondsTableTableManager get bonds =>
+      $$BondsTableTableManager(_db, _db.bonds);
+  $$BondCouponsTableTableManager get bondCoupons =>
+      $$BondCouponsTableTableManager(_db, _db.bondCoupons);
 }

@@ -32,6 +32,8 @@ part 'app_database.g.dart';
     Mp2Contributions,
     Mp2Withdrawals,
     Mp2Dividends,
+    Bonds,
+    BondCoupons,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -51,7 +53,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 8;
+  int get schemaVersion => 9;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -83,6 +85,10 @@ class AppDatabase extends _$AppDatabase {
             await m.createTable(mp2Contributions);
             await m.createTable(mp2Withdrawals);
             await m.createTable(mp2Dividends);
+          }
+          if (from < 9) {
+            await m.createTable(bonds);
+            await m.createTable(bondCoupons);
           }
         },
       );

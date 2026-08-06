@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/database/app_database.dart';
 import '../../core/database/daos/accounts_dao.dart';
 import '../../core/database/daos/bills_dao.dart';
+import '../../core/database/daos/bonds_dao.dart';
 import '../../core/database/daos/budgets_dao.dart';
 import '../../core/database/daos/categories_dao.dart';
 import '../../core/database/daos/database_wipe_service.dart';
@@ -82,6 +83,11 @@ final timeDepositsDaoProvider = Provider<TimeDepositsDao>((ref) {
 /// Non-reactive access to MP2 persistence.
 final mp2DaoProvider = Provider<Mp2Dao>((ref) {
   return Mp2Dao(ref.watch(appDatabaseProvider));
+});
+
+/// Non-reactive access to bond persistence.
+final bondsDaoProvider = Provider<BondsDao>((ref) {
+  return BondsDao(ref.watch(appDatabaseProvider));
 });
 
 /// The Firestore instance used by the sync layer. Overridable in tests by a

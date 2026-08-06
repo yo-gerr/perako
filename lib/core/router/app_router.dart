@@ -10,6 +10,9 @@ import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/bills/presentation/screens/bill_detail_screen.dart';
 import '../../features/bills/presentation/screens/bill_form_screen.dart';
 import '../../features/bills/presentation/screens/bills_list_screen.dart';
+import '../../features/bonds/presentation/screens/bond_detail_screen.dart';
+import '../../features/bonds/presentation/screens/bond_form_screen.dart';
+import '../../features/bonds/presentation/screens/bonds_list_screen.dart';
 import '../../features/budgets/presentation/screens/budget_detail_screen.dart';
 import '../../features/budgets/presentation/screens/budget_form_screen.dart';
 import '../../features/budgets/presentation/screens/budgets_list_screen.dart';
@@ -210,6 +213,28 @@ GoRouter createRouter(Ref ref) {
         name: 'mp2-detail',
         builder: (context, state) =>
             Mp2DetailScreen(mp2Id: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/bonds',
+        name: 'bonds',
+        builder: (context, state) => const BondsListScreen(),
+      ),
+      GoRoute(
+        path: '/bonds/new',
+        name: 'bond-new',
+        builder: (context, state) => const BondFormScreen(),
+      ),
+      GoRoute(
+        path: '/bonds/:id/edit',
+        name: 'bond-edit',
+        builder: (context, state) =>
+            BondFormScreen(bondId: state.pathParameters['id']),
+      ),
+      GoRoute(
+        path: '/bonds/:id',
+        name: 'bond-detail',
+        builder: (context, state) =>
+            BondDetailScreen(bondId: state.pathParameters['id']!),
       ),
       GoRoute(
         path: '/categories',

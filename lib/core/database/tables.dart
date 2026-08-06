@@ -571,3 +571,74 @@ class Mp2Dividends extends Table {
   @override
   Set<Column<Object>> get primaryKey => {id};
 }
+
+/// A fixed-income bond held in [accountId] that pays periodic coupons at
+/// [couponRate] on [couponSchedule].
+///
+/// The face value stays in the linked account for the whole term; every coupon
+/// is realized by [BondService] as a balanced income posting recorded in
+/// [BondCoupons], so coupons are never credited twice. [nextCouponDate] is the
+/// cursor the engine advances as coupons are realized.
+class Bonds extends Table {
+  TextColumn get id => text()();
+
+  TextColumn get accountId => text().references(Accounts, #id)();
+
+  /// Display name; defaults to the account name when created.
+  TextColumn get label => text()();
+
+  /// The bond's face value in integer cents; coupons are computed on this.
+  IntColumn get faceValueCents => integer()();
+
+  /// Annual coupon rate as a decimal fraction, e.g. 0.05 for 5% p.a.
+  RealColumn get couponRate => real()();
+
+  // monthly | quarterly | semi-annual | annual
+  TextColumn get couponSchedule => text()();
+
+  IntColumn get startDate => integer()();
+
+  IntColumn get maturityDate => integer()();
+
+  /// The next coupon date to realize; advanced as coupons are credited.
+  IntColumn get nextCouponDate => integer()();
+
+  BoolColumn get isMatured => boolean().withDefault(const Constant(false))();
+
+  IntColumn get createdAt => integer()();
+
+  IntColumn get updatedAt => integer()();
+
+  IntColumn get deletedAt => integer().nullable()();
+
+  IntColumn get version => integer().withDefault(const Constant(0))();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
+/// A realized coupon for a [Bonds] row.
+///
+/// [period] is the zero-based coupon index (0 = the first coupon of the term);
+/// the coupon is credited on that period's date. [transactionId] is null when
+/// the coupon was zero and nothing was posted.
+class BondCoupons extends Table {
+  TextColumn get id => text()();
+
+  TextColumn get bondId => text().references(Bonds, #id)();
+
+  TextColumn get transactionId =>
+      text().references(Transactions, #id).nullable()();
+
+  IntColumn get period => integer()();
+
+  IntColumn get couponCents => integer()();
+
+  /// The coupon date the income was credited on.
+  IntColumn get paidOn => integer()();
+
+  IntColumn get createdAt => integer()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
