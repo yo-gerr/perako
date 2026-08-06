@@ -19,6 +19,11 @@ import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
 import '../../features/goals/presentation/screens/goal_detail_screen.dart';
 import '../../features/goals/presentation/screens/goal_form_screen.dart';
 import '../../features/goals/presentation/screens/goals_list_screen.dart';
+import '../../features/reports/presentation/screens/budget_performance_screen.dart';
+import '../../features/reports/presentation/screens/cash_flow_report_screen.dart';
+import '../../features/reports/presentation/screens/category_analysis_screen.dart';
+import '../../features/reports/presentation/screens/net_worth_report_screen.dart';
+import '../../features/reports/presentation/screens/reports_hub_screen.dart';
 import '../../features/settings/presentation/screens/profile_screen.dart';
 import '../../features/settings/presentation/screens/security_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
@@ -211,6 +216,36 @@ GoRouter createRouter(Ref ref) {
         name: 'goal-detail',
         builder: (context, state) =>
             GoalDetailScreen(goalId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/reports',
+        name: 'reports',
+        builder: (context, state) => const ReportsHubScreen(),
+      ),
+      GoRoute(
+        path: '/reports/net-worth',
+        name: 'reports-net-worth',
+        builder: (context, state) => const NetWorthReportScreen(),
+      ),
+      GoRoute(
+        path: '/reports/cash-flow',
+        name: 'reports-cash-flow',
+        builder: (context, state) => const CashFlowReportScreen(),
+      ),
+      GoRoute(
+        path: '/reports/spending',
+        name: 'reports-spending',
+        builder: (context, state) => const SpendingAnalysisScreen(),
+      ),
+      GoRoute(
+        path: '/reports/income',
+        name: 'reports-income',
+        builder: (context, state) => const IncomeAnalysisScreen(),
+      ),
+      GoRoute(
+        path: '/reports/budget-performance',
+        name: 'reports-budget-performance',
+        builder: (context, state) => const BudgetPerformanceScreen(),
       ),
       GoRoute(
         path: '/categories/new',

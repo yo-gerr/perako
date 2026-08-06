@@ -124,6 +124,67 @@ class LedgerDao extends DatabaseAccessor<AppDatabase> {
                 t.transactionId.equals(transactionId) & t.deletedAt.isNull()))
           .get();
 
+  /// All non-deleted ledger entries with [LedgerEntries.entryDate] at or
+  /// before [toMillis]. Used to derive balances as-of arbitrary dates.
+  Future<List<LedgerEntry>> entriesUpTo(int toMillis) async {
+    return (select(ledgerEntries)
+          ..where((t) =>
+              t.deletedAt.isNull() & t.entryDate.isSmallerOrEqualValue(toMillis)))
+        .get();
+  }
+
+  /// Spending grouped by category within the inclusive millisecond range, as
+  /// `(categoryId, cents)` pairs. Uncategorized expenses appear with a null
+  /// category id. Derived from the hidden expense corpus.
+  Future<List<(String?, int)>> expenseByCategory(
+    int fromMillis,
+    int toMillis,
+  ) async {
+    final q = selectOnly(ledgerEntries);
+    final categoryId = ledgerEntries.categoryId;
+    final sum = ledgerEntries.amount.sum();
+    q.addColumns([categoryId, sum]);
+    q.where(
+      ledgerEntries.accountId.equals(LedgerConstants.counterpartyExpense) &
+          ledgerEntries.type.equals('debit') &
+          ledgerEntries.deletedAt.isNull() &
+          ledgerEntries.entryDate.isBiggerOrEqualValue(fromMillis) &
+          ledgerEntries.entryDate.isSmallerOrEqualValue(toMillis),
+    );
+    q.groupBy([categoryId]);
+    final rows = await q.get();
+    return [
+      for (final row in rows)
+        (row.read(categoryId), row.read(sum) ?? 0),
+    ];
+  }
+
+  /// Income grouped by category within the inclusive millisecond range, as
+  /// `(categoryId, cents)` pairs. Uncategorized income appears with a null
+  /// category id. Derived from the hidden income corpus.
+  Future<List<(String?, int)>> incomeByCategory(
+    int fromMillis,
+    int toMillis,
+  ) async {
+    final q = selectOnly(ledgerEntries);
+    final categoryId = ledgerEntries.categoryId;
+    final sum = ledgerEntries.amount.sum();
+    q.addColumns([categoryId, sum]);
+    q.where(
+      ledgerEntries.accountId.equals(LedgerConstants.counterpartyIncome) &
+          ledgerEntries.type.equals('credit') &
+          ledgerEntries.deletedAt.isNull() &
+          ledgerEntries.entryDate.isBiggerOrEqualValue(fromMillis) &
+          ledgerEntries.entryDate.isSmallerOrEqualValue(toMillis),
+    );
+    q.groupBy([categoryId]);
+    final rows = await q.get();
+    return [
+      for (final row in rows)
+        (row.read(categoryId), row.read(sum) ?? 0),
+    ];
+  }
+
   /// Spending in integer cents within the inclusive millisecond range.
   ///
   /// Spending is measured on the hidden expense corpus (debit legs tagged with

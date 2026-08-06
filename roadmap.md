@@ -286,28 +286,25 @@
 
 ### 2.4 — Reports & Analytics
 
-- [ ] **Create report service** — `lib/features/reports/domain/report_service.dart`:
-    - [ ] Net worth over time (daily/weekly/monthly snapshots)
-    - [ ] Cash flow report (income vs expenses by period)
-    - [ ] Spending analysis by category (pie/bar)
-    - [ ] Income analysis by source
-    - [ ] Budget performance report
-    - [ ] Savings growth report
-    - [ ] Interest earned report
-- [ ] **Create providers**:
-    - [ ] `net_worth_report_provider.dart`
-    - [ ] `cash_flow_provider.dart`
-    - [ ] `spending_analysis_provider.dart`
-    - [ ] `income_analysis_provider.dart`
-- [ ] **Build screens**:
-    - [ ] `reports_hub_screen.dart` — Report type picker
-    - [ ] `net_worth_report_screen.dart` — Line chart with date range picker
-    - [ ] `cash_flow_report_screen.dart` — Bar chart comparing periods
-    - [ ] `spending_analysis_screen.dart` — Pie chart by category
-    - [ ] `income_analysis_screen.dart`
-    - [ ] `budget_performance_screen.dart`
-    - [ ] `export_dialog.dart` — Export options (PDF, Excel, CSV)
-- [ ] **Wire up GoRouter** — Add `/reports` and sub-routes
+- [x] **Create report service** — `lib/features/reports/domain/report_service.dart`:
+    - [x] Net worth over time (daily/weekly/monthly snapshots)
+    - [x] Cash flow report (income vs expenses by period)
+    - [x] Spending analysis by category (pie/bar)
+    - [x] Income analysis by source
+    - [x] Budget performance report
+    - [ ] Savings growth report — deferred to Phase 3 (needs savings/deposit data)
+    - [ ] Interest earned report — deferred to Phase 3 (needs savings/deposit data)
+- [x] **Create providers** — `lib/features/reports/presentation/providers/reports_providers.dart`:
+    - [x] Shared range/resolution state + net worth, cash flow, spending, income providers
+- [x] **Build screens**:
+    - [x] `reports_hub_screen.dart` — Report type picker
+    - [x] `net_worth_report_screen.dart` — Line chart with date range picker
+    - [x] `cash_flow_report_screen.dart` — Bar chart comparing periods
+    - [x] `spending_analysis_screen.dart` — Pie chart by category
+    - [x] `income_analysis_screen.dart`
+    - [x] `budget_performance_screen.dart`
+    - [x] `export_dialog.dart` — Export options (CSV download / clipboard)
+- [x] **Wire up GoRouter** — Add `/reports` and sub-routes
 
 ### 2.5 — Search
 

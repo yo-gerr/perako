@@ -132,6 +132,14 @@ class HomeShellState extends State<HomeShell> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.bar_chart_outlined),
+              title: const Text('Reports'),
+              onTap: () {
+                Navigator.of(context).pop();
+                context.push('/reports');
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.settings_outlined),
               title: const Text('Settings'),
               onTap: () {
