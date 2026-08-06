@@ -25,6 +25,8 @@ part 'app_database.g.dart';
     BillPayments,
     Goals,
     GoalContributions,
+    SavingsAccounts,
+    InterestSchedules,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -44,7 +46,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -63,6 +65,10 @@ class AppDatabase extends _$AppDatabase {
           if (from < 5) {
             await m.createTable(goals);
             await m.createTable(goalContributions);
+          }
+          if (from < 6) {
+            await m.createTable(savingsAccounts);
+            await m.createTable(interestSchedules);
           }
         },
       );

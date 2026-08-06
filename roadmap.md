@@ -324,21 +324,21 @@
 
 ### 3.1 — Savings Engine
 
-- [ ] **Add Drift table**:
-    - [ ] `savings_accounts_table.dart` — `account_id` (FK), `interest_rate`, `compounding_frequency` (daily/monthly/annually), `interest_credit_schedule`, `is_paused`
-    - [ ] `interest_schedule_table.dart` — Planned interest credit dates
-- [ ] **Create Freezed models**:
-    - [ ] `savings_account.dart` — `SavingsAccount`, `CompoundingFrequency` enum
-- [ ] **Build savings engine**:
-    - [ ] `SavingsInterestService` — Daily interest calc, compounding logic, generate interest transactions
-    - [ ] `SavingsForecastService` — Future balance projection
-- [ ] **Create providers**:
-    - [ ] `savings_accounts_provider.dart`
-    - [ ] `savings_forecast_provider.dart`
-- [ ] **Build screens**:
-    - [ ] `savings_detail_screen.dart` — Interest rate display, forecast chart, interest credit history
-    - [ ] `savings_settings_screen.dart` — Rate, compounding, schedule configuration
-- [ ] **Wire up GoRouter** — Extend account routes for savings detail
+- [x] **Add Drift table**:
+    - [x] `savings_accounts_table.dart` — `account_id` (FK), `interest_rate`, `compounding_frequency` (daily/monthly/annually), `interest_credit_schedule`, `is_paused`
+    - [x] `interest_schedule_table.dart` — Planned interest credit dates
+- [x] **Create Freezed models**:
+    - [x] `savings_account.dart` — `SavingsAccount`, `CompoundingFrequency` enum
+- [x] **Build savings engine**:
+    - [x] `SavingsInterestService` — Daily interest calc, compounding logic, generate interest transactions
+    - [x] `SavingsForecastService` — Future balance projection
+- [x] **Create providers**:
+    - [x] `savings_accounts_provider.dart`
+    - [x] `savings_forecast_provider.dart`
+- [x] **Build screens**:
+    - [x] `savings_detail_screen.dart` — Interest rate display, forecast chart, interest credit history
+    - [x] `savings_settings_screen.dart` — Rate, compounding, schedule configuration
+- [x] **Wire up GoRouter** — Extend account routes for savings detail
 
 ### 3.2 — Time Deposits
 

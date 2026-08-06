@@ -94,6 +94,18 @@ class AccountDetailScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 16),
+              if (type == AccountType.savings) ...[
+                Card(
+                  child: ListTile(
+                    leading: const Icon(Icons.savings_outlined),
+                    title: const Text('Savings'),
+                    subtitle: const Text('Interest rate and forecast'),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => context.push('/accounts/$accountId/savings'),
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
               Text('History', style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 4),
               entries.when(

@@ -25,6 +25,8 @@ import '../../features/reports/presentation/screens/category_analysis_screen.dar
 import '../../features/reports/presentation/screens/net_worth_report_screen.dart';
 import '../../features/reports/presentation/screens/reports_hub_screen.dart';
 import '../../features/search/presentation/screens/search_screen.dart';
+import '../../features/savings/presentation/screens/savings_detail_screen.dart';
+import '../../features/savings/presentation/screens/savings_settings_screen.dart';
 import '../../features/settings/presentation/screens/profile_screen.dart';
 import '../../features/settings/presentation/screens/security_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
@@ -146,6 +148,18 @@ GoRouter createRouter(Ref ref) {
         name: 'account-edit',
         builder: (context, state) =>
             AccountFormScreen(accountId: state.pathParameters['id']),
+      ),
+      GoRoute(
+        path: '/accounts/:id/savings',
+        name: 'savings-detail',
+        builder: (context, state) => SavingsDetailScreen(
+            accountId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/accounts/:id/savings/settings',
+        name: 'savings-settings',
+        builder: (context, state) => SavingsSettingsScreen(
+            accountId: state.pathParameters['id']!),
       ),
       GoRoute(
         path: '/categories',

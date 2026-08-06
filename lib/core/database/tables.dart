@@ -353,3 +353,66 @@ class GoalContributions extends Table {
   @override
   Set<Column<Object>> get primaryKey => {id};
 }
+
+/// Configures an [Accounts] row as an interest-bearing savings account.
+///
+/// Interest is credited to the linked account through the ledger on a
+/// schedule derived from [compoundingFrequency]; every credit is a balanced
+/// income posting. Paused accounts stop accruing interest but keep their
+/// configuration.
+class SavingsAccounts extends Table {
+  TextColumn get accountId => text().references(Accounts, #id)();
+
+  /// Annual interest rate as a decimal fraction, e.g. 0.05 for 5% p.a.
+  RealColumn get interestRate => real()();
+
+  // daily | monthly | annually
+  TextColumn get compoundingFrequency => text()();
+
+  /// Day of the month (1-28) interest is credited for monthly compounding.
+  IntColumn get interestCreditDay => integer()();
+
+  BoolColumn get isPaused => boolean().withDefault(const Constant(false))();
+
+  /// Millis when this savings arrangement started; anchors annual credits.
+  IntColumn get startDate => integer()();
+
+  IntColumn get updatedAt => integer()();
+
+  IntColumn get deletedAt => integer().nullable()();
+
+  IntColumn get version => integer().withDefault(const Constant(0))();
+
+  @override
+  Set<Column<Object>> get primaryKey => {accountId};
+}
+
+/// A planned interest credit for a [SavingsAccounts] row.
+///
+/// The schedule is seeded in advance from the account's configuration; when a
+/// due credit is realized, the principal and interest snapshots plus the
+/// generated income transaction id are filled in so history stays auditable.
+class InterestSchedules extends Table {
+  TextColumn get id => text()();
+
+  TextColumn get savingsAccountId =>
+      text().references(SavingsAccounts, #accountId)();
+
+  /// Millis when this credit is scheduled to be realized.
+  IntColumn get dueDate => integer()();
+
+  /// Balance the interest was computed on; null until the credit is posted.
+  IntColumn get principalCents => integer().nullable()();
+
+  /// Interest credited in integer cents; null until the credit is posted.
+  IntColumn get interestCents => integer().nullable()();
+
+  /// The income transaction that realized this credit; null until posted.
+  TextColumn get transactionId =>
+      text().references(Transactions, #id).nullable()();
+
+  IntColumn get createdAt => integer()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
