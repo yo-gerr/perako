@@ -226,3 +226,67 @@ class CategoryBudgetLimits extends Table {
   @override
   Set<Column<Object>> get primaryKey => {id};
 }
+
+/// A recurring bill that is materialized as an expense whenever its due date
+/// arrives.
+///
+/// - [frequency] is `weekly`, `monthly`, or `yearly`.
+/// - [dayOfMonth] anchors monthly/yearly recurrence (e.g. pay rent on the 5th)
+///   and is clamped to the last day of shorter months.
+/// - [nextDueDate] is the next scheduled posting date; the bill engine advances
+///   it after each payment.
+class Bills extends Table {
+  TextColumn get id => text()();
+
+  TextColumn get name => text()();
+
+  /// The account credited when the bill is paid. Required for posting.
+  TextColumn get accountId => text().references(Accounts, #id)();
+
+  /// Optional category applied to the generated expense.
+  TextColumn get categoryId => text().references(Categories, #id).nullable()();
+
+  IntColumn get amountCents => integer()();
+
+  // weekly | monthly | yearly
+  TextColumn get frequency => text()();
+
+  IntColumn get dayOfMonth => integer().nullable()();
+
+  IntColumn get nextDueDate => integer()();
+
+  IntColumn get createdAt => integer()();
+
+  IntColumn get updatedAt => integer()();
+
+  IntColumn get deletedAt => integer().nullable()();
+
+  IntColumn get version => integer().withDefault(const Constant(0))();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
+/// A ledger-backed payment against a [Bills] row.
+///
+/// Every payment posts a balanced expense through the ledger; [transactionId]
+/// keeps the audit trail pointing at that posting so payment history can be
+/// reconciled with the transactions list.
+class BillPayments extends Table {
+  TextColumn get id => text()();
+
+  TextColumn get billId => text().references(Bills, #id)();
+
+  TextColumn get transactionId => text().references(Transactions, #id)();
+
+  IntColumn get amountCents => integer()();
+
+  IntColumn get paidOn => integer()();
+
+  TextColumn get note => text().nullable()();
+
+  IntColumn get createdAt => integer()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}

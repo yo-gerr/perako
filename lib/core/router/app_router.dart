@@ -7,6 +7,9 @@ import '../../features/accounts/presentation/screens/account_form_screen.dart';
 import '../../features/accounts/presentation/screens/accounts_list_screen.dart';
 import '../../features/auth/presentation/providers/auth_providers.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
+import '../../features/bills/presentation/screens/bill_detail_screen.dart';
+import '../../features/bills/presentation/screens/bill_form_screen.dart';
+import '../../features/bills/presentation/screens/bills_list_screen.dart';
 import '../../features/budgets/presentation/screens/budget_detail_screen.dart';
 import '../../features/budgets/presentation/screens/budget_form_screen.dart';
 import '../../features/budgets/presentation/screens/budgets_list_screen.dart';
@@ -161,6 +164,28 @@ GoRouter createRouter(Ref ref) {
         name: 'budget-detail',
         builder: (context, state) =>
             BudgetDetailScreen(budgetId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/bills',
+        name: 'bills',
+        builder: (context, state) => const BillsListScreen(),
+      ),
+      GoRoute(
+        path: '/bills/new',
+        name: 'bill-new',
+        builder: (context, state) => const BillFormScreen(),
+      ),
+      GoRoute(
+        path: '/bills/:id/edit',
+        name: 'bill-edit',
+        builder: (context, state) =>
+            BillFormScreen(billId: state.pathParameters['id']),
+      ),
+      GoRoute(
+        path: '/bills/:id',
+        name: 'bill-detail',
+        builder: (context, state) =>
+            BillDetailScreen(billId: state.pathParameters['id']!),
       ),
       GoRoute(
         path: '/categories/new',

@@ -247,23 +247,24 @@
 
 ### 2.2 — Bills & Recurring Transactions
 
-- [ ] **Add Drift tables**:
-    - [ ] `bills_table.dart` — `id`, `name`, `amount`, `account_id` (FK), `category_id` (FK), `frequency` (weekly/monthly/yearly), `day_of_month`, `next_due_date`, `is_active`
-    - [ ] `recurring_transactions_table.dart` — Template for auto-generated transactions
-- [ ] **Create Freezed models**:
-    - [ ] `bill.dart` — `Bill`, `Frequency` enum
-- [ ] **Create DAO** — `bills_dao.dart`
-- [ ] **Build bill engine**:
-    - [ ] `BillService` — Check due bills, mark paid, reschedule, skip
-    - [ ] `RecurringTransactionService` — Generate transactions from templates on schedule
-- [ ] **Create providers**:
-    - [ ] `bills_provider.dart`
-    - [ ] `upcoming_bills_provider.dart` — Merged with calendar
-- [ ] **Build screens**:
-    - [ ] `bills_list_screen.dart` — Active bills with due date and status
-    - [ ] `bill_form_screen.dart`
-    - [ ] `bill_detail_screen.dart` — Payment history, next due
-- [ ] **Wire up GoRouter** — Add `/bills` routes
+- [x] **Add Drift tables**:
+    - [x] `bills_table.dart` — `id`, `name`, `amount`, `account_id` (FK), `category_id` (FK), `frequency` (weekly/monthly/yearly), `day_of_month`, `next_due_date`, `is_active` (as soft-delete `deleted_at` archive, consistent with budgets)
+    - [x] `bill_payments_table.dart` — Payment history linking each posting to its ledger transaction
+    - [ ] ~~`recurring_transactions_table.dart`~~ — Deferred by design decision; bills cover the recurring-expense use case
+- [x] **Create models**:
+    - [x] `bill.dart` — `Bill`, `BillFrequency` enum (drift data classes, not Freezed)
+- [x] **Create DAO** — `bills_dao.dart`
+- [x] **Build bill engine**:
+    - [x] `BillService` — Check due bills, mark paid (posts a ledger expense), reschedule, skip
+    - [ ] ~~`RecurringTransactionService`~~ — Deferred with recurring templates
+- [x] **Create providers**:
+    - [x] `bills_provider.dart`
+    - [x] `bill_detail_provider.dart` — Bill with payment history
+- [x] **Build screens**:
+    - [x] `bills_list_screen.dart` — Active bills with due date and status
+    - [x] `bill_form_screen.dart`
+    - [x] `bill_detail_screen.dart` — Payment history, next due, pay now
+- [x] **Wire up GoRouter** — Add `/bills` routes
 
 ### 2.3 — Financial Goals
 

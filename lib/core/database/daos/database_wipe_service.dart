@@ -15,6 +15,8 @@ class DatabaseWipeService {
       await _db.delete(_db.profiles).go();
       await _db.delete(_db.categoryBudgetLimits).go();
       await _db.delete(_db.budgets).go();
+      await _db.delete(_db.billPayments).go();
+      await _db.delete(_db.bills).go();
       await _db.delete(_db.transactionTags).go();
       await _db.delete(_db.tags).go();
       await _db.delete(_db.ledgerEntries).go();

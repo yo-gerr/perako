@@ -100,6 +100,34 @@ void main() {
     expect(await db.select(db.categoryBudgetLimits).get(), isEmpty);
   });
 
+  test('wipe clears bills and their payments', () async {
+    await db.into(db.bills).insert(BillsCompanion(
+          id: const Value('b1'),
+          name: const Value('Rent'),
+          accountId: const Value('a1'),
+          categoryId: const Value(null),
+          amountCents: const Value(150000),
+          frequency: const Value('monthly'),
+          dayOfMonth: const Value(1),
+          nextDueDate: Value(1),
+          createdAt: Value(1),
+          updatedAt: Value(1),
+        ));
+    await db.into(db.billPayments).insert(BillPaymentsCompanion(
+          id: const Value('p1'),
+          billId: const Value('b1'),
+          transactionId: const Value('t1'),
+          amountCents: const Value(150000),
+          paidOn: Value(1),
+          note: const Value(null),
+          createdAt: Value(1),
+        ));
+
+    await container.read(databaseWipeServiceProvider).wipeAll();
+    expect(await db.select(db.bills).get(), isEmpty);
+    expect(await db.select(db.billPayments).get(), isEmpty);
+  });
+
   testWidgets('coordinator wipes local data when the user changes',
       (tester) async {
     await db.into(db.accounts).insert(AccountsCompanion(
