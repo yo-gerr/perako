@@ -32,7 +32,10 @@ dart pub global activate flutterfire_cli
    (defined in `android/app/build.gradle.kts`).
 4. Download the generated **`google-services.json`** and place it at exactly:
    `android/app/google-services.json`.
-   (This file must not be committed to git — it contains project secrets.)
+   (This file is git-ignored. It contains the same non-secret client config as
+   `lib/firebase_options.dart`, but it is excluded because the Android build
+   reads it from disk — so anyone cloning the repo must add it locally before
+   building Android.)
 
 ## 3. Log in and generate Flutter config
 
@@ -93,7 +96,7 @@ The APK should build without errors. Android native Firestore gives real-time
 ## Notes / pitfalls
 
 - Commit `lib/firebase_options.dart` (it's safe, non-secret), but **never** commit
-  `android/app/google-services.json`.
+  `android/app/google-services.json`; add it locally to build Android.
 - If `flutterfire configure` complains the Android app isn't found, double-check
   the package name matches `com.example.perako` exactly.
 - The local drift database is unaffected by Firebase and works fully offline.

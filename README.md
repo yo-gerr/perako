@@ -2,9 +2,114 @@
 
 > **Your Personal Finance Operating System**
 
+![Flutter](https://img.shields.io/badge/Flutter-3-02569B)
+![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20Web-3DDC84)
+![License](https://img.shields.io/badge/License-MIT-blue)
+
 Perako OS is an Android + Web, ledger-based personal finance management application built with Flutter. Unlike traditional expense trackers, Perako OS is designed to become a complete financial operating system that manages every aspect of personal finance—from daily expenses and budgeting to savings, investments, automation, and long-term wealth tracking.
 
 The application is intended for personal use and focuses on accuracy, transparency, and automation through a double-entry ledger accounting model.
+
+---
+
+# ✨ Features
+
+Implemented today:
+
+- **Double-entry ledger engine** — every financial event is a balanced ledger
+  transaction (post / reverse / replace); balances are computed, never stored.
+- **Accounts** — cash, wallets, checking, savings, time deposits, investments,
+  MP2, bonds, credit cards, loans, and more; archive/reopen, custom color/icon,
+  opening balances.
+- **Transactions** — income, expense, and transfers with full edit (reverse +
+  repost), notes, and a ledger-entry audit trail.
+- **Categories** — hierarchical, with colors and icons; archive/reopen.
+- **Dashboard** — net worth, cash flow, and recent transactions.
+- **Budgets** — monthly/yearly, category or account scope, spending tracking,
+  overrun forecast, rollover.
+- **Bills** — recurring with due-date tracking; paying a bill posts a real
+  ledger expense; reschedule and skip.
+- **Goals** — savings/debt-payoff/investment with progress, completion
+  forecast, and ledger-backed contributions.
+- **Savings engine** — configurable interest rates, compounding, interest
+  credit schedules, and balance forecasting.
+- **Time deposits, MP2, and bonds** — maturity/coupon/dividend forecasting with
+  generated ledger transactions.
+- **Reports & analytics** — net worth over time, cash flow, category/income
+  analysis, budget performance; CSV export.
+- **Unified search** — across transactions, accounts, bills, notes, categories,
+  and tags.
+- **Auth & sync** — email/password sign-in and additive Firestore sync/backup
+  (SQLite remains the source of truth; the app works fully offline).
+- **Theming** — light/dark modes, Manrope font, custom icon and color pickers.
+
+---
+
+# 🧰 Tech Stack
+
+| Package | Purpose |
+|---|---|
+| Flutter / Dart | Framework (SDK `^3.12.2`) |
+| `flutter_riverpod` | State management |
+| `go_router` | Declarative navigation |
+| `drift` / `drift_flutter` | SQLite ORM + native setup |
+| `firebase_core` / `cloud_firestore` / `firebase_auth` | Firebase init, sync, auth |
+| `shared_preferences` | Local settings |
+| `fl_chart` | Charts |
+| `font_awesome_flutter` | Icon library |
+| `dropdown_button2` | Custom dropdowns |
+
+---
+
+# 🚀 Getting Started
+
+**Prerequisites:** Flutter SDK (stable), and an Android device/emulator or
+Chrome for web.
+
+```bash
+flutter pub get
+flutter run          # pick an Android device/emulator or Chrome
+```
+
+> **Android note:** the app uses Firebase, and the Android build reads
+> `android/app/google-services.json` from disk (it is git-ignored). Place your
+> own file there first — see [`docs/FIREBASE_SETUP.md`](docs/FIREBASE_SETUP.md).
+
+If you modify Drift tables or Riverpod/generated code:
+
+```bash
+dart run build_runner build --delete-conflicting-outputs
+```
+
+---
+
+# ✅ Testing & Quality
+
+```bash
+flutter analyze
+flutter test
+```
+
+The suite has **~55 test files and 266 tests**, covering the ledger engine,
+DAOs, services (budgets, bills, goals, savings, MP2, bonds, sync), widget
+tests for screens, and an end-to-end smoke test.
+
+---
+
+# 🗂 Project Structure
+
+```
+lib/
+├── core/          # database (Drift), router/shell, theme, auth, shared widgets
+├── features/      # feature-first modules (data/ domain/ presentation/)
+│   ├── accounts/  transactions/  categories/  budgets/  bills/  goals/
+│   ├── savings/   time_deposits/  mp2/  bonds/  reports/  search/
+│   └── auth/      sync/  settings/  dashboard/  ledger/  more/
+├── firebase_options.dart
+└── main.dart
+test/              # unit, widget, and integration tests
+docs/              # setup guides (Firebase)
+```
 
 ---
 
