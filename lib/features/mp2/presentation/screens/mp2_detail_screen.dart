@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
+import '../../../../core/widgets/custom_dropdown_button2.dart';
 import '../../../accounts/presentation/providers/accounts_providers.dart';
 import '../../domain/mp2_service.dart';
 import '../providers/mp2_accounts_provider.dart';
@@ -389,19 +390,14 @@ class _MoveSheetState extends ConsumerState<_MoveSheet> {
             ),
           ),
           const SizedBox(height: 12),
-          DropdownButtonFormField<String?>(
-            initialValue: _otherAccountId,
-            decoration: InputDecoration(
-              labelText:
-                  widget.isContribute ? 'From account' : 'To account',
-              border: const OutlineInputBorder(),
-            ),
-            items: [
-              const DropdownMenuItem(
-                  value: null, child: Text('Select account')),
-              for (final a in otherAccounts)
-                DropdownMenuItem(value: a.id, child: Text(a.name)),
+          CustomDropdownButton2<String?>(
+            hint: widget.isContribute ? 'From account' : 'To account',
+            dropdownItems: [
+              for (final a in otherAccounts) a.id,
             ],
+            itemLabel: (id) =>
+                otherAccounts.firstWhere((a) => a.id == id).name,
+            initialValue: _otherAccountId,
             onChanged: (v) => setState(() => _otherAccountId = v),
           ),
           const SizedBox(height: 12),

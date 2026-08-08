@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/database/app_database.dart';
 import '../../../../core/providers/core_providers.dart';
+import '../../../../core/widgets/custom_dropdown_button2.dart';
 import '../../../accounts/presentation/providers/accounts_providers.dart';
 import '../../domain/savings_interest_service.dart';
 import '../providers/savings_providers.dart';
@@ -100,34 +101,25 @@ class _SavingsSettingsScreenState
             ),
           ),
           const SizedBox(height: 16),
-          DropdownButtonFormField<CompoundingFrequency>(
-            initialValue: _frequency,
-            decoration: const InputDecoration(
-              labelText: 'Compounding',
-              border: OutlineInputBorder(),
-            ),
-            items: [
-              for (final f in CompoundingFrequency.values)
-                DropdownMenuItem(value: f, child: Text(f.label)),
+          CustomDropdownButton2<CompoundingFrequency>(
+            hint: 'Compounding',
+            dropdownItems: [
+              for (final f in CompoundingFrequency.values) f,
             ],
+            itemLabel: (f) => f.label,
+            initialValue: _frequency,
             onChanged: (v) {
               if (v != null) setState(() => _frequency = v);
             },
           ),
           const SizedBox(height: 16),
-          DropdownButtonFormField<int>(
-            initialValue: _creditDay,
-            decoration: const InputDecoration(
-              labelText: 'Interest credit day',
-              border: OutlineInputBorder(),
-            ),
-            items: [
-              for (var day = 1; day <= 28; day++)
-                DropdownMenuItem(
-                  value: day,
-                  child: Text('Day $day'),
-                ),
+          CustomDropdownButton2<int>(
+            hint: 'Interest credit day',
+            dropdownItems: [
+              for (var day = 1; day <= 28; day++) day,
             ],
+            itemLabel: (day) => 'Day $day',
+            initialValue: _creditDay,
             onChanged: (v) {
               if (v != null) setState(() => _creditDay = v);
             },

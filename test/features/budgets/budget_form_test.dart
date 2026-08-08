@@ -98,7 +98,7 @@ void main() {
     await tester.enterText(find.widgetWithText(TextField, 'Name'), 'Groceries');
     await tester.enterText(
         find.widgetWithText(TextField, 'Amount'), '500');
-    await tester.tap(find.text('None').first);
+    await tester.tap(find.text('Category (optional)'), warnIfMissed: false);
     await tester.pumpAndSettle();
     await tester.tap(find.text('Food').last);
     await tester.pumpAndSettle();

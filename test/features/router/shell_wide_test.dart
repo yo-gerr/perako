@@ -26,8 +26,13 @@ Future<void> pumpUntilFound(WidgetTester tester, Finder finder) async {
 }
 
 void main() {
-  testWidgets('shell lands on dashboard and navigates tabs and the More page',
+  testWidgets('wide surface shows a sidebar and no bottom navigation bar',
       (tester) async {
+    tester.view.physicalSize = const Size(1400, 900);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
     SharedPreferences.setMockInitialValues({});
     final db = AppDatabase.forTesting(NativeDatabase.memory());
     addTearDown(db.close);
@@ -57,44 +62,23 @@ void main() {
     );
     await tester.pump();
 
-    // Sign in to pass the auth redirect. The splash screen animates forever,
-    // so settle on the dashboard with bounded pumps rather than
-    // pumpAndSettle.
     fakeAuth.signIn('uid_test');
     await pumpUntilFound(tester, find.text('Net Worth'));
-    // Let the splash-to-dashboard route transition finish.
     await tester.pump(const Duration(milliseconds: 400));
 
-    // Dashboard is the initial tab.
-    expect(find.text('PeraKo'), findsOneWidget);
-    expect(find.text('Net Worth'), findsOneWidget);
+    // The bottom navigation bar is replaced by the sidebar on wide surfaces.
+    expect(find.byType(NavigationBar), findsNothing);
+    expect(find.text('Dashboard'), findsOneWidget);
 
-    // Switch to the Accounts tab.
-    await tester.tap(find.descendant(
-      of: find.byType(NavigationBar),
-      matching: find.text('Accounts'),
-    ));
-    await tester.pumpAndSettle();
-    expect(find.widgetWithText(AppBar, 'Accounts'), findsOneWidget);
-
-    // Switch to the Transactions tab.
-    await tester.tap(find.descendant(
-      of: find.byType(NavigationBar),
-      matching: find.text('Transactions'),
-    ));
-    await tester.pumpAndSettle();
-    expect(find.widgetWithText(AppBar, 'Transactions'), findsOneWidget);
-
-    // Open the More page and go to Categories.
-    await tester.tap(find.descendant(
-      of: find.byType(NavigationBar),
-      matching: find.text('More'),
-    ));
-    await tester.pumpAndSettle();
-    expect(find.widgetWithText(AppBar, 'More'), findsOneWidget);
-
+    // Navigate through the sidebar.
     await tester.tap(find.text('Categories'));
     await tester.pumpAndSettle();
     expect(find.widgetWithText(AppBar, 'Categories'), findsOneWidget);
+
+    // The sidebar stays visible and other destinations remain reachable.
+    expect(find.text('Bonds'), findsOneWidget);
+    await tester.tap(find.text('Bonds'));
+    await tester.pumpAndSettle();
+    expect(find.widgetWithText(AppBar, 'Bonds'), findsOneWidget);
   });
 }

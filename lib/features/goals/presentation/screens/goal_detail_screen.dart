@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
+import '../../../../core/widgets/custom_dropdown_button2.dart';
 import '../../../accounts/presentation/providers/accounts_providers.dart';
 import '../../domain/goal_service.dart';
 import '../providers/goals_providers.dart';
@@ -276,18 +277,14 @@ class _ContributeDialogState extends State<_ContributeDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          DropdownButtonFormField<String?>(
-            initialValue: _accountId,
-            decoration: const InputDecoration(
-              labelText: 'From account',
-              border: OutlineInputBorder(),
-            ),
-            items: [
-              const DropdownMenuItem(
-                  value: null, child: Text('Select account')),
-              for (final a in widget.accounts)
-                DropdownMenuItem(value: a.id, child: Text(a.name)),
+          CustomDropdownButton2<String?>(
+            hint: 'From account',
+            dropdownItems: [
+              for (final a in widget.accounts) a.id,
             ],
+            itemLabel: (id) =>
+                widget.accounts.firstWhere((a) => a.id == id).name,
+            initialValue: _accountId,
             onChanged: (v) => setState(() => _accountId = v),
           ),
           const SizedBox(height: 12),

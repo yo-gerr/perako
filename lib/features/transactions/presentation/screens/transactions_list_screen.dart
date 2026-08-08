@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/providers/core_providers.dart';
-import '../../../../core/router/home_shell.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
 import '../../domain/transaction_posting.dart';
@@ -18,11 +17,6 @@ class TransactionsListScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          tooltip: 'Menu',
-          onPressed: () => HomeShell.of(context).openDrawer(),
-        ),
         title: const Text('Transactions'),
       ),
       floatingActionButton: FloatingActionButton(

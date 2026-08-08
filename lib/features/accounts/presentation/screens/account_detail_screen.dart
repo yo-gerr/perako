@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/providers/core_providers.dart';
@@ -69,7 +70,7 @@ class AccountDetailScreen extends ConsumerWidget {
                           CircleAvatar(
                             backgroundColor:
                                 colorFromName(acc.color).withValues(alpha: 0.2),
-                            child: Icon(iconFromName(acc.icon),
+                            child: FaIcon(iconFromName(acc.icon),
                                 color: colorFromName(acc.color)),
                           ),
                           const SizedBox(width: 12),

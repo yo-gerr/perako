@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/database/app_database.dart';
 import '../../../../core/providers/core_providers.dart';
+import '../../../../core/widgets/custom_dropdown_button2.dart';
 import '../../../accounts/presentation/providers/accounts_providers.dart';
 import '../../domain/mp2_service.dart';
 import '../providers/mp2_accounts_provider.dart';
@@ -162,18 +163,14 @@ class _Mp2FormScreenState extends ConsumerState<Mp2FormScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  DropdownButtonFormField<String?>(
-                    initialValue: _accountId,
-                    decoration: const InputDecoration(
-                      labelText: 'Account',
-                      border: OutlineInputBorder(),
-                    ),
-                    items: [
-                      const DropdownMenuItem(
-                          value: null, child: Text('Select account')),
-                      for (final a in accounts)
-                        DropdownMenuItem(value: a.id, child: Text(a.name)),
+                  CustomDropdownButton2<String?>(
+                    hint: 'Account',
+                    dropdownItems: [
+                      for (final a in accounts) a.id,
                     ],
+                    itemLabel: (id) =>
+                        accounts.firstWhere((a) => a.id == id).name,
+                    initialValue: _accountId,
                     onChanged: (v) => setState(() => _accountId = v),
                   ),
                   const SizedBox(height: 16),

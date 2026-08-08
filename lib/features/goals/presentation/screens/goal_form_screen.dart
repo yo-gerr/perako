@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../core/utils/formatters.dart';
+import '../../../../core/widgets/custom_dropdown_button2.dart';
 import '../../../accounts/presentation/providers/accounts_providers.dart';
 import '../../domain/goal_service.dart';
 
@@ -162,16 +163,11 @@ class _GoalFormScreenState extends ConsumerState<GoalFormScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  DropdownButtonFormField<GoalType>(
+                  CustomDropdownButton2<GoalType>(
+                    hint: 'Type',
+                    dropdownItems: [for (final t in GoalType.values) t],
+                    itemLabel: (t) => t.label,
                     initialValue: _type,
-                    decoration: const InputDecoration(
-                      labelText: 'Type',
-                      border: OutlineInputBorder(),
-                    ),
-                    items: [
-                      for (final t in GoalType.values)
-                        DropdownMenuItem(value: t, child: Text(t.label)),
-                    ],
                     onChanged: (v) => setState(() => _type = v ?? _type),
                   ),
                   const SizedBox(height: 16),
@@ -185,18 +181,14 @@ class _GoalFormScreenState extends ConsumerState<GoalFormScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  DropdownButtonFormField<String?>(
-                    initialValue: _fundingAccountId,
-                    decoration: const InputDecoration(
-                      labelText: 'Fund from account',
-                      border: OutlineInputBorder(),
-                    ),
-                    items: [
-                      const DropdownMenuItem(
-                          value: null, child: Text('Select account')),
-                      for (final a in accounts)
-                        DropdownMenuItem(value: a.id, child: Text(a.name)),
+                  CustomDropdownButton2<String?>(
+                    hint: 'Fund from account',
+                    dropdownItems: [
+                      for (final a in accounts) a.id,
                     ],
+                    itemLabel: (id) =>
+                        accounts.firstWhere((a) => a.id == id).name,
+                    initialValue: _fundingAccountId,
                     onChanged: (v) =>
                         setState(() => _fundingAccountId = v),
                   ),

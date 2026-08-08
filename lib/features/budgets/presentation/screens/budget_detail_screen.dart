@@ -7,6 +7,7 @@ import '../../../../core/database/app_database.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
+import '../../../../core/widgets/custom_dropdown_button2.dart';
 import '../../../categories/domain/category_types.dart';
 import '../../../categories/presentation/providers/categories_providers.dart';
 import '../providers/budgets_providers.dart';
@@ -316,16 +317,14 @@ class _LimitDialogState extends State<_LimitDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          DropdownButtonFormField<String>(
-            initialValue: _categoryId,
-            decoration: const InputDecoration(
-              labelText: 'Category',
-              border: OutlineInputBorder(),
-            ),
-            items: [
-              for (final c in widget.categories)
-                DropdownMenuItem(value: c.id, child: Text(c.name)),
+          CustomDropdownButton2<String>(
+            hint: 'Category',
+            dropdownItems: [
+              for (final c in widget.categories) c.id,
             ],
+            itemLabel: (id) =>
+                widget.categories.firstWhere((c) => c.id == id).name,
+            initialValue: _categoryId,
             onChanged: (v) => setState(() => _categoryId = v),
           ),
           const SizedBox(height: 12),

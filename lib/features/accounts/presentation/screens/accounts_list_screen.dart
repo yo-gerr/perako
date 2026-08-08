@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/database/app_database.dart';
 import '../../../../core/providers/core_providers.dart';
-import '../../../../core/router/home_shell.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
 import '../account_style.dart';
@@ -29,11 +29,6 @@ class _AccountsListScreenState extends ConsumerState<AccountsListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          tooltip: 'Menu',
-          onPressed: () => HomeShell.of(context).openDrawer(),
-        ),
         title: const Text('Accounts'),
       ),
       floatingActionButton: _showArchived
@@ -152,7 +147,7 @@ class _AccountTile extends ConsumerWidget {
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor: colorFromName(account.color).withValues(alpha: 0.2),
-          child: Icon(iconFromName(account.icon),
+          child: FaIcon(iconFromName(account.icon),
               color: colorFromName(account.color)),
         ),
         title: Text(account.name),

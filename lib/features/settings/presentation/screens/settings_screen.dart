@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../auth/presentation/providers/auth_providers.dart';
+import '../../../../core/widgets/custom_dropdown_button2.dart';
 import '../../domain/app_settings.dart';
 import '../../domain/currencies.dart';
 import '../providers/settings_providers.dart';
@@ -45,18 +46,21 @@ class SettingsScreen extends ConsumerWidget {
             title: const Text('Currency'),
             subtitle: Text(
                 '${currencyName(currencyCode)} (${currencySymbol(currencyCode)}1,234.56)'),
-            trailing: DropdownButton<String>(
-              value: currencyCode,
-              underline: const SizedBox.shrink(),
-              items: [
-                for (final c in supportedCurrencies)
-                  DropdownMenuItem(value: c.code, child: Text('${c.code} — ${c.name}')),
-              ],
-              onChanged: (code) {
-                if (code != null) {
-                  ref.read(settingsProvider.notifier).setCurrencyCode(code);
-                }
-              },
+            trailing: SizedBox(
+              width: 220,
+              child: CustomDropdownButton2<String>(
+                hint: 'Currency',
+                dropdownItems: [
+                  for (final c in supportedCurrencies) c.code,
+                ],
+                itemLabel: (code) => code,
+                initialValue: currencyCode,
+                onChanged: (code) {
+                  if (code != null) {
+                    ref.read(settingsProvider.notifier).setCurrencyCode(code);
+                  }
+                },
+              ),
             ),
           ),
           const Divider(),

@@ -48,3 +48,15 @@ app.*.map.json
 /Cashew-main/
 /packages/
 
+# Firebase / secrets
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+*.jks
+*.keystore
+*.p12
+android/key.properties
+.env*
+firebase-debug.log
+firebase-debug.*.log
+
+

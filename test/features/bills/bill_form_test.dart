@@ -93,7 +93,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Pick the account to pay from.'), findsOneWidget);
 
-    await tester.tap(find.text('Select account'));
+    await tester.tap(find.text('Pay from account'), warnIfMissed: false);
     await tester.pumpAndSettle();
     await tester.tap(find.text('Checking').last);
     await tester.pumpAndSettle();
@@ -111,11 +111,11 @@ void main() {
     await tester.enterText(find.widgetWithText(TextField, 'Name'), 'Rent');
     await tester.enterText(
         find.widgetWithText(TextField, 'Amount'), '1500');
-    await tester.tap(find.text('Select account'));
+    await tester.tap(find.text('Pay from account'), warnIfMissed: false);
     await tester.pumpAndSettle();
     await tester.tap(find.text('Checking').last);
     await tester.pumpAndSettle();
-    await tester.tap(find.text('None'));
+    await tester.tap(find.text('Category (optional)'), warnIfMissed: false);
     await tester.pumpAndSettle();
     await tester.tap(find.text('Housing').last);
     await tester.pumpAndSettle();

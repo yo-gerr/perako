@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:perako/core/database/app_database.dart';
 import 'package:perako/core/providers/core_providers.dart';
 import 'package:perako/core/theme/app_theme.dart';
+import 'package:perako/core/widgets/custom_dropdown_button2.dart';
 import 'package:perako/features/auth/presentation/providers/auth_providers.dart';
 import 'package:perako/features/settings/domain/app_settings.dart';
 import 'package:perako/features/settings/presentation/providers/settings_providers.dart';
@@ -73,10 +74,10 @@ void main() {
     ));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.byType(DropdownButton<String>));
+    await tester.tap(find.byType(CustomDropdownButton2<String>));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('USD — US Dollar').last);
+    await tester.tap(find.text('USD').last);
     await tester.pumpAndSettle();
 
     expect(container.read(currencySymbolProvider), r'$');

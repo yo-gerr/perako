@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/database/app_database.dart';
@@ -132,7 +133,7 @@ class _CategoryTile extends ConsumerWidget {
         leading: CircleAvatar(
           radius: 16,
           backgroundColor: colorFromName(category.color).withValues(alpha: 0.2),
-          child: Icon(iconFromName(category.icon),
+          child: FaIcon(iconFromName(category.icon),
               size: 18, color: colorFromName(category.color)),
         ),
         title: Text(category.name),

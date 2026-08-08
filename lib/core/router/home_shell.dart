@@ -3,206 +3,70 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../features/auth/presentation/providers/auth_providers.dart';
+import '../../../features/settings/domain/app_settings.dart';
+import '../../../features/settings/presentation/providers/settings_providers.dart';
+import 'app_destinations.dart';
+import 'app_side_bar.dart';
 
-/// Hands the current [HomeShellState] to descendant branch pages so they can
-/// open the drawer and switch tabs (navigationShell.goBranch) from inside
-/// their own Scaffolds.
-class HomeShell extends StatefulWidget {
+/// Responsive shell: surfaces wider than [HomeShellState.expandedBreakpoint]
+/// show an expanded labeled sidebar (collapsible to a slim icon rail);
+/// surfaces down to [HomeShellState.railBreakpoint] show the icon rail;
+/// narrower surfaces show a bottom [NavigationBar] with the primary
+/// destinations plus a More page that lists the rest.
+class HomeShell extends ConsumerStatefulWidget {
   const HomeShell({super.key, required this.navigationShell});
 
   final StatefulNavigationShell navigationShell;
 
+  /// Hands the current [HomeShellState] to descendant branch pages so they can
+  /// switch branches and sign out from inside their own Scaffolds.
   static HomeShellState of(BuildContext context) {
-    final scope = context
-        .dependOnInheritedWidgetOfExactType<_ShellScope>();
+    final scope = context.dependOnInheritedWidgetOfExactType<_ShellScope>();
     assert(scope != null, 'HomeShell not found in widget tree');
     return scope!.state;
   }
 
   @override
-  State<HomeShell> createState() => HomeShellState();
+  ConsumerState<HomeShell> createState() => HomeShellState();
 }
 
-class HomeShellState extends State<HomeShell> {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+class HomeShellState extends ConsumerState<HomeShell> {
+  /// Minimum width for the slim icon rail.
+  static const double railBreakpoint = 1024;
 
-  void openDrawer() => _scaffoldKey.currentState?.openDrawer();
+  /// Minimum width for the expanded labeled sidebar.
+  static const double expandedBreakpoint = 1280;
 
-  @override
-  Widget build(BuildContext context) {
-    return _ShellScope(
-      state: this,
-      child: Scaffold(
-        key: _scaffoldKey,
-        drawer: _buildDrawer(context),
-        body: widget.navigationShell,
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: widget.navigationShell.currentIndex,
-          onDestinationSelected: (index) =>
-              widget.navigationShell.goBranch(
-            index,
-            initialLocation: index == widget.navigationShell.currentIndex,
-          ),
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(Icons.dashboard_outlined),
-              selectedIcon: Icon(Icons.dashboard),
-              label: 'Dashboard',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.account_balance_wallet_outlined),
-              selectedIcon: Icon(Icons.account_balance_wallet),
-              label: 'Accounts',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.receipt_long_outlined),
-              selectedIcon: Icon(Icons.receipt_long),
-              label: 'Transactions',
-            ),
-          ],
-        ),
-      ),
-    );
+  /// Width of the slim icon rail.
+  static const double railWidth = 72;
+
+  /// Width of the expanded labeled sidebar.
+  static const double expandedSidebarWidth = 280;
+
+  int get currentIndex => widget.navigationShell.currentIndex;
+
+  bool get isExpanded =>
+      MediaQuery.sizeOf(context).width >= expandedBreakpoint;
+
+  bool get isRail => MediaQuery.sizeOf(context).width >= railBreakpoint;
+
+  bool get isCollapsed =>
+      ref.read(settingsProvider).valueOrNull?.sidebarCollapsed ??
+      AppSettings.defaults.sidebarCollapsed;
+
+  void goBranch(int index, {bool initialLocation = false}) {
+    widget.navigationShell.goBranch(index, initialLocation: initialLocation);
   }
 
-  Drawer _buildDrawer(BuildContext context) {
-    final theme = Theme.of(context);
-    final shellIndex = widget.navigationShell.currentIndex;
-    return Drawer(
-      child: SafeArea(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
-              child: Text('PeraKo',
-                  style: theme.textTheme.headlineSmall
-                      ?.copyWith(fontWeight: FontWeight.bold)),
-            ),
-            const Divider(),
-            ListTile(
-              selected: shellIndex == 0,
-              leading: const Icon(Icons.dashboard_outlined),
-              title: const Text('Dashboard'),
-              onTap: () => _goToBranch(0),
-            ),
-            ListTile(
-              selected: shellIndex == 1,
-              leading: const Icon(Icons.account_balance_wallet_outlined),
-              title: const Text('Accounts'),
-              onTap: () => _goToBranch(1),
-            ),
-            ListTile(
-              selected: shellIndex == 2,
-              leading: const Icon(Icons.receipt_long_outlined),
-              title: const Text('Transactions'),
-              onTap: () => _goToBranch(2),
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.category_outlined),
-              title: const Text('Categories'),
-              onTap: () {
-                Navigator.of(context).pop();
-                context.push('/categories');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.savings_outlined),
-              title: const Text('Budgets'),
-              onTap: () {
-                Navigator.of(context).pop();
-                context.push('/budgets');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.receipt_long_outlined),
-              title: const Text('Bills'),
-              onTap: () {
-                Navigator.of(context).pop();
-                context.push('/bills');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.flag_outlined),
-              title: const Text('Goals'),
-              onTap: () {
-                Navigator.of(context).pop();
-                context.push('/goals');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.timer_outlined),
-              title: const Text('Time Deposits'),
-              onTap: () {
-                Navigator.of(context).pop();
-                context.push('/time-deposits');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.savings_outlined),
-              title: const Text('MP2'),
-              onTap: () {
-                Navigator.of(context).pop();
-                context.push('/mp2');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.request_quote_outlined),
-              title: const Text('Bonds'),
-              onTap: () {
-                Navigator.of(context).pop();
-                context.push('/bonds');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.bar_chart_outlined),
-              title: const Text('Reports'),
-              onTap: () {
-                Navigator.of(context).pop();
-                context.push('/reports');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.search),
-              title: const Text('Search'),
-              onTap: () {
-                Navigator.of(context).pop();
-                context.push('/search');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings_outlined),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.of(context).pop();
-                context.push('/settings');
-              },
-            ),
-            const SizedBox(height: 16),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Sign out'),
-              onTap: () => _confirmSignOut(context),
-            ),
-          ],
-        ),
-      ),
-    );
+  /// Collapses (or re-expands) the wide-surface sidebar, persisting the choice.
+  Future<void> toggleSidebarCollapsed() async {
+    await ref
+        .read(settingsProvider.notifier)
+        .setSidebarCollapsed(!isCollapsed);
   }
 
-  void _goToBranch(int index) {
-    widget.navigationShell.goBranch(
-      index,
-      initialLocation: index == widget.navigationShell.currentIndex,
-    );
-    Navigator.of(context).pop(); // Close the drawer.
-  }
-
-  Future<void> _confirmSignOut(BuildContext context) async {
+  Future<void> confirmSignOut() async {
     final ref = ProviderScope.containerOf(context, listen: false);
-    Navigator.of(context).pop(); // Close the drawer.
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
@@ -224,6 +88,114 @@ class HomeShellState extends State<HomeShell> {
     if (confirmed == true) {
       await ref.read(authRepositoryProvider).signOut();
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final navigationShell = widget.navigationShell;
+    final expanded = isExpanded;
+    final rail = isRail;
+    final collapsed = ref.watch(settingsProvider).valueOrNull?.sidebarCollapsed ??
+        AppSettings.defaults.sidebarCollapsed;
+    final showExpandedSidebar = expanded && !collapsed;
+
+    final transition = MediaQuery.disableAnimationsOf(context)
+        ? Duration.zero
+        : const Duration(milliseconds: 200);
+
+    return _ShellScope(
+      state: this,
+      child: Scaffold(
+        body: rail
+            ? Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  AnimatedContainer(
+                    duration: transition,
+                    curve: Curves.easeInOut,
+                    width: showExpandedSidebar
+                        ? expandedSidebarWidth
+                        : railWidth,
+                    child: AnimatedSwitcher(
+                      duration: transition,
+                      switchInCurve: Curves.easeInOut,
+                      switchOutCurve: Curves.easeInOut,
+                      layoutBuilder: (currentChild, previousChildren) => Stack(
+                        alignment: Alignment.centerLeft,
+                        clipBehavior: Clip.hardEdge,
+                        children: [...previousChildren, ?currentChild],
+                      ),
+                      child: showExpandedSidebar
+                          ? OverflowBox(
+                              key: const ValueKey('expandedSidebar'),
+                              alignment: Alignment.centerLeft,
+                              minWidth: expandedSidebarWidth,
+                              maxWidth: expandedSidebarWidth,
+                              child: AppSideBar(
+                                navigationShell: navigationShell,
+                                onToggleCollapsed: toggleSidebarCollapsed,
+                              ),
+                            )
+                          : OverflowBox(
+                              key: const ValueKey('navigationRail'),
+                              alignment: Alignment.centerLeft,
+                              minWidth: railWidth,
+                              maxWidth: railWidth,
+                              child: AppNavigationRail(
+                                navigationShell: navigationShell,
+                                canExpand: expanded,
+                                onToggleCollapsed: toggleSidebarCollapsed,
+                              ),
+                            ),
+                    ),
+                  ),
+                  const VerticalDivider(width: 1, thickness: 1),
+                  Expanded(child: navigationShell),
+                ],
+              )
+            : navigationShell,
+        bottomNavigationBar:
+            rail ? null : _BottomNavigationBar(navigationShell: navigationShell),
+      ),
+    );
+  }
+}
+
+class _BottomNavigationBar extends StatelessWidget {
+  const _BottomNavigationBar({required this.navigationShell});
+
+  final StatefulNavigationShell navigationShell;
+
+  @override
+  Widget build(BuildContext context) {
+    final destinations = [...primaryDestinations, moreDestination];
+    return NavigationBar(
+      selectedIndex: _indexForBranch(navigationShell.currentIndex),
+      onDestinationSelected: (position) {
+        final branch = destinations[position].branchIndex;
+        navigationShell.goBranch(
+          branch,
+          initialLocation: branch == navigationShell.currentIndex,
+        );
+      },
+      destinations: [
+        for (final destination in destinations)
+          NavigationDestination(
+            icon: Icon(destination.icon),
+            selectedIcon: Icon(destination.selectedIcon),
+            label: destination.label,
+          ),
+      ],
+    );
+  }
+
+  /// Maps any branch to its bottom-navigation slot; every non-primary branch
+  /// lives behind the More page.
+  int _indexForBranch(int branchIndex) {
+    for (var i = 0; i < primaryDestinations.length; i++) {
+      if (primaryDestinations[i].branchIndex == branchIndex) return i;
+    }
+    return primaryDestinations.length;
   }
 }
 

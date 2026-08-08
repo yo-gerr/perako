@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/router/home_shell.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
 import '../../../auth/presentation/providers/auth_providers.dart';
@@ -47,11 +46,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          tooltip: 'Menu',
-          onPressed: () => HomeShell.of(context).openDrawer(),
-        ),
         title: const Text('PeraKo'),
         actions: [
           IconButton(

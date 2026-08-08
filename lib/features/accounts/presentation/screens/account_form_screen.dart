@@ -6,6 +6,9 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../core/providers/core_providers.dart';
+import '../../../../core/widgets/color_selector.dart';
+import '../../../../core/widgets/custom_dropdown_button2.dart';
+import '../../../../core/widgets/icon_picker.dart';
 import '../../../ledger/domain/ledger_engine.dart';
 import '../account_style.dart';
 import '../../domain/account_types.dart';
@@ -160,155 +163,128 @@ class _AccountFormScreenState extends ConsumerState<AccountFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_isEdit ? 'Edit account' : 'New account')),
-      body: _loading
-          ? const Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(4, 4, 16, 0),
+              child: Row(
                 children: [
-                  TextField(
-                    controller: _name,
-                    decoration: const InputDecoration(
-                      labelText: 'Name',
-                      border: OutlineInputBorder(),
-                    ),
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    tooltip: 'Back',
+                    onPressed: () => context.pop(),
                   ),
-                  const SizedBox(height: 16),
-                  DropdownButtonFormField<AccountType>(
-                    initialValue: _type,
-                    decoration: const InputDecoration(
-                      labelText: 'Type',
-                      border: OutlineInputBorder(),
+                  Expanded(
+                    child: Text(
+                      _isEdit ? 'Edit account' : 'New account',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium
+                          ?.copyWith(fontWeight: FontWeight.w700),
                     ),
-                    items: [
-                      for (final t in AccountType.values)
-                        DropdownMenuItem(value: t, child: Text(t.label)),
-                    ],
-                    onChanged: (v) => setState(() => _type = v ?? _type),
-                  ),
-                  const SizedBox(height: 16),
-                  _ColorSelector(
-                    selected: _color,
-                    onChanged: (c) => setState(() => _color = c),
-                  ),
-                  const SizedBox(height: 16),
-                  _IconSelector(
-                    selected: _icon,
-                    onChanged: (i) => setState(() => _icon = i),
-                  ),
-                  if (!_isEdit) ...[
-                    const SizedBox(height: 16),
-                    TextField(
-                      controller: _opening,
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
-                      decoration: const InputDecoration(
-                        labelText: 'Opening balance (₱)',
-                        helperText: 'Optional. Negative for an owed balance.',
-                        border: OutlineInputBorder(),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      leading: const Icon(Icons.event),
-                      title: const Text('Opening date'),
-                      subtitle: Text(_openingDate.toLocal().toString().split(
-                              ' ')[0]),
-                      onTap: () async {
-                        final picked = await showDatePicker(
-                          context: context,
-                          initialDate: _openingDate,
-                          firstDate: DateTime(2000),
-                          lastDate: DateTime(2100),
-                        );
-                        if (picked != null) {
-                          setState(() => _openingDate = picked);
-                        }
-                      },
-                    ),
-                  ],
-                  if (_error != null) ...[
-                    const SizedBox(height: 12),
-                    Text(_error!,
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.error)),
-                  ],
-                  const SizedBox(height: 24),
-                  FilledButton(
-                    onPressed: _saving ? null : _save,
-                    child: _saving
-                        ? const SizedBox(
-                            width: 18,
-                            height: 18,
-                            child: CircularProgressIndicator(strokeWidth: 2))
-                        : Text(_isEdit ? 'Save' : 'Create'),
                   ),
                 ],
               ),
             ),
-    );
-  }
-}
-
-class _ColorSelector extends StatelessWidget {
-  const _ColorSelector({required this.selected, required this.onChanged});
-
-  final String selected;
-  final ValueChanged<String> onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 8,
-      children: [
-        for (final c in colorChoices)
-          InkWell(
-            onTap: () => onChanged(c),
-            borderRadius: BorderRadius.circular(24),
-            child: Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                color: colorFromName(c),
-                shape: BoxShape.circle,
-                border: selected == c
-                    ? Border.all(
-                        width: 3, color: Theme.of(context).colorScheme.onSurface)
-                    : null,
-              ),
-              child: selected == c
-                  ? Icon(Icons.check,
-                      color: Theme.of(context).colorScheme.onPrimary, size: 18)
-                  : null,
+            Expanded(
+              child: _loading
+                  ? const Center(child: CircularProgressIndicator())
+                  : SingleChildScrollView(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          TextField(
+                            controller: _name,
+                            decoration: const InputDecoration(
+                              labelText: 'Name',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          CustomDropdownButton2<AccountType>(
+                            hint: 'Type',
+                            dropdownItems: [
+                              for (final t in AccountType.values) t
+                            ],
+                            itemLabel: (t) => t.label,
+                            initialValue: _type,
+                            onChanged: (v) =>
+                                setState(() => _type = v ?? _type),
+                          ),
+                          const SizedBox(height: 16),
+                          ColorSelectorRow(
+                            selected: _color,
+                            onChanged: (c) => setState(() => _color = c),
+                          ),
+                          const SizedBox(height: 16),
+                          IconPickerField(
+                            selected: _icon,
+                            color: colorFromName(_color),
+                            onChanged: (i) => setState(() => _icon = i),
+                          ),
+                          if (!_isEdit) ...[
+                            const SizedBox(height: 16),
+                            TextField(
+                              controller: _opening,
+                              keyboardType: const TextInputType
+                                  .numberWithOptions(decimal: true),
+                              decoration: const InputDecoration(
+                                labelText: 'Opening balance (₱)',
+                                helperText:
+                                    'Optional. Negative for an owed balance.',
+                                border: OutlineInputBorder(),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: const Icon(Icons.event),
+                              title: const Text('Opening date'),
+                              subtitle: Text(_openingDate.toLocal().toString().split(
+                                      ' ')[0]),
+                              onTap: () async {
+                                final picked = await showDatePicker(
+                                  context: context,
+                                  initialDate: _openingDate,
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(2100),
+                                );
+                                if (picked != null) {
+                                  setState(() => _openingDate = picked);
+                                }
+                              },
+                            ),
+                          ],
+                          if (_error != null) ...[
+                            const SizedBox(height: 12),
+                            Text(_error!,
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .error)),
+                          ],
+                          const SizedBox(height: 24),
+                          FilledButton(
+                            onPressed: _saving ? null : _save,
+                            child: _saving
+                                ? const SizedBox(
+                                    width: 18,
+                                    height: 18,
+                                    child:
+                                        CircularProgressIndicator(strokeWidth: 2))
+                                : Text(_isEdit ? 'Save' : 'Create'),
+                          ),
+                        ],
+                      ),
+                    ),
             ),
-          ),
-      ],
+          ],
+        ),
+      ),
     );
   }
 }
 
-class _IconSelector extends StatelessWidget {
-  const _IconSelector({required this.selected, required this.onChanged});
-
-  final String selected;
-  final ValueChanged<String> onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 8,
-      children: [
-        for (final i in iconChoices)
-          ChoiceChip(
-            avatar: Icon(iconFromName(i), size: 20),
-            label: const SizedBox.shrink(),
-            selected: selected == i,
-            onSelected: (_) => onChanged(i),
-          ),
-      ],
-    );
-  }
-}

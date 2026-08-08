@@ -91,7 +91,7 @@ void main() {
     await tester.enterText(find.widgetWithText(TextField, 'Name'), 'Vacation');
     await tester.enterText(
         find.widgetWithText(TextField, 'Target amount'), '1000');
-    await tester.tap(find.text('Select account'));
+    await tester.tap(find.text('Fund from account'), warnIfMissed: false);
     await tester.pumpAndSettle();
     await tester.tap(find.text('Savings').last);
     await tester.pumpAndSettle();

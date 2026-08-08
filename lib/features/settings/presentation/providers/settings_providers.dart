@@ -33,6 +33,12 @@ class SettingsNotifier extends AsyncNotifier<AppSettings> {
     state = AsyncData(
         (state.valueOrNull ?? AppSettings.defaults).copyWith(currencyCode: code));
   }
+
+  Future<void> setSidebarCollapsed(bool collapsed) async {
+    await ref.read(settingsRepositoryProvider).setSidebarCollapsed(collapsed);
+    state = AsyncData((state.valueOrNull ?? AppSettings.defaults)
+        .copyWith(sidebarCollapsed: collapsed));
+  }
 }
 
 /// The symbol used by `formatMoney`, following the selected currency.

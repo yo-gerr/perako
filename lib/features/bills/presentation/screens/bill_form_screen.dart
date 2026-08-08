@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../core/utils/formatters.dart';
+import '../../../../core/widgets/custom_dropdown_button2.dart';
 import '../../../accounts/presentation/providers/accounts_providers.dart';
 import '../../../categories/domain/category_types.dart';
 import '../../../categories/presentation/providers/categories_providers.dart';
@@ -182,46 +183,36 @@ class _BillFormScreenState extends ConsumerState<BillFormScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  DropdownButtonFormField<String?>(
-                    initialValue: _accountId,
-                    decoration: const InputDecoration(
-                      labelText: 'Pay from account',
-                      border: OutlineInputBorder(),
-                    ),
-                    items: [
-                      const DropdownMenuItem(
-                          value: null, child: Text('Select account')),
-                      for (final a in accounts)
-                        DropdownMenuItem(value: a.id, child: Text(a.name)),
+                  CustomDropdownButton2<String?>(
+                    hint: 'Pay from account',
+                    dropdownItems: [
+                      for (final a in accounts) a.id,
                     ],
+                    itemLabel: (id) =>
+                        accounts.firstWhere((a) => a.id == id).name,
+                    initialValue: _accountId,
                     onChanged: (v) => setState(() => _accountId = v),
                   ),
                   const SizedBox(height: 16),
-                  DropdownButtonFormField<String?>(
-                    initialValue: _categoryId,
-                    decoration: const InputDecoration(
-                      labelText: 'Category (optional)',
-                      border: OutlineInputBorder(),
-                    ),
-                    items: [
-                      const DropdownMenuItem(
-                          value: null, child: Text('None')),
-                      for (final c in expenseCategories)
-                        DropdownMenuItem(value: c.id, child: Text(c.name)),
+                  CustomDropdownButton2<String?>(
+                    hint: 'Category (optional)',
+                    dropdownItems: [
+                      for (final c in expenseCategories) c.id,
                     ],
+                    itemLabel: (id) => expenseCategories
+                        .firstWhere((c) => c.id == id)
+                        .name,
+                    initialValue: _categoryId,
                     onChanged: (v) => setState(() => _categoryId = v),
                   ),
                   const SizedBox(height: 16),
-                  DropdownButtonFormField<BillFrequency>(
-                    initialValue: _frequency,
-                    decoration: const InputDecoration(
-                      labelText: 'Frequency',
-                      border: OutlineInputBorder(),
-                    ),
-                    items: [
-                      for (final f in BillFrequency.values)
-                        DropdownMenuItem(value: f, child: Text(f.label)),
+                  CustomDropdownButton2<BillFrequency>(
+                    hint: 'Frequency',
+                    dropdownItems: [
+                      for (final f in BillFrequency.values) f,
                     ],
+                    itemLabel: (f) => f.label,
+                    initialValue: _frequency,
                     onChanged: (v) => setState(() => _frequency = v ?? _frequency),
                   ),
                   if (_frequency != BillFrequency.weekly) ...[

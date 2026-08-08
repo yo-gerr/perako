@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../core/providers/core_providers.dart';
+import '../../../../core/widgets/custom_dropdown_button2.dart';
 import '../../../accounts/presentation/providers/accounts_providers.dart';
 import '../../../categories/presentation/providers/categories_providers.dart';
 import '../../domain/transaction_posting.dart';
@@ -223,49 +224,40 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
                     onSelectionChanged: (s) => setState(() => _type = s.first),
                   ),
                   const SizedBox(height: 16),
-                  DropdownButtonFormField<String>(
-                    initialValue: _accountId,
-                    decoration: const InputDecoration(
-                      labelText: 'Account',
-                      border: OutlineInputBorder(),
-                    ),
-                    items: [
-                      for (final a in accounts)
-                        DropdownMenuItem(value: a.id, child: Text(a.name)),
+                  CustomDropdownButton2<String>(
+                    hint: 'Account',
+                    dropdownItems: [
+                      for (final a in accounts) a.id,
                     ],
+                    itemLabel: (id) =>
+                        accounts.firstWhere((a) => a.id == id).name,
+                    initialValue: _accountId,
                     onChanged: (v) => setState(() => _accountId = v),
                   ),
                   if (_type == TxType.transfer) ...[
                     const SizedBox(height: 16),
-                    DropdownButtonFormField<String>(
-                      initialValue: _toAccountId,
-                      decoration: const InputDecoration(
-                        labelText: 'Destination',
-                        border: OutlineInputBorder(),
-                      ),
-                      items: [
+                    CustomDropdownButton2<String>(
+                      hint: 'Destination',
+                      dropdownItems: [
                         for (final a in accounts)
-                          if (a.id != _accountId)
-                            DropdownMenuItem(value: a.id, child: Text(a.name)),
+                          if (a.id != _accountId) a.id,
                       ],
+                      itemLabel: (id) =>
+                          accounts.firstWhere((a) => a.id == id).name,
+                      initialValue: _toAccountId,
                       onChanged: (v) => setState(() => _toAccountId = v),
                     ),
                   ] else ...[
                     const SizedBox(height: 16),
-                    DropdownButtonFormField<String?>(
-                      initialValue: _categoryId,
-                      decoration: const InputDecoration(
-                        labelText: 'Category (optional)',
-                        border: OutlineInputBorder(),
-                      ),
-                      items: [
-                        const DropdownMenuItem(
-                            value: null, child: Text('None')),
+                    CustomDropdownButton2<String?>(
+                      hint: 'Category (optional)',
+                      dropdownItems: [
                         for (final c in categories)
-                          if (c.type == _type.name)
-                            DropdownMenuItem(
-                                value: c.id, child: Text(c.name)),
+                          if (c.type == _type.name) c.id,
                       ],
+                      itemLabel: (id) =>
+                          categories.firstWhere((c) => c.id == id).name,
+                      initialValue: _categoryId,
                       onChanged: (v) => setState(() => _categoryId = v),
                     ),
                   ],
