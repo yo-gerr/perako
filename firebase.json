@@ -1,1 +1,37 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"perako-32730","appId":"1:295748140418:android:55f7fec752681d1eba639b","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"perako-32730","configurations":{"android":"1:295748140418:android:55f7fec752681d1eba639b","web":"1:295748140418:web:52cd70b23cfc8555ba639b"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "perako-32730",
+          "appId": "1:295748140418:android:55f7fec752681d1eba639b",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "perako-32730",
+          "configurations": {
+            "android": "1:295748140418:android:55f7fec752681d1eba639b",
+            "web": "1:295748140418:web:52cd70b23cfc8555ba639b"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "site": "perako",
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

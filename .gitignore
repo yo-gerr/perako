@@ -58,5 +58,6 @@ android/key.properties
 .env*
 firebase-debug.log
 firebase-debug.*.log
+/.firebase/
 
 
