@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/perako_colors.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
@@ -95,7 +96,7 @@ class _GoalDetailBody extends ConsumerWidget {
                     _ProgressRing(
                       ratio: progress.ratio,
                       color: progress.isComplete
-                          ? Colors.green
+                          ? theme.perakoColors.income
                           : theme.colorScheme.primary,
                       label: '${(progress.ratio * 100).round()}%',
                     ),

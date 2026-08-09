@@ -126,7 +126,7 @@ class _BudgetCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final color = progress.isOver
-        ? theme.colorScheme.error
+        ? theme.colorScheme.secondary
         : theme.colorScheme.primary;
     final pct = (progress.ratio * 100).round();
 
@@ -179,7 +179,7 @@ class _BudgetCard extends ConsumerWidget {
                           : '${formatMoney(progress.amountPerDayCents, symbol: symbol)}/day left',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: progress.remainingCents < 0
-                            ? theme.colorScheme.error
+                            ? theme.colorScheme.secondary
                             : theme.colorScheme.onSurfaceVariant,
                       ),
                     ),

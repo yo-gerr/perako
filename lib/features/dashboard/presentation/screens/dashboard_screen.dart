@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/perako_colors.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
 import '../../../auth/presentation/providers/auth_providers.dart';
@@ -19,23 +20,6 @@ class DashboardScreen extends ConsumerStatefulWidget {
 }
 
 class _DashboardScreenState extends ConsumerState<DashboardScreen> {
-  bool _startedSync = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // Kick off an on-launch sync once the first frame renders.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!_startedSync && mounted) {
-        _startedSync = true;
-        final uid = ref.read(authStateProvider).valueOrNull;
-        if (uid != null) {
-          ref.read(syncStateProvider.notifier).syncNow(uid);
-        }
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final dashboard = ref.watch(dashboardProvider);
@@ -146,7 +130,9 @@ class _TransactionRowTile extends StatelessWidget {
           '${isInflow ? '+' : '-'}${formatMoney(row.signedAmountCents.abs(), symbol: CurrencyScope.of(context))}',
           style: TextStyle(
             fontWeight: FontWeight.w600,
-            color: isInflow ? Colors.green : Theme.of(context).colorScheme.error,
+            color: isInflow
+                ? Theme.of(context).perakoColors.incomeText
+                : Theme.of(context).perakoColors.expenseText,
           ),
         ),
         onTap: () => context.push('/transactions/${row.transaction.id}'),
@@ -172,7 +158,7 @@ class _CashFlowCard extends StatelessWidget {
               child: _CashFlowColumn(
                 label: 'Income this month',
                 amount: income,
-                color: Colors.green,
+                color: Theme.of(context).perakoColors.incomeText,
               ),
             ),
             const VerticalDivider(width: 32),
@@ -180,7 +166,7 @@ class _CashFlowCard extends StatelessWidget {
               child: _CashFlowColumn(
                 label: 'Expenses this month',
                 amount: expense,
-                color: Theme.of(context).colorScheme.error,
+                color: Theme.of(context).perakoColors.expenseText,
               ),
             ),
           ],
@@ -260,7 +246,7 @@ class _GoalsCard extends StatelessWidget {
                           value: row.progress.ratio.clamp(0.0, 1.0),
                           strokeWidth: 3,
                           color: row.progress.isComplete
-                              ? Colors.green
+                              ? theme.perakoColors.income
                               : theme.colorScheme.primary,
                           backgroundColor:
                               theme.colorScheme.surfaceContainerHighest,

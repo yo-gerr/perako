@@ -202,14 +202,14 @@ class _LegendRow extends StatelessWidget {
 }
 
 const _palette = [
+  Color(0xFF008BF8),
+  Color(0xFF04E762),
+  Color(0xFFF5B700),
+  Color(0xFFDC0073),
+  Color(0xFF89FC00),
   Color(0xFF00897B),
   Color(0xFF3949AB),
   Color(0xFFF4511E),
-  Color(0xFF8E24AA),
-  Color(0xFF43A047),
-  Color(0xFFFFB300),
-  Color(0xFFE53935),
-  Color(0xFF00ACC1),
   Color(0xFF6D4C41),
   Color(0xFF546E7A),
 ];

@@ -39,9 +39,13 @@ Implemented today:
   analysis, budget performance; CSV export.
 - **Unified search** — across transactions, accounts, bills, notes, categories,
   and tags.
-- **Auth & sync** — email/password sign-in and additive Firestore sync/backup
-  (SQLite remains the source of truth; the app works fully offline).
-- **Theming** — light/dark modes, Manrope font, custom icon and color pickers.
+- **Auth & sync (optional)** — the app opens straight to the dashboard with no
+  account required. Sign in from the sidebar, the More page, or Settings to
+  enable additive Firestore sync/backup (SQLite remains the source of truth;
+  the app works fully offline; sign-out keeps local data).
+- **Perako Design System** — light/dark modes, neutral surfaces, semantic
+  financial colors (green = income/growth, gold = attention/goals, magenta =
+  investments), Manrope font, custom icon and color pickers.
 
 ---
 
@@ -58,6 +62,33 @@ Implemented today:
 | `fl_chart` | Charts |
 | `font_awesome_flutter` | Icon library |
 | `dropdown_button2` | Custom dropdowns |
+
+---
+
+# 🎨 Branding & Logo
+
+PeraKo's identity is an abstract **P + coin** mark: a coin disc fused with the
+letter P's stem, with a rising green tick at the foot that suggests financial
+growth.
+
+- **PeraKo Blue** `#008BF8` — primary brand color.
+- **PeraKo Green** `#04E762` — growth accent; the app-icon tile is green with a
+  white symbol.
+
+The mark is defined once as vector geometry in
+[`lib/core/branding/perako_logo.dart`](lib/core/branding/perako_logo.dart) and
+is shared by the in-app widgets (`PerakoMark`, `PerakoLockup` — sidebar lockup,
+rail monogram, login screen) and the offline icon generator, so the launcher
+icons never drift from the UI.
+
+To regenerate every platform icon (Android mipmaps, iOS/macOS AppIcon sets,
+web PWA icons + favicon, Windows `.ico`) and the preview sheet:
+
+```bash
+flutter test tool/logo_renderer.dart
+```
+
+The preview sheet is written to `assets/branding/preview.png`.
 
 ---
 
@@ -90,7 +121,7 @@ flutter analyze
 flutter test
 ```
 
-The suite has **~55 test files and 266 tests**, covering the ledger engine,
+The suite has **~55 test files and 268 tests**, covering the ledger engine,
 DAOs, services (budgets, bills, goals, savings, MP2, bonds, sync), widget
 tests for screens, and an end-to-end smoke test.
 
@@ -100,13 +131,15 @@ tests for screens, and an end-to-end smoke test.
 
 ```
 lib/
-├── core/          # database (Drift), router/shell, theme, auth, shared widgets
+├── core/          # database (Drift), router/shell, theme, branding, auth, shared widgets
 ├── features/      # feature-first modules (data/ domain/ presentation/)
 │   ├── accounts/  transactions/  categories/  budgets/  bills/  goals/
 │   ├── savings/   time_deposits/  mp2/  bonds/  reports/  search/
 │   └── auth/      sync/  settings/  dashboard/  ledger/  more/
 ├── firebase_options.dart
 └── main.dart
+assets/branding/   # brand preview sheet
+tool/              # icon generator (flutter test tool/logo_renderer.dart)
 test/              # unit, widget, and integration tests
 docs/              # setup guides (Firebase)
 ```

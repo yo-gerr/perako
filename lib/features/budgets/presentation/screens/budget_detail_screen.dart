@@ -58,7 +58,7 @@ class _BudgetDetailBody extends ConsumerWidget {
     final symbol = CurrencyScope.of(context);
     final progress = data.progress;
     final color = progress.isOver
-        ? theme.colorScheme.error
+        ? theme.colorScheme.secondary
         : theme.colorScheme.primary;
     final pct = (progress.ratio * 100).round();
 
@@ -108,7 +108,7 @@ class _BudgetDetailBody extends ConsumerWidget {
                         style: theme.textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: progress.remainingCents < 0
-                              ? theme.colorScheme.error
+                              ? theme.colorScheme.secondary
                               : theme.colorScheme.primary,
                         ),
                       ),
@@ -220,7 +220,7 @@ class _StatRow extends StatelessWidget {
       trailing: Text(
         value,
         style: theme.textTheme.bodyMedium?.copyWith(
-          color: over ? theme.colorScheme.error : null,
+          color: over ? theme.colorScheme.secondary : null,
           fontWeight: over ? FontWeight.w600 : null,
         ),
       ),
@@ -241,7 +241,7 @@ class _LimitTile extends StatelessWidget {
     final spent = row.spentCents;
     final over = spent > limit.amountCents;
     final color =
-        over ? theme.colorScheme.error : theme.colorScheme.primary;
+        over ? theme.colorScheme.secondary : theme.colorScheme.primary;
     final ratio = limit.amountCents <= 0 ? 0.0 : spent / limit.amountCents;
 
     return Card(

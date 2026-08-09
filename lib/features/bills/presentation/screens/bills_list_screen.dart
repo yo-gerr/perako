@@ -144,7 +144,7 @@ class _BillCard extends ConsumerWidget {
     final color = status.overdue
         ? theme.colorScheme.error
         : status.dueSoon
-            ? theme.colorScheme.tertiary
+            ? theme.colorScheme.secondary
             : theme.colorScheme.primary;
 
     return Card(

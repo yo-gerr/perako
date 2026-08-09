@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/perako_colors.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
@@ -143,7 +144,9 @@ class _TransactionTile extends ConsumerWidget {
         trailing: Text(
           '${isInflow ? '+' : '-'}${formatMoney(amount.abs(), symbol: CurrencyScope.of(context))}',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: isInflow ? Colors.green : Theme.of(context).colorScheme.error,
+                color: isInflow
+                    ? Theme.of(context).perakoColors.incomeText
+                    : Theme.of(context).perakoColors.expenseText,
               ),
         ),
         onTap: () => context.push('/transactions/${row.transaction.id}'),

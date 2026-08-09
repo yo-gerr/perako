@@ -32,9 +32,10 @@ class SignedInShellHarness {
   final FakeAuthRepository auth;
 }
 
-/// Boots the app through the real router on a [size] surface, signs in, and
-/// settles on the dashboard. The container and database are disposed by the
-/// test framework.
+/// Boots the app through the real router on a [size] surface and settles on
+/// the dashboard. Auth is optional, so no sign-in is required; signing in
+/// simply also enables cloud sync. The container and database are disposed by
+/// the test framework.
 Future<SignedInShellHarness> pumpSignedInShell(
   WidgetTester tester, {
   Size size = const Size(1400, 900),

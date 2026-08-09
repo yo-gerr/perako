@@ -72,7 +72,7 @@ class HomeShellState extends ConsumerState<HomeShell> {
       builder: (_) => AlertDialog(
         title: const Text('Sign out?'),
         content: const Text(
-            'Local data will be cleared. Your data is kept in the cloud.'),
+            'Cloud sync will stop, but your data stays on this device.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -89,6 +89,9 @@ class HomeShellState extends ConsumerState<HomeShell> {
       await ref.read(authRepositoryProvider).signOut();
     }
   }
+
+  /// Opens the optional sign-in page from the shell.
+  void goToLogin() => context.push('/login');
 
   @override
   Widget build(BuildContext context) {

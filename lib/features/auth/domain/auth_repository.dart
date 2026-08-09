@@ -5,6 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 abstract class AuthRepository {
   String? get currentUid;
 
+  /// The signed-in user's email, used for display in the shell.
+  String? get currentEmail;
+
   Stream<String?> get authStateChanges;
 
   Future<String?> signInWithEmail(String email, String password);
@@ -19,6 +22,9 @@ class FirebaseAuthRepository implements AuthRepository {
 
   @override
   String? get currentUid => _auth.currentUser?.uid;
+
+  @override
+  String? get currentEmail => _auth.currentUser?.email;
 
   @override
   Stream<String?> get authStateChanges {

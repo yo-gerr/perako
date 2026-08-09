@@ -1,11 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/accounts/presentation/screens/account_detail_screen.dart';
 import '../../features/accounts/presentation/screens/account_form_screen.dart';
 import '../../features/accounts/presentation/screens/accounts_list_screen.dart';
-import '../../features/auth/presentation/providers/auth_providers.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/bills/presentation/screens/bill_detail_screen.dart';
 import '../../features/bills/presentation/screens/bill_form_screen.dart';
@@ -43,69 +41,22 @@ import '../../features/time_deposits/presentation/screens/time_deposits_list_scr
 import '../../features/transactions/presentation/screens/transaction_detail_screen.dart';
 import '../../features/transactions/presentation/screens/transaction_form_screen.dart';
 import '../../features/transactions/presentation/screens/transactions_list_screen.dart';
-import '../widgets/splash_screen.dart';
 import 'home_shell.dart';
 
-/// Auth-aware [GoRouter] for the app.
+/// The [GoRouter] for the app.
+///
+/// Auth is optional: every destination is reachable without signing in. The
+/// login page is a plain route pushed from the sidebar / More page / Settings,
+/// never enforced by redirect logic.
 final routerProvider = Provider<GoRouter>((ref) {
   return createRouter(ref);
 });
 
-/// Bridges auth-state changes to go_router's [refreshListenable], so redirects
-/// re-run after sign-in and sign-out.
-class AuthRouterRefresh extends ChangeNotifier {
-  AuthRouterRefresh(Ref ref) {
-    _sub = ref.listen<AsyncValue<String?>>(
-      authStateProvider,
-      (_, _) => notifyListeners(),
-    );
-  }
-
-  ProviderSubscription<AsyncValue<String?>>? _sub;
-
-  @override
-  void dispose() {
-    _sub?.close();
-    super.dispose();
-  }
-}
-
-/// Produces the [GoRouter] for this [Ref], wired to Firebase auth so an
-/// unauthenticated user is sent to the login screen.
+/// Produces the [GoRouter] for this [Ref].
 GoRouter createRouter(Ref ref) {
-  final refresh = AuthRouterRefresh(ref);
-  ref.onDispose(refresh.dispose);
-
   return GoRouter(
     initialLocation: '/',
-    refreshListenable: refresh,
-    redirect: (context, state) {
-      final auth = ref.read(authStateProvider);
-      final uid = auth.valueOrNull;
-      final location = state.matchedLocation;
-      final isLogin = location == '/login';
-      final isSplash = location == '/splash';
-
-      // Session restore (e.g. web page refresh) is still in flight. Park on
-      // the splash screen so neither the login page nor the dashboard flashes
-      // before the real auth state is known.
-      if (!auth.hasValue) {
-        return isSplash ? null : '/splash';
-      }
-      // A failed restore must not strand the user on a perpetual splash.
-      if (auth.hasError) return isLogin ? null : '/login';
-
-      if (uid == null) return isLogin ? null : '/login';
-      // Signed in: never linger on the splash screen or the login page.
-      if (isLogin || isSplash) return '/';
-      return null;
-    },
     routes: [
-      GoRoute(
-        path: '/splash',
-        name: 'splash',
-        builder: (context, state) => const SplashScreen(),
-      ),
       GoRoute(
         path: '/login',
         name: 'login',

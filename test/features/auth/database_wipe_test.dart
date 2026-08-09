@@ -155,7 +155,7 @@ void main() {
     expect(await db.select(db.goalContributions).get(), isEmpty);
   });
 
-  testWidgets('coordinator wipes local data when the user changes',
+  testWidgets('coordinator wipes local data only when a different account signs in',
       (tester) async {
     await db.into(db.accounts).insert(AccountsCompanion(
           id: Value('a1'),
@@ -178,15 +178,48 @@ void main() {
     ));
     await tester.pump();
 
-    // Sign in as a user, then switch to another — first emission is recorded,
-    // the change triggers a wipe.
+    // Sign in as a user, then switch to a different one — the change triggers
+    // a wipe so the two accounts never share one sync cursor set.
     auth.signIn('uid_one');
     await tester.pump();
     expect(await db.select(db.accounts).get(), hasLength(1));
 
-    auth.signOutUser();
+    auth.signIn('uid_two');
     await tester.pump();
     await tester.pump();
     expect(await db.select(db.accounts).get(), isEmpty);
+  });
+
+  testWidgets('coordinator keeps local data on sign-out', (tester) async {
+    await db.into(db.accounts).insert(AccountsCompanion(
+          id: Value('a1'),
+          name: const Value('Checking'),
+          type: const Value('checking'),
+          currency: const Value('PHP'),
+          color: const Value('teal'),
+          icon: const Value('wallet'),
+          isArchived: const Value(false),
+          openingDate: Value(0),
+          updatedAt: Value(1),
+          version: const Value(1),
+        ));
+
+    await tester.pumpWidget(UncontrolledProviderScope(
+      container: container,
+      child: DatabaseWipeCoordinator(
+        child: const MaterialApp(home: SizedBox.shrink()),
+      ),
+    ));
+    await tester.pump();
+
+    auth.signIn('uid_one');
+    await tester.pump();
+    expect(await db.select(db.accounts).get(), hasLength(1));
+
+    // Signing out stops cloud sync but must NOT clear the local data.
+    auth.signOutUser();
+    await tester.pump();
+    await tester.pump();
+    expect(await db.select(db.accounts).get(), hasLength(1));
   });
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/perako_colors.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
@@ -122,7 +123,7 @@ class _Mp2DetailBody extends ConsumerWidget {
                               : '$daysLeft day${daysLeft == 1 ? '' : 's'} left',
                       style: theme.textTheme.labelLarge?.copyWith(
                         color: mp2.isMatured
-                            ? Colors.green
+                            ? theme.perakoColors.income
                             : due
                                 ? theme.colorScheme.error
                                 : theme.colorScheme.primary,
@@ -137,7 +138,7 @@ class _Mp2DetailBody extends ConsumerWidget {
                     value: mp2.isMatured ? 1 : termProgress,
                     minHeight: 8,
                     color: mp2.isMatured
-                        ? Colors.green
+                        ? theme.perakoColors.income
                         : theme.colorScheme.primary,
                     backgroundColor: theme.colorScheme.surfaceContainerHighest,
                   ),
@@ -253,7 +254,7 @@ class _ForecastCard extends StatelessWidget {
                           style: theme.textTheme.bodyMedium),
                       Text('+${formatMoney(f.dividendCents, symbol: symbol)}',
                           style: theme.textTheme.bodyMedium?.copyWith(
-                              color: Colors.green)),
+                              color: theme.perakoColors.incomeText)),
                     ],
                   ),
                 ),
@@ -289,7 +290,8 @@ class _DividendHistory extends ConsumerWidget {
                 Text('Dividends realized', style: theme.textTheme.labelLarge),
                 Text(
                   '+${formatMoney(total, symbol: symbol)}',
-                  style: theme.textTheme.labelLarge?.copyWith(color: Colors.green),
+                  style: theme.textTheme.labelLarge
+                      ?.copyWith(color: theme.perakoColors.incomeText),
                 ),
               ],
             ),
@@ -317,7 +319,7 @@ class _DividendHistory extends ConsumerWidget {
                         style: theme.textTheme.bodyMedium?.copyWith(
                             color: d.amountCents == 0
                                 ? theme.colorScheme.onSurfaceVariant
-                                : Colors.green),
+                                : theme.perakoColors.incomeText),
                       ),
                     ],
                   ),

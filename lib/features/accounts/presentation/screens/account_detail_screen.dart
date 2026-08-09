@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/perako_colors.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
@@ -130,8 +131,8 @@ class AccountDetailScreen extends ConsumerWidget {
                                     ? Icons.arrow_downward
                                     : Icons.arrow_upward,
                                 color: e.type == 'debit'
-                                    ? Colors.green
-                                    : Theme.of(context).colorScheme.error,
+                                    ? Theme.of(context).perakoColors.income
+                                    : Theme.of(context).perakoColors.expense,
                               ),
                               title: Text(
                                 DateTime.fromMillisecondsSinceEpoch(e.entryDate)

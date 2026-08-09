@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/perako_colors.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
@@ -129,7 +130,7 @@ class _MaturityBanner extends ConsumerWidget {
 
     final theme = Theme.of(context);
     final color =
-        due.isEmpty ? theme.colorScheme.tertiary : theme.colorScheme.error;
+        due.isEmpty ? theme.colorScheme.secondary : theme.colorScheme.error;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
@@ -185,7 +186,7 @@ class _BondCard extends ConsumerWidget {
     final schedule = CouponSchedule.fromKey(bond.couponSchedule);
     final due = row.isDue(now);
     final color = bond.isMatured
-        ? Colors.green
+        ? theme.perakoColors.income
         : due
             ? theme.colorScheme.error
             : theme.colorScheme.primary;

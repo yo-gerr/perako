@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/perako_colors.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
 import '../../domain/time_deposit_service.dart';
@@ -117,7 +118,7 @@ class _TimeDepositDetailBody extends ConsumerWidget {
                               : '$daysLeft day${daysLeft == 1 ? '' : 's'} left',
                       style: theme.textTheme.labelLarge?.copyWith(
                         color: deposit.isMatured
-                            ? Colors.green
+                            ? theme.perakoColors.income
                             : due
                                 ? theme.colorScheme.error
                                 : theme.colorScheme.primary,
@@ -132,7 +133,7 @@ class _TimeDepositDetailBody extends ConsumerWidget {
                     value: deposit.isMatured ? 1 : termProgress,
                     minHeight: 8,
                     color: deposit.isMatured
-                        ? Colors.green
+                        ? theme.perakoColors.income
                         : theme.colorScheme.primary,
                     backgroundColor: theme.colorScheme.surfaceContainerHighest,
                   ),
@@ -172,9 +173,10 @@ class _TimeDepositDetailBody extends ConsumerWidget {
         const SizedBox(height: 12),
         if (deposit.isMatured)
           Card(
-            color: Colors.green.withValues(alpha: 0.1),
+            color: theme.perakoColors.income.withValues(alpha: 0.1),
             child: ListTile(
-              leading: const Icon(Icons.check_circle_outline, color: Colors.green),
+              leading: Icon(Icons.check_circle_outline,
+                  color: theme.perakoColors.income),
               title: const Text('Interest credited'),
               subtitle: Text(
                 deposit.maturedTransactionId == null

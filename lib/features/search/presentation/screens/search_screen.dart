@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/perako_colors.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
@@ -278,7 +279,9 @@ class _TransactionTile extends StatelessWidget {
       trailing: Text(
         '${isInflow ? '+' : '-'}${formatMoney(hit.signedAmountCents.abs(), symbol: symbol)}',
         style: theme.textTheme.titleMedium?.copyWith(
-          color: isInflow ? Colors.green : theme.colorScheme.error,
+          color: isInflow
+              ? theme.perakoColors.incomeText
+              : theme.perakoColors.expenseText,
         ),
       ),
       onTap: () => context.push('/transactions/${hit.id}'),

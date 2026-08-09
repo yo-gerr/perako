@@ -9,6 +9,7 @@ import 'core/widgets/currency_scope.dart';
 import 'features/auth/presentation/providers/auth_providers.dart';
 import 'features/bills/presentation/providers/bills_providers.dart';
 import 'features/settings/presentation/providers/settings_providers.dart';
+import 'features/sync/presentation/providers/sync_providers.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -22,12 +23,18 @@ class PerakoApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Materialize due bills into ledger expenses as soon as a user is signed
-    // in. The catch-up is idempotent, so re-firing after later sign-ins is
-    // safe.
+    // Local bookkeeping (materializing due bills) runs for every user, signed
+    // in or not — the app is fully usable without an account. Idempotent, so
+    // the cached future is safe to fire from build.
+    ref.read(billCatchUpProvider.future);
+
+    // Cloud sync is opt-in: when a session appears (mid-session sign-in, or a
+    // restored session after a web refresh) push local changes up and pull the
+    // account's data down once. Signing out stops sync but keeps local data.
     ref.listen<AsyncValue<String?>>(authStateProvider, (prev, next) {
-      if (next.valueOrNull != null) {
-        ref.read(billCatchUpProvider.future);
+      final uid = next.valueOrNull;
+      if (uid != null && prev?.valueOrNull == null) {
+        ref.read(syncStateProvider.notifier).syncNow(uid);
       }
     });
 

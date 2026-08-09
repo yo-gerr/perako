@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/auth/presentation/providers/auth_providers.dart';
+import '../branding/perako_logo.dart';
 import 'app_destinations.dart';
 import 'home_shell.dart';
 
@@ -11,10 +14,10 @@ void _goToBranch(HomeShellState shell, int index) {
 /// Expanded labeled sidebar shown on the widest surfaces. Mirrors the desktop
 /// navigation sample: wordmark, a primary group, a flex-grow tools group
 /// (Settings included), and an isolated danger Sign out footer — each tile a
-/// 56px-tall / 28px-radius pill with an active `secondaryContainer` state.
+/// 56px-tall / 28px-radius pill with an active `primaryContainer` state.
 /// The wordmark header carries a chevron that collapses the sidebar to the
 /// slim icon rail.
-class AppSideBar extends StatelessWidget {
+class AppSideBar extends ConsumerWidget {
   const AppSideBar({
     super.key,
     required this.navigationShell,
@@ -25,10 +28,12 @@ class AppSideBar extends StatelessWidget {
   final VoidCallback onToggleCollapsed;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final shell = HomeShell.of(context);
     final currentIndex = navigationShell.currentIndex;
+    final uid = ref.watch(authStateProvider).valueOrNull;
+    final email = ref.watch(authRepositoryProvider).currentEmail;
 
     return Material(
       color: theme.colorScheme.surfaceContainerLow,
@@ -41,14 +46,7 @@ class AppSideBar extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: Text(
-                      'PeraKo',
-                      style: theme.textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        height: 1.2,
-                        letterSpacing: -0.24,
-                      ),
-                    ),
+                    child: PerakoLockup(markSize: 26, gap: 10, tile: true),
                   ),
                   IconButton(
                     tooltip: 'Collapse sidebar',
@@ -95,14 +93,35 @@ class AppSideBar extends StatelessWidget {
             const _SideDivider(),
             Padding(
               padding: const EdgeInsets.fromLTRB(8, 0, 8, 12),
-              child: _SideBarTile(
-                icon: Icons.logout,
-                selectedIcon: Icons.logout,
-                label: 'Sign out',
-                selected: false,
-                danger: true,
-                onTap: shell.confirmSignOut,
-              ),
+              child: uid == null
+                  ? _SideBarTile(
+                      icon: Icons.login,
+                      selectedIcon: Icons.login,
+                      label: 'Sign in to sync',
+                      selected: false,
+                      onTap: shell.goToLogin,
+                    )
+                  : Column(
+                      children: [
+                        _SideBarTile(
+                          icon: Icons.person_outline,
+                          selectedIcon: Icons.person,
+                          label: email ?? 'Signed in',
+                          subtitle: 'Cloud sync on',
+                          selected: false,
+                          onTap: null,
+                        ),
+                        const SizedBox(height: 4),
+                        _SideBarTile(
+                          icon: Icons.logout,
+                          selectedIcon: Icons.logout,
+                          label: 'Sign out',
+                          selected: false,
+                          danger: true,
+                          onTap: shell.confirmSignOut,
+                        ),
+                      ],
+                    ),
             ),
           ],
         ),
@@ -116,7 +135,7 @@ class AppSideBar extends StatelessWidget {
 /// hover tooltips, an active pill, a monogram mark, and a pinned Sign out
 /// footer. When [canExpand] (the surface is wide enough for the expanded
 /// sidebar), a chevron re-expands the sidebar.
-class AppNavigationRail extends StatelessWidget {
+class AppNavigationRail extends ConsumerWidget {
   const AppNavigationRail({
     super.key,
     required this.navigationShell,
@@ -131,10 +150,12 @@ class AppNavigationRail extends StatelessWidget {
   final bool canExpand;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final shell = HomeShell.of(context);
     final currentIndex = navigationShell.currentIndex;
+    final uid = ref.watch(authStateProvider).valueOrNull;
+    final email = ref.watch(authRepositoryProvider).currentEmail;
 
     return Material(
       color: theme.colorScheme.surfaceContainerLow,
@@ -146,7 +167,7 @@ class AppNavigationRail extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 12),
               child: Column(
                 children: [
-                  Center(child: _BrandMonogram(theme: theme)),
+                  Center(child: const _BrandMonogram()),
                   if (canExpand) ...[
                     const SizedBox(height: 8),
                     Center(
@@ -199,15 +220,37 @@ class AppNavigationRail extends StatelessWidget {
             const _SideDivider(),
             Padding(
               padding: const EdgeInsets.only(bottom: 12),
-              child: _SideBarTile(
-                icon: Icons.logout,
-                selectedIcon: Icons.logout,
-                label: 'Sign out',
-                selected: false,
-                danger: true,
-                compact: true,
-                onTap: shell.confirmSignOut,
-              ),
+              child: uid == null
+                  ? _SideBarTile(
+                      icon: Icons.login,
+                      selectedIcon: Icons.login,
+                      label: 'Sign in to sync',
+                      selected: false,
+                      compact: true,
+                      onTap: shell.goToLogin,
+                    )
+                  : Column(
+                      children: [
+                        _SideBarTile(
+                          icon: Icons.person_outline,
+                          selectedIcon: Icons.person,
+                          label: email ?? 'Signed in',
+                          selected: false,
+                          compact: true,
+                          onTap: null,
+                        ),
+                        const SizedBox(height: 4),
+                        _SideBarTile(
+                          icon: Icons.logout,
+                          selectedIcon: Icons.logout,
+                          label: 'Sign out',
+                          selected: false,
+                          danger: true,
+                          compact: true,
+                          onTap: shell.confirmSignOut,
+                        ),
+                      ],
+                    ),
             ),
           ],
         ),
@@ -216,35 +259,18 @@ class AppNavigationRail extends StatelessWidget {
   }
 }
 
-/// Compact brand mark for the icon rail.
+/// Compact brand mark for the icon rail: the green brand tile, matching the
+/// launcher icon.
 class _BrandMonogram extends StatelessWidget {
-  const _BrandMonogram({required this.theme});
-
-  final ThemeData theme;
+  const _BrandMonogram();
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = theme.colorScheme;
     return Tooltip(
       message: 'PeraKo',
       child: Semantics(
         label: 'PeraKo',
-        child: Container(
-          width: 44,
-          height: 44,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: colorScheme.secondaryContainer,
-            borderRadius: BorderRadius.circular(14),
-          ),
-          child: Text(
-            'P',
-            style: theme.textTheme.headlineSmall?.copyWith(
-              color: colorScheme.onSecondaryContainer,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ),
+        child: const PerakoMark(size: 44, style: PerakoMarkStyle.appIcon),
       ),
     );
   }
@@ -272,16 +298,17 @@ class _SideBarTile extends StatelessWidget {
     required this.selectedIcon,
     required this.label,
     required this.selected,
-    required this.onTap,
+    this.onTap,
     this.danger = false,
     this.compact = false,
+    this.subtitle,
   });
 
   final IconData icon;
   final IconData selectedIcon;
   final String label;
   final bool selected;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   /// Renders the tile in the `error` color, used by the Sign out action.
   final bool danger;
@@ -290,18 +317,21 @@ class _SideBarTile extends StatelessWidget {
   /// [Tooltip] and [Semantics].
   final bool compact;
 
+  /// Optional supporting text shown under the label (expanded sidebar only).
+  final String? subtitle;
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final foreground = danger
         ? colorScheme.error
         : (selected
-            ? colorScheme.onSecondaryContainer
+            ? colorScheme.onPrimaryContainer
             : colorScheme.onSurface);
     final iconColor = danger
         ? colorScheme.error
         : (selected
-            ? colorScheme.onSecondaryContainer
+            ? colorScheme.onPrimaryContainer
             : colorScheme.onSurfaceVariant);
 
     final tileIcon = Icon(
@@ -314,11 +344,11 @@ class _SideBarTile extends StatelessWidget {
       message: label,
       child: Semantics(
         label: label,
-        button: true,
+        button: onTap != null,
         selected: selected,
         child: Material(
           color: selected && !danger
-              ? colorScheme.secondaryContainer
+              ? colorScheme.primaryContainer
               : Colors.transparent,
           borderRadius: BorderRadius.circular(28),
           child: InkWell(
@@ -335,16 +365,34 @@ class _SideBarTile extends StatelessWidget {
                           tileIcon,
                           const SizedBox(width: 16),
                           Expanded(
-                            child: Text(
-                              label,
-                              style: TextStyle(
-                                fontSize: 15,
-                                height: 1.4,
-                                letterSpacing: 0.08,
-                                fontWeight:
-                                    selected ? FontWeight.w600 : FontWeight.w400,
-                                color: foreground,
-                              ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  label,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    height: 1.4,
+                                    letterSpacing: 0.08,
+                                    fontWeight: selected
+                                        ? FontWeight.w600
+                                        : FontWeight.w400,
+                                    color: foreground,
+                                  ),
+                                ),
+                                if (subtitle != null)
+                                  Text(
+                                    subtitle!,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      height: 1.3,
+                                      color: colorScheme.onSurfaceVariant,
+                                    ),
+                                  ),
+                              ],
                             ),
                           ),
                         ],

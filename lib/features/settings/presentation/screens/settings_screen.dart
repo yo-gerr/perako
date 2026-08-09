@@ -19,6 +19,7 @@ class SettingsScreen extends ConsumerWidget {
     final currencyCode =
         settings.valueOrNull?.currencyCode ?? AppSettings.defaults.currencyCode;
     final uid = ref.watch(authStateProvider).valueOrNull;
+    final email = ref.watch(authRepositoryProvider).currentEmail;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
@@ -68,9 +69,13 @@ class SettingsScreen extends ConsumerWidget {
           ListTile(
             leading: const Icon(Icons.person_outline),
             title: const Text('Profile'),
-            subtitle: Text(uid ?? 'Not signed in'),
+            subtitle: Text(uid == null
+                ? 'Sign in to enable cloud sync'
+                : email ?? 'Signed in'),
             trailing: const Icon(Icons.chevron_right),
-            onTap: () => context.push('/settings/profile'),
+            onTap: uid == null
+                ? () => context.push('/login')
+                : () => context.push('/settings/profile'),
           ),
           ListTile(
             leading: const Icon(Icons.lock_outline),

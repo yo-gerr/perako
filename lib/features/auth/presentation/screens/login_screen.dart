@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/branding/perako_logo.dart';
 import '../providers/auth_providers.dart';
 
+/// Optional sign-in page. The app is fully usable without an account; signing
+/// in only enables cloud sync. Reachable from the sidebar, the More page, and
+/// Settings — never enforced by the router.
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
@@ -39,9 +44,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final repo = ref.read(authRepositoryProvider);
     try {
       await repo.signInWithEmail(email, password);
-      // On success authStateProvider updates and the router redirects away.
+      // On success authStateProvider updates; just return to the shell.
+      if (mounted) context.pop();
     } catch (e) {
-      setState(() => _error = e.toString());
+      if (mounted) setState(() => _error = e.toString());
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -49,8 +55,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('PeraKo')),
+      appBar: AppBar(title: const Text('Sign in')),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -60,9 +67,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                PerakoMark(
+                  size: 56,
+                  symbolColor: theme.colorScheme.primary,
+                ),
+                const SizedBox(height: 16),
                 Text(
-                  'Sign in',
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  'Sign in to sync',
+                  style: theme.textTheme.headlineSmall,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Back up your data to the cloud and keep it in sync across '
+                  'your devices.',
+                  style: theme.textTheme.bodyMedium
+                      ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24),
@@ -89,7 +109,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   const SizedBox(height: 12),
                   Text(
                     _error!,
-                    style: TextStyle(color: Theme.of(context).colorScheme.error),
+                    style: TextStyle(color: theme.colorScheme.error),
                   ),
                 ],
                 const SizedBox(height: 24),
@@ -102,6 +122,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           child: CircularProgressIndicator(strokeWidth: 2),
                         )
                       : const Text('Sign in'),
+                ),
+                const SizedBox(height: 8),
+                TextButton(
+                  onPressed: _busy ? null : () => context.pop(),
+                  child: const Text('Continue without an account'),
                 ),
               ],
             ),

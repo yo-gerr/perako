@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/perako_colors.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
@@ -282,12 +283,12 @@ class _ForecastChart extends StatelessWidget {
                 FlSpot(i.toDouble(), points[i].balanceCents.toDouble()),
             ],
             isCurved: true,
-            color: theme.colorScheme.tertiary,
+            color: theme.perakoColors.income,
             barWidth: 3,
             dotData: const FlDotData(show: false),
             belowBarData: BarAreaData(
               show: true,
-              color: theme.colorScheme.tertiary.withValues(alpha: 0.08),
+              color: theme.perakoColors.income.withValues(alpha: 0.08),
             ),
           ),
         ],
@@ -408,7 +409,7 @@ class _ScheduleTile extends StatelessWidget {
             ? Text(
                 '+${formatMoney(schedule.interestCents ?? 0, symbol: symbol)}',
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Colors.green,
+                  color: theme.perakoColors.incomeText,
                   fontWeight: FontWeight.w600,
                 ),
               )

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/perako_colors.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../core/utils/formatters.dart';
@@ -130,7 +131,7 @@ class _MaturityBanner extends ConsumerWidget {
     if (due.isEmpty && soon.isEmpty) return const SizedBox.shrink();
 
     final theme = Theme.of(context);
-    final color = due.isEmpty ? theme.colorScheme.tertiary : theme.colorScheme.error;
+    final color = due.isEmpty ? theme.colorScheme.secondary : theme.colorScheme.error;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
@@ -180,7 +181,7 @@ class _DepositCard extends ConsumerWidget {
     final now = DateTime.now();
     final due = row.isDue(now);
     final color = deposit.isMatured
-        ? Colors.green
+        ? theme.perakoColors.income
         : due
             ? theme.colorScheme.error
             : theme.colorScheme.primary;

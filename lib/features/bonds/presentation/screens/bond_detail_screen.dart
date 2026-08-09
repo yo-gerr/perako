@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/perako_colors.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
 import '../../domain/bond_service.dart';
@@ -124,7 +125,7 @@ class _BondDetailBody extends ConsumerWidget {
                               : '$daysLeft day${daysLeft == 1 ? '' : 's'} left',
                       style: theme.textTheme.labelLarge?.copyWith(
                         color: bond.isMatured
-                            ? Colors.green
+                            ? theme.perakoColors.income
                             : due
                                 ? theme.colorScheme.error
                                 : theme.colorScheme.primary,
@@ -139,7 +140,7 @@ class _BondDetailBody extends ConsumerWidget {
                     value: bond.isMatured ? 1 : termProgress,
                     minHeight: 8,
                     color: bond.isMatured
-                        ? Colors.green
+                        ? theme.perakoColors.income
                         : theme.colorScheme.primary,
                     backgroundColor: theme.colorScheme.surfaceContainerHighest,
                   ),
@@ -235,7 +236,8 @@ class _ForecastCard extends StatelessWidget {
                 Text(
                   '+${formatMoney(totalCents, symbol: symbol)}',
                   style: theme.textTheme.labelLarge?.copyWith(
-                      color: Colors.green, fontWeight: FontWeight.w600),
+                      color: theme.perakoColors.incomeText,
+                      fontWeight: FontWeight.w600),
                 ),
               ],
             ),
@@ -256,7 +258,7 @@ class _ForecastCard extends StatelessWidget {
                       Text(_long(d), style: theme.textTheme.bodyMedium),
                       Text('+${formatMoney(perCouponCents, symbol: symbol)}',
                           style: theme.textTheme.bodyMedium?.copyWith(
-                              color: Colors.green)),
+                              color: theme.perakoColors.incomeText)),
                     ],
                   ),
                 ),
@@ -293,7 +295,7 @@ class _CouponHistory extends ConsumerWidget {
                 Text(
                   '+${formatMoney(total, symbol: symbol)}',
                   style: theme.textTheme.labelLarge
-                      ?.copyWith(color: Colors.green),
+                      ?.copyWith(color: theme.perakoColors.incomeText),
                 ),
               ],
             ),
@@ -323,7 +325,7 @@ class _CouponHistory extends ConsumerWidget {
                         style: theme.textTheme.bodyMedium?.copyWith(
                             color: c.couponCents == 0
                                 ? theme.colorScheme.onSurfaceVariant
-                                : Colors.green),
+                                : theme.perakoColors.incomeText),
                       ),
                     ],
                   ),

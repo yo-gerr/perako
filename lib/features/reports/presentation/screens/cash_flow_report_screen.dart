@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/theme/perako_colors.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../../core/widgets/currency_scope.dart';
 import '../../domain/report_service.dart';
@@ -53,12 +54,12 @@ class CashFlowReportScreen extends ConsumerWidget {
           Row(
             children: [
               _LegendPill(
-                color: Colors.green,
+                color: theme.perakoColors.income,
                 label: 'Income ${formatMoney(totalIncome, symbol: symbol)}',
               ),
               const SizedBox(width: 12),
               _LegendPill(
-                color: theme.colorScheme.error,
+                color: theme.perakoColors.expense,
                 label:
                     'Expense ${formatMoney(totalExpense, symbol: symbol)}',
               ),
@@ -90,13 +91,13 @@ class CashFlowReportScreen extends ConsumerWidget {
               barRods: [
                 BarChartRodData(
                   toY: points[i].incomeCents.toDouble(),
-                  color: Colors.green,
+                  color: theme.perakoColors.income,
                   width: 8,
                   borderRadius: BorderRadius.circular(2),
                 ),
                 BarChartRodData(
                   toY: points[i].expenseCents.toDouble(),
-                  color: theme.colorScheme.error,
+                  color: theme.perakoColors.expense,
                   width: 8,
                   borderRadius: BorderRadius.circular(2),
                 ),

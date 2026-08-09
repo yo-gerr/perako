@@ -75,7 +75,7 @@ class BudgetPerformanceScreen extends ConsumerWidget {
                         style: theme.textTheme.bodyLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: row.progress.isOver
-                              ? theme.colorScheme.error
+                              ? theme.colorScheme.secondary
                               : theme.colorScheme.primary,
                         ),
                       ),
@@ -99,7 +99,7 @@ class BudgetPerformanceScreen extends ConsumerWidget {
                       value: row.progress.ratio.clamp(0, 1),
                       minHeight: 8,
                       color: row.progress.isOver
-                          ? theme.colorScheme.error
+                          ? theme.colorScheme.secondary
                           : theme.colorScheme.primary,
                       backgroundColor: theme.colorScheme.surfaceContainerHighest,
                     ),
@@ -111,7 +111,7 @@ class BudgetPerformanceScreen extends ConsumerWidget {
                         : '${formatMoney(row.progress.remainingCents, symbol: symbol)} remaining',
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: row.progress.remainingCents < 0
-                          ? theme.colorScheme.error
+                          ? theme.colorScheme.secondary
                           : theme.colorScheme.onSurfaceVariant,
                     ),
                   ),

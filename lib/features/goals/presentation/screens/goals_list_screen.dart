@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/perako_colors.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../core/providers/core_providers.dart';
 import '../../../../core/utils/formatters.dart';
@@ -119,7 +120,7 @@ class _GoalCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final color = progress.isComplete
-        ? Colors.green
+        ? theme.perakoColors.income
         : theme.colorScheme.primary;
     final pct = (progress.ratio * 100).round();
 
@@ -170,7 +171,7 @@ class _GoalCard extends ConsumerWidget {
                           : '${formatMoney(progress.remainingCents, symbol: symbol)} to go',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: progress.isComplete
-                            ? Colors.green
+                            ? theme.perakoColors.incomeText
                             : theme.colorScheme.onSurfaceVariant,
                       ),
                     ),

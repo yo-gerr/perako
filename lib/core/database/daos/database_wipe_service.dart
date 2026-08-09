@@ -2,9 +2,9 @@ import '../app_database.dart';
 
 /// Deletes all locally-stored ledger data and sync cursors.
 ///
-/// Called when a different account signs in on the same device. SQLite is a
-/// local mirror; Firestore (scoped per user) is authoritative, so a fresh user
-/// starts from an empty local DB and pulls their own data.
+/// Called when a *different* account signs in on the same device. SQLite is the
+/// local source of truth and survives sign-out; clearing it on account switch
+/// prevents two accounts from sharing one per-collection sync cursor set.
 class DatabaseWipeService {
   DatabaseWipeService(this._db);
 
